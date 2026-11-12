@@ -13,135 +13,143 @@ const FOOD_EMOJIS = { Breakfast: "☀", Lunch: "🥗", Dinner: "🍲", Snack: "�
 const WORKOUT_EMOJIS = { Walking: "🚶", Running: "🏃", Cycling: "🚴", Strength: "🏋", Yoga: "🧘", Swimming: "🏊", Other: "✳" };
 const WEEKLY_WORKOUTS = {
   0: {
-    focus: "Rest day",
-    rest: "Rest day. Enjoy a 30–45 minute walk or other light activity if it feels good."
+    focus: "Shoulders / Arms / Core",
+    exercises: [
+      ["Lateral Raises (heavy + drop set)", "4", "12–20", "60–90 s", "Drive elbows slightly forward and control the descent"],
+      ["Rear Delt Fly", "3", "15", "45–60 s", "Squeeze shoulder blades at the top"],
+      ["Barbell / EZ Curl", "3", "8–10", "60–90 s", "Full stretch at the bottom"],
+      ["Overhead Triceps Extension", "3", "10–12", "60–90 s", "Keep elbows stable and close to the head"],
+      ["Hanging Knee Raise", "3", "12", "45 s", "Pause briefly at the top"],
+      ["Plank", "3", "45 s", "45 s", "Brace the core and keep hips level"]
+    ],
+    finisher: "Optional 5–10 min brisk walk or mobility work"
   },
   1: {
-    focus: "Rest day",
-    rest: "Rest day. An easy 30–40 minute walk is optional; gentle stretching is another option."
+    focus: "Push",
+    exercises: [
+      ["Flat Barbell / DB Bench Press", "4", "6–8", "90–120 s", "Keep shoulder blades packed and chest up"],
+      ["Incline (30°) Cable / DB Fly", "3", "10–12", "60–90 s", "Slight bend in elbows throughout"],
+      ["Seated DB Shoulder Press", "3", "8–10", "90 s", "Brace core and avoid arching"],
+      ["Lateral Raises", "4", "12–15", "45–60 s", "Lift to shoulder height, no shrugging"],
+      ["Triceps Pushdown", "3", "10–12", "45–60 s", "Slow, controlled rep tempo"]
+    ],
+    finisher: "Optional 5–10 min brisk walk or easy bike"
   },
   2: {
-    focus: "Lower body strength",
+    focus: "Pull",
     exercises: [
-      ["Goblet squat (or leg press)", "3", "10–12", "60–90 s", "Sit back, chest up"],
-      ["Romanian deadlift (dumbbells)", "3", "10–12", "60–90 s", "Hinge at hips, back flat"],
-      ["Glute bridge or hip thrust", "3", "12–15", "60 s", "Squeeze at the top"],
-      ["Reverse lunge (or step-up)", "2", "10 each leg", "60 s", "Hold a rail if needed"],
-      ["Leg curl machine", "2", "12–15", "60 s", "Slow, controlled"],
-      ["Plank", "3", "20–40 s", "45 s", "Knees down if needed"]
+      ["Lat Pulldown / Pull-ups", "4", "6–10", "90 s", "Pull to upper chest and control lowering"],
+      ["Barbell / Chest-Supported Row", "4", "8–10", "90 s", "Squeeze shoulder blades and keep back flat"],
+      ["Seated Cable Row", "3", "10–12", "60–90 s", "Control the return and squeeze at the end"],
+      ["Face Pulls", "3", "15", "45–60 s", "Keep elbows high and out"],
+      ["Incline DB Curl", "3", "10–12", "60–90 s", "Keep wrists neutral and elbows tucked"]
     ],
-    finisher: "10 min incline treadmill walk · 6–10% incline, brisk pace"
+    finisher: "Optional 5–10 min easy cardio"
   },
   3: {
-    focus: "Upper body strength",
-    exercises: [
-      ["Incline DB press (or bench push-ups)", "3", "8–12", "60–90 s", ""],
-      ["Lat pulldown", "3", "10–12", "60–90 s", "Pull to upper chest"],
-      ["Seated cable row", "3", "10–12", "60–90 s", "Squeeze shoulder blades"],
-      ["Dumbbell shoulder press", "3", "10", "60–90 s", ""],
-      ["Biceps curl + triceps pushdown (superset)", "2", "12 each", "60 s", ""],
-      ["Face pull or rear delt fly", "2", "15", "45 s", "Good for posture"]
-    ],
-    finisher: "10 min stationary bike or rower · steady, moderate effort"
+    focus: "Rest day",
+    rest: "8-10k steps"
   },
   4: {
-    focus: "Full body & core",
-    exercises: [
-      ["Kettlebell/dumbbell deadlift", "3", "12", "45–60 s", "Light to moderate weight"],
-      ["Machine chest press", "3", "12", "45–60 s", ""],
-      ["Seated row", "3", "12", "45–60 s", ""],
-      ["Step-ups", "2", "10 each leg", "45 s", ""],
-      ["Dead bug", "3", "10", "30 s", "Slow, core braced"],
-      ["Side plank", "2", "20–30 s each", "30 s", ""]
-    ],
-    finisher: "12 min low-impact intervals · 1 min hard, 2 min easy, repeat 4 times"
+    focus: "Rest day",
+    rest: "8-10k steps"
   },
   5: {
     focus: "Rest day",
-    rest: "Rest day. Take an easy walk and stretch if you’d like."
+    rest: "8-10k steps"
   },
   6: {
-    focus: "Full body strength",
+    focus: "Legs",
     exercises: [
-      ["Leg press (or box squat)", "4", "8–10", "90 s", "Heaviest lift of the week"],
-      ["DB or barbell bench press", "4", "8–10", "90 s", ""],
-      ["DB or barbell row", "3", "10", "90 s", ""],
-      ["Hip thrust", "3", "10–12", "60–90 s", ""],
-      ["Overhead press", "3", "8–10", "60–90 s", ""],
-      ["Farmer’s walk", "3", "30 s", "45 s", "Heavy dumbbells, tall posture"]
+      ["Back Squat / Leg Press", "4", "6–8", "90–120 s", "Heaviest lift of the week"],
+      ["Romanian Deadlift", "3", "8–10", "90 s", "Hinge at hips and keep back flat"],
+      ["Walking Lunges", "3", "10/leg", "60 s", "Drive through the front foot"],
+      ["Leg Curl", "3", "12", "60 s", "Slow and controlled"],
+      ["Standing Calf Raise", "3", "12–15", "45–60 s", "Pause at the top for control"]
     ],
-    finisher: "15 min incline walk · steady pace"
+    finisher: "Optional 5–10 min brisk walk or bike"
   }
 };
 const WEEKLY_MEALS = {
   0: {
-    type: "Rest day", calories: 1300, preWorkout: "",
+    type: "Egg+Chicken", training: "Training 6-8 am: Shoulders/Arms/Core + meal prep", calories: 1920, protein: 156, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "Veg poha with peanuts (1 cup) + 1 glass buttermilk"],
-      ["Mid-morning", "11 AM", "1 orange"],
-      ["Lunch", "1 PM", "1 cup sambar + 3/4 cup white rice + 2 veg sides + salad"],
-      ["Evening", "4:30 PM", "Hummus (2 tbsp) + cucumber/carrot sticks"],
-      ["Dinner", "7:30 PM", "80 g grilled paneer tikka + large salad + 1 roti"]
+      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
+      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
+      ["Breakfast", "9:00", "3 boiled eggs + 1 cup veg dalia upma", 395, 25],
+      ["Lunch", "13:00", "150 g chicken curry (low oil) + 2 roti + salad", 560, 52],
+      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:00", "3-egg veg omelette (1 tsp oil) + 1 cup dal + 1 roti", 535, 34],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   1: {
-    type: "Rest day", calories: 1300, preWorkout: "",
+    type: "Egg+Chicken", training: "Training 6-8 am: Push", calories: 1895, protein: 159, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "2 moong dal chillas + mint chutney + 1/2 cup low-fat curd"],
-      ["Mid-morning", "11 AM", "1 apple"],
-      ["Lunch", "1 PM", "1 cup toor dal + 2 small rotis + beans poriyal + cucumber salad"],
-      ["Evening", "4:30 PM", "30 g roasted chana + green tea"],
-      ["Dinner", "7:30 PM", "40 g (dry) soya chunks curry + 1 roti + salad"]
+      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
+      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
+      ["Breakfast", "9:00", "3-egg veg omelette (1 tsp oil) + 3/4 cup veg poha", 420, 22],
+      ["Lunch", "13:00", "150 g grilled chicken breast + 2 roti + sabzi + salad", 580, 52],
+      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:00", "100 g chicken curry (curd-marinated, low oil) + 2 roti + sabzi", 465, 40],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   2: {
-    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + black coffee",
+    type: "Veg", training: "Training 6-8 am: Pull", calories: 1905, protein: 133, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "Veg oats upma (3/4 cup) + 1 glass skim milk"],
-      ["Mid-morning", "11 AM", "1 glass buttermilk"],
-      ["Lunch", "1 PM", "3/4 cup white rice + 1 cup sambar + cabbage stir-fry + salad"],
-      ["Evening", "4:30 PM", "Sprouts chaat (1/2 cup moong sprouts)"],
-      ["Dinner", "7:30 PM", "80 g paneer bhurji + 1 roti + salad"]
+      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
+      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
+      ["Breakfast", "9:00", "100 g paneer bhurji + 1 roti", 400, 21],
+      ["Lunch", "13:00", "2 roti + 1 cup dal + 40 g (dry) soya chunk sabzi + salad + 100 g curd", 580, 43],
+      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:00", "100 g paneer sabzi + 2 roti + salad", 495, 24],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   3: {
-    type: "Gym day", calories: 1280, preWorkout: "1/2 banana + green tea",
+    type: "Egg+Chicken", training: "Rest day (office): 8-10k steps", calories: 1900, protein: 158, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "3 idlis + 1 cup sambar"],
-      ["Mid-morning", "11 AM", "1 glass buttermilk"],
-      ["Lunch", "1 PM", "1 cup masoor dal + 2 rotis + palak sabzi + salad"],
-      ["Evening", "4:30 PM", "1 cup unsweetened soy milk + 5 almonds"],
-      ["Dinner", "7:30 PM", "Soya keema (40 g dry) + 1 cup veg soup"]
+      ["Breakfast", "7:30", "2 boiled eggs + 50 g oats cooked in water/skim milk + 1 fruit", 410, 19],
+      ["Lunch (tiffin)", "13:00", "150 g chicken breast + 1 cup brown rice + sabzi + salad", 595, 54],
+      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
+      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:30", "100 g chicken stir-fry (1 tsp oil) + 2 roti + sabzi", 465, 40],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   4: {
-    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + black coffee",
+    type: "Veg", training: "Rest day (office): 8-10k steps", calories: 1900, protein: 129, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "2 besan chillas with veggies + 1 cup curd"],
-      ["Mid-morning", "11 AM", "1 small guava"],
-      ["Lunch", "1 PM", "1 cup chana dal + 3/4 cup white rice + bhindi sabzi + salad"],
-      ["Evening", "4:30 PM", "1 cup roasted makhana + green tea"],
-      ["Dinner", "7:30 PM", "2 small soya/paneer-stuffed rotis + raita"]
+      ["Breakfast", "7:30", "2 besan chilla (60 g besan, veg) stuffed with 40 g paneer + mint chutney + 1 fruit", 395, 20],
+      ["Lunch (tiffin)", "13:00", "2 roti + 1/2 cup rajma + 40 g (dry) soya chunk sabzi + salad + 100 g curd", 545, 39],
+      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
+      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:30", "120 g paneer bhurji + 1 roti + sabzi + salad", 530, 25],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   5: {
-    type: "Rest day", calories: 1290, preWorkout: "",
+    type: "Egg+Chicken", training: "Rest day (office): 8-10k steps", calories: 1860, protein: 149, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "2 multigrain toasts + 60 g paneer + tomato/cucumber"],
-      ["Mid-morning", "11 AM", "1 cup papaya"],
-      ["Lunch", "1 PM", "1 cup rajma (or horse gram) + 2 rotis + mixed veg + salad"],
-      ["Evening", "4:30 PM", "30 g roasted chana + buttermilk"],
-      ["Dinner", "7:30 PM", "1.5 cups moong dal soup + sauteed veggies with 40 g tofu"]
+      ["Breakfast", "7:30", "2 besan chilla (60 g besan, veg) + 2 boiled eggs + 1 fruit", 430, 25],
+      ["Lunch (tiffin)", "13:00", "150 g chicken curry (low oil) + 2 roti + salad", 560, 52],
+      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
+      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:30", "2-egg bhurji (1 tsp oil) + 1 cup dal + 1 roti", 440, 27],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   },
   6: {
-    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + green tea",
+    type: "Egg+Chicken", training: "Training 6-8 am: Legs", calories: 1880, protein: 160, water: "3 L+",
     meals: [
-      ["Breakfast", "8:15 AM", "2 ragi dosas + chutney + 1 glass skim milk"],
-      ["Mid-morning", "11 AM", "1 glass buttermilk"],
-      ["Lunch", "1 PM", "1 cup mixed dal + 3/4 cup foxtail millet/jowar + stir-fried veggies + salad"],
-      ["Evening", "4:30 PM", "Sprouts salad or small boiled sweet potato"],
-      ["Dinner", "7:30 PM", "Soya chunk pulao (40 g dry soya, 1/2 cup rice, lots of veggies) + raita"]
+      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
+      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
+      ["Breakfast", "9:00", "2-egg omelette (1 tsp oil) + 3 idli + 1/2 cup sambar", 390, 21],
+      ["Lunch", "13:00", "150 g chicken breast + 1 cup brown rice + sabzi + salad", 595, 54],
+      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
+      ["Dinner", "20:00", "100 g chicken + 2 roti + sabzi", 465, 40],
+      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
     ]
   }
 };
@@ -305,13 +313,10 @@ function plannedTasks(date, category) {
     ];
   }
   const plan = WEEKLY_MEALS[day];
-  return [
-    ...(plan.preWorkout ? [{ id: "pre-workout", label: "Pre-workout" }] : []),
-    ...plan.meals.map(([name]) => ({
-      id: `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-      label: name
-    }))
-  ];
+  return plan.meals.map(([name]) => ({
+    id: `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    label: name
+  }));
 }
 
 function isPlanComplete(key, category, id) {
@@ -360,27 +365,24 @@ function renderPlannedNutrition(date) {
   const plan = WEEKLY_MEALS[date.getDay()];
   const key = dateKey(date);
   const weekday = formatDate(date, { weekday: "long" });
-  $("#plannedNutritionSubtitle").textContent = `${weekday} · ${plan.type} menu`;
-  $("#plannedNutritionBadge").textContent = `ABOUT ${numberFormat(plan.calories)} KCAL`;
-  const meals = [
-    ...(plan.preWorkout ? [["Pre-workout", "6:15 AM", plan.preWorkout]] : []),
-    ...plan.meals
-  ];
+  $("#plannedNutritionSubtitle").textContent = `${weekday} · ${plan.type} · ${plan.training}`;
+  $("#plannedNutritionBadge").textContent = `${numberFormat(plan.calories)} KCAL`;
   $("#plannedNutritionContent").innerHTML = `
     <div class="nutrition-menu-grid">
-      ${meals.map(([name, time, description]) => {
-        const id = name === "Pre-workout" ? "pre-workout" : `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+      ${plan.meals.map(([name, time, description, calories, protein]) => {
+        const id = `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
         const checked = isPlanComplete(key, "nutrition", id);
         return `<article class="nutrition-meal ${checked ? "is-complete" : ""}">
-        <div class="nutrition-meal-heading">${planCheckbox(key, "nutrition", id, `Mark ${name} complete`)}<h3>${escapeHTML(name)}</h3><span>${escapeHTML(time)}</span></div>
+        <div class="nutrition-meal-heading">${planCheckbox(key, "nutrition", id, `Mark ${name} complete`)}<h3>${escapeHTML(name)}</h3>${time ? `<span>${escapeHTML(time)}</span>` : ""}</div>
         <p>${escapeHTML(description)}</p>
+        <p>${numberFormat(calories)} kcal · ${numberFormat(protein)} g protein</p>
       </article>`;
       }).join("")}
     </div>
     <div class="nutrition-guidance">
-      <strong>Daily guide from your plan</strong>
+      <strong>Day total</strong>
       <div class="nutrition-guidance-chips">
-        <span>Protein 80–90 g</span><span>Carbs 130–150 g</span><span>Fat 35–40 g</span><span>Fibre 25+ g</span><span>Water 3–3.5 L</span>
+        <span>${numberFormat(plan.calories)} kcal</span><span>Protein ${numberFormat(plan.protein)} g</span><span>Water ${escapeHTML(plan.water)}</span>
       </div>
     </div>
     <p class="nutrition-disclaimer">Calorie and portion values are estimates, not a medical prescription. Individual needs vary; consider reviewing the plan with a doctor or dietitian.</p>`;
