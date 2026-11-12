@@ -341,3 +341,223 @@ h1, h2, p { margin-top: 0; }
 @media (hover: none) {
   .delete-entry { opacity: 1; }
 }
+
+/* Higher-contrast teal and coral theme */
+:root {
+  --ink: #17343b;
+  --muted: #52686d;
+  --soft-muted: #687d81;
+  --green: #087c80;
+  --green-dark: #075e63;
+  --green-pale: #dff1ee;
+  --paper: #f3f7f7;
+  --line: #dce7e7;
+  --shadow: 0 8px 26px rgba(24, 58, 64, .07);
+}
+
+body { background: var(--paper); color: var(--ink); }
+.sidebar { background: #fafdfe; border-color: #dce7e7; }
+.topbar { border-color: #dce7e7; }
+.brand-mark { background: #dff1ee; color: #087c80; }
+.brand-period { color: #ec795f; }
+.nav-label, .eyebrow { color: #52686d; }
+.nav-item { color: #52686d; }
+.nav-item:hover { background: #e8f3f2; color: #17343b; }
+.nav-item.is-active { background: #dff1ee; color: #075e63; }
+.sidebar-note { border-color: #dce7e7; }
+.sidebar-note p { color: #314d52; }
+.sidebar-note p span, .privacy-note, .topbar-caption { color: #607579; }
+.privacy-dot, .live-dot { background: #087c80; }
+.button-primary { background: #087c80; box-shadow: 0 4px 10px rgba(8, 124, 128, .18); }
+.button-primary:hover { background: #075e63; }
+.button-secondary { border-color: #d5e2e2; color: #314d52; }
+.date-picker, .insight-range { border-color: #d5e2e2; }
+.icon-button { color: #52686d; }
+.icon-button:hover { background: #e8f3f2; color: #075e63; }
+.date-label { color: #314d52; }
+.daily-banner { border-color: #c9e2e2; background: #e2f1f0; }
+.banner-kicker { color: #426d70; }
+.banner-copy h2 span, .page-heading h1 span { color: #087c80; }
+.banner-copy p { color: #4e6d70; }
+.art-sun { background: #f6d5c9; }
+.art-orbit { border-color: rgba(8, 124, 128, .28); }
+.art-stem { background: #087c80; }
+.art-leaf { border-color: #087c80; background: #68aaa3; }
+.leaf-two { background: #92c1b6; }
+.art-star { color: #e1785f; }
+.section-caption { color: #607579; }
+.snapshot-card, .panel, .insight-card { border-color: #dce7e7; }
+.calorie-fill { background: #ec795f; }
+.protein-fill { background: #8873bd; }
+.water-fill { background: #388eb4; }
+.mint-icon, .vitals-panel-icon { background: #e2f1ec; color: #087c80; }
+.peach-icon, .food-panel-icon { background: #fff0e9; color: #c45c42; }
+.blue-icon { background: #e5f1f7; color: #28799c; }
+.lilac-icon { background: #f0ecfa; color: #7763ac; }
+.movement-panel-icon { background: #e8f0fa; color: #527cb0; }
+.card-label, .panel-title h2 { color: #354f54; }
+.card-foot, .card-foot strong { color: #52686d; }
+.movement-note, .entry-detail, .workout-meta { color: #607579; }
+.panel-title p, .vital-info small { color: #607579; }
+.text-button, .history-open { color: #087c80; }
+.text-button:hover, .history-open:hover { color: #075e63; }
+.meal-heading { color: #52686d; }
+.meal-heading span:last-child, .entry-detail { color: #607579; }
+.entry-name, .history-date, .vital-value { color: #29464b; }
+.entry-calories, .workout-energy { color: #385b5d; }
+.empty-state { border-color: #cadada; color: #52686d; }
+.empty-state strong { color: #38545a; }
+.empty-state span { color: #5b7074; }
+.vital-info, .vital-empty, .history-date span, .history-chip { color: #52686d; }
+.vital-symbol { background: #e8f3f0; color: #087c80; }
+.workout-emoji { background: #eaf0f8; }
+.plan-badge { background: #dff1ee; color: #075e63; }
+.plan-session-note, .plan-session-note span { color: #52686d; }
+.plan-session-note span { border-color: #dce7e7; background: #f8fbfb; }
+.plan-session-note strong, .plan-finisher strong { color: #294d50; }
+.plan-table th, .plan-table td { color: #52686d; }
+.plan-table thead th { color: #52686d; }
+.plan-table tbody th { color: #29464b; }
+.plan-finisher { background: #eef5f3; }
+.finisher-icon { background: #dcefeb; color: #087c80; }
+.plan-finisher span:not(.finisher-icon), .rest-day-copy p { color: #52686d; }
+.rest-day-copy { background: #eef5f3; }
+.rest-day-sparkle { color: #087c80; }
+.chart-bar-track { background: #eaf0f0; }
+.chart-bar { background: #70aaa5; }
+.chart-day, .chart-day.is-selected { color: #52686d; }
+.chart-day.is-selected .chart-bar { background: #087c80; }
+.chart-date { color: #607579; }
+.goals-form label, .field-label, .data-actions strong { color: #354f54; }
+.goals-form label span, .data-actions p, .local-data-copy { color: #607579; }
+.goals-form input, .field-control { border-color: #d5e2e2; color: #29464b; font-size: 13px; }
+.goals-form input:focus, .field-control:focus { border-color: #55a6a1; box-shadow: 0 0 0 3px rgba(8, 124, 128, .13); }
+.form-feedback { color: #087c80; }
+.data-actions { border-color: #dce7e7; }
+.history-chip { background: #eaf3f1; }
+.insight-card-label, .insight-card-sub { color: #52686d; }
+.insight-card-value { color: #17343b; }
+.entry-dialog { border-color: #d5e2e2; background: #fafdfe; }
+.entry-tab.is-active { color: #075e63; }
+.entry-tab { color: #52686d; }
+.entry-tabs { background: #e8f0ef; }
+
+@media (max-width: 650px) {
+  .main-content { padding-right: 16px; padding-left: 16px; padding-bottom: 94px; }
+  .topbar { height: 68px; }
+  .mobile-brand { font-size: 22px; }
+  .top-add { min-height: 44px; padding: 0 13px; font-size: 12px; }
+  .view { padding-top: 23px; }
+  .page-heading h1 { font-size: 27px; }
+  .page-subtitle { max-width: 38rem; color: #52686d; font-size: 14px; line-height: 1.55; }
+  .eyebrow { font-size: 10px; letter-spacing: 1.25px; }
+  .date-picker { height: 46px; gap: 5px; }
+  .date-step, .date-picker .icon-button { width: 40px; height: 40px; }
+  .date-label { gap: 8px; font-size: 13px; }
+  .date-label svg { width: 17px; height: 17px; }
+  .daily-banner { min-height: 190px; padding: 20px; }
+  .banner-copy { max-width: 77%; }
+  .banner-kicker { font-size: 10px; }
+  .banner-copy h2 { font-size: 21px; line-height: 1.35; }
+  .banner-copy p { max-width: 28rem; color: #385e61; font-size: 13px; line-height: 1.55; }
+  .section-heading h2 { font-size: 18px; }
+  .section-heading .eyebrow { font-size: 10px; }
+  .section-caption { max-width: none; color: #52686d; font-size: 11px; }
+  .snapshot-grid { gap: 11px; }
+  .snapshot-card { min-height: 132px; padding: 15px; }
+  .metric-icon { width: 36px; height: 36px; }
+  .metric-icon svg { width: 18px; height: 18px; }
+  .card-label { font-size: 13px; }
+  .metric-value { margin: 15px 0 12px; }
+  .metric-value strong { font-size: 29px; }
+  .metric-value > span { font-size: 12px; }
+  .card-foot { margin-top: 11px; font-size: 11px; }
+  .card-foot strong { font-size: 11px; }
+  .progress-track { height: 6px; }
+  .panel { padding: 18px; }
+  .panel-title { gap: 11px; }
+  .panel-icon { width: 39px; height: 39px; }
+  .panel-icon svg { width: 19px; height: 19px; }
+  .panel-title h2 { font-size: 16px; }
+  .panel-title p { font-size: 11px; line-height: 1.45; }
+  .text-button { min-height: 42px; padding: 7px 0 7px 8px; font-size: 12px; }
+  .meal-list, .vitals-list, .workout-list { margin-top: 18px; }
+  .meal-heading { font-size: 11px; }
+  .food-entry { gap: 10px; padding: 12px 0 4px; }
+  .food-emoji { width: 37px; height: 37px; font-size: 16px; }
+  .entry-name { font-size: 13px; }
+  .entry-detail { font-size: 11px; line-height: 1.5; }
+  .entry-calories { font-size: 11px; }
+  .empty-state { min-height: 130px; gap: 8px; padding: 14px; }
+  .empty-state strong { font-size: 13px; }
+  .empty-state span { font-size: 11px; line-height: 1.55; }
+  .vital-row { gap: 12px; padding: 13px 0; }
+  .vital-symbol { width: 36px; height: 36px; font-size: 16px; }
+  .vital-info { font-size: 12px; }
+  .vital-info small { font-size: 10px; }
+  .vital-value { font-size: 13px; }
+  .vital-empty { font-size: 12px; line-height: 1.65; }
+  .workout-entry { gap: 12px; padding: 13px 0 4px; }
+  .workout-emoji { width: 38px; height: 38px; font-size: 17px; }
+  .workout-meta { font-size: 11px; line-height: 1.5; }
+  .workout-energy { font-size: 11px; }
+  .planned-panel { padding: 17px 15px; }
+  .plan-badge { padding: 7px 9px; font-size: 9px; }
+  .plan-session-note { gap: 7px; font-size: 11px; }
+  .plan-session-note strong { font-size: 11px; }
+  .plan-session-note span { padding: 6px 8px; font-size: 10px; }
+  .plan-table th, .plan-table td { padding: 11px 9px; font-size: 11px; }
+  .plan-table thead th { font-size: 10px; }
+  .plan-finisher { align-items: flex-start; padding: 12px; }
+  .plan-finisher strong { font-size: 11px; }
+  .plan-finisher span:not(.finisher-icon), .rest-day-copy p { font-size: 12px; line-height: 1.6; }
+  .rest-day-copy { padding: 15px; }
+  .page-footer { font-size: 10px; line-height: 1.5; }
+  .nav-list { gap: 7px; }
+  .nav-item { min-height: 54px; width: 78px; justify-content: center; gap: 4px; padding: 5px 4px; font-size: 10px; }
+  .nav-item svg { width: 21px; height: 21px; }
+  .sidebar { height: 72px; padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); }
+  .history-date { font-size: 12px; }
+  .history-date span { font-size: 10px; }
+  .history-chip { padding: 6px 9px; font-size: 10px; }
+  .history-open { min-height: 40px; font-size: 11px; }
+  .history-empty { font-size: 13px; line-height: 1.7; }
+  .insight-card-label, .insight-card-sub { font-size: 11px; }
+  .insight-card-value { font-size: 22px; }
+  .chart-day { font-size: 10px; }
+  .chart-date { font-size: 9px; }
+  .goals-panel, .data-panel { padding: 18px; }
+  .goals-form label, .field-label { font-size: 12px; }
+  .goals-form label span { font-size: 11px; }
+  .goals-form input { min-height: 46px; font-size: 16px; }
+  .data-actions strong { font-size: 12px; }
+  .data-actions p, .local-data-copy { font-size: 11px; line-height: 1.6; }
+  .data-actions .button { min-height: 42px; padding: 0 12px; font-size: 11px; }
+  .entry-dialog { padding: 21px; }
+  .dialog-heading h2 { font-size: 23px; }
+  .entry-tab { min-height: 43px; font-size: 12px; }
+  .entry-fields .field-label { font-size: 11px; }
+  .field-control { min-height: 44px; font-size: 16px; }
+  .entry-fields textarea.field-control { min-height: 86px; }
+  .dialog-actions .button { min-height: 46px; font-size: 13px; }
+}
+
+@media (max-width: 390px) {
+  .main-content { padding-right: 13px; padding-left: 13px; }
+  .page-heading h1 { font-size: 25px; }
+  .daily-banner { min-height: 204px; }
+  .banner-copy { max-width: 81%; }
+  .banner-copy h2 { font-size: 19px; }
+  .banner-copy p { font-size: 12px; }
+  .snapshot-card { padding: 13px; }
+  .card-topline { gap: 7px; }
+  .metric-icon { width: 33px; height: 33px; }
+  .card-label { font-size: 12px; }
+  .card-foot { font-size: 10px; }
+  .section-caption { max-width: 132px; text-align: right; }
+  .panel { padding: 15px; }
+  .planned-panel { padding: 15px 12px; }
+  .panel-title h2 { font-size: 15px; }
+  .panel-title p { font-size: 10px; }
+  .text-button { font-size: 11px; }
+}
