@@ -1,1 +1,19 @@
-# fitness
+# Daywell
+
+A small, browser-based daily wellness journal for food, movement, and vitals.
+
+## Run it
+
+Open `index.html` in a modern browser. No install or build step is needed.
+
+## What you can track
+
+- Meals and snacks, including calories, protein, carbs, and fat
+- Workouts, duration, effort, and optional estimated calories burned
+- Weight, water, steps, sleep, and heart-rate check-ins
+- Daily calorie, protein, and water guideposts
+- A day-by-day journal and a rolling seven-day overview
+
+Use the date controls on the Today page to review or add an entry to another day. Your journal is saved in this browser on this device. Use **Goals & settings** to export a JSON backup or clear saved entries.
+
+The Today page also displays the workout or recovery plan for the selected weekday, based on the weekly schedule and exercise CSVs in this project.
