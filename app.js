@@ -1,4 +1,5 @@
 const STORAGE_KEY = "daywell-journal-v1";
+const THEME_STORAGE_KEY = "daywell-theme";
 const DEFAULT_GOALS = { calories: 2000, protein: 100, water: 2000 };
 const MEALS = ["Breakfast", "Lunch", "Dinner", "Snack"];
 const VITALS = {
@@ -72,6 +73,78 @@ const WEEKLY_WORKOUTS = {
     finisher: "15 min incline walk · steady pace"
   }
 };
+const WEEKLY_MEALS = {
+  0: {
+    type: "Rest day", calories: 1300, preWorkout: "",
+    meals: [
+      ["Breakfast", "8:15 AM", "Veg poha with peanuts (1 cup) + 1 glass buttermilk"],
+      ["Mid-morning", "11 AM", "1 orange"],
+      ["Lunch", "1 PM", "1 cup sambar + 3/4 cup white rice + 2 veg sides + salad"],
+      ["Evening", "4:30 PM", "Hummus (2 tbsp) + cucumber/carrot sticks"],
+      ["Dinner", "7:30 PM", "80 g grilled paneer tikka + large salad + 1 roti"]
+    ]
+  },
+  1: {
+    type: "Rest day", calories: 1300, preWorkout: "",
+    meals: [
+      ["Breakfast", "8:15 AM", "2 moong dal chillas + mint chutney + 1/2 cup low-fat curd"],
+      ["Mid-morning", "11 AM", "1 apple"],
+      ["Lunch", "1 PM", "1 cup toor dal + 2 small rotis + beans poriyal + cucumber salad"],
+      ["Evening", "4:30 PM", "30 g roasted chana + green tea"],
+      ["Dinner", "7:30 PM", "40 g (dry) soya chunks curry + 1 roti + salad"]
+    ]
+  },
+  2: {
+    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + black coffee",
+    meals: [
+      ["Breakfast", "8:15 AM", "Veg oats upma (3/4 cup) + 1 glass skim milk"],
+      ["Mid-morning", "11 AM", "1 glass buttermilk"],
+      ["Lunch", "1 PM", "3/4 cup white rice + 1 cup sambar + cabbage stir-fry + salad"],
+      ["Evening", "4:30 PM", "Sprouts chaat (1/2 cup moong sprouts)"],
+      ["Dinner", "7:30 PM", "80 g paneer bhurji + 1 roti + salad"]
+    ]
+  },
+  3: {
+    type: "Gym day", calories: 1280, preWorkout: "1/2 banana + green tea",
+    meals: [
+      ["Breakfast", "8:15 AM", "3 idlis + 1 cup sambar"],
+      ["Mid-morning", "11 AM", "1 glass buttermilk"],
+      ["Lunch", "1 PM", "1 cup masoor dal + 2 rotis + palak sabzi + salad"],
+      ["Evening", "4:30 PM", "1 cup unsweetened soy milk + 5 almonds"],
+      ["Dinner", "7:30 PM", "Soya keema (40 g dry) + 1 cup veg soup"]
+    ]
+  },
+  4: {
+    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + black coffee",
+    meals: [
+      ["Breakfast", "8:15 AM", "2 besan chillas with veggies + 1 cup curd"],
+      ["Mid-morning", "11 AM", "1 small guava"],
+      ["Lunch", "1 PM", "1 cup chana dal + 3/4 cup white rice + bhindi sabzi + salad"],
+      ["Evening", "4:30 PM", "1 cup roasted makhana + green tea"],
+      ["Dinner", "7:30 PM", "2 small soya/paneer-stuffed rotis + raita"]
+    ]
+  },
+  5: {
+    type: "Rest day", calories: 1290, preWorkout: "",
+    meals: [
+      ["Breakfast", "8:15 AM", "2 multigrain toasts + 60 g paneer + tomato/cucumber"],
+      ["Mid-morning", "11 AM", "1 cup papaya"],
+      ["Lunch", "1 PM", "1 cup rajma (or horse gram) + 2 rotis + mixed veg + salad"],
+      ["Evening", "4:30 PM", "30 g roasted chana + buttermilk"],
+      ["Dinner", "7:30 PM", "1.5 cups moong dal soup + sauteed veggies with 40 g tofu"]
+    ]
+  },
+  6: {
+    type: "Gym day", calories: 1300, preWorkout: "1/2 banana + green tea",
+    meals: [
+      ["Breakfast", "8:15 AM", "2 ragi dosas + chutney + 1 glass skim milk"],
+      ["Mid-morning", "11 AM", "1 glass buttermilk"],
+      ["Lunch", "1 PM", "1 cup mixed dal + 3/4 cup foxtail millet/jowar + stir-fried veggies + salad"],
+      ["Evening", "4:30 PM", "Sprouts salad or small boiled sweet potato"],
+      ["Dinner", "7:30 PM", "Soya chunk pulao (40 g dry soya, 1/2 cup rice, lots of veggies) + raita"]
+    ]
+  }
+};
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -94,11 +167,12 @@ const showStorageError = (message) => {
 function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return { goals: { ...DEFAULT_GOALS }, days: {} };
+    if (!saved) return { goals: { ...DEFAULT_GOALS }, days: {}, planChecks: {} };
     const parsed = JSON.parse(saved);
     return {
       goals: { ...DEFAULT_GOALS, ...(parsed.goals || {}) },
-      days: parsed.days && typeof parsed.days === "object" ? parsed.days : {}
+      days: parsed.days && typeof parsed.days === "object" ? parsed.days : {},
+      planChecks: parsed.planChecks && typeof parsed.planChecks === "object" ? parsed.planChecks : {}
     };
   } catch (error) {
     console.error("Could not read the Daywell journal.", error);
@@ -122,6 +196,35 @@ function saveState() {
     console.error("Could not save the Daywell journal.", error);
     showStorageError("Your changes couldn’t be saved. Check available browser storage and try again.");
     return false;
+  }
+}
+
+function setTheme(theme, persist = false) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  const toggle = $("#themeToggle");
+  if (toggle) {
+    toggle.setAttribute("aria-checked", String(isDark));
+    toggle.setAttribute("aria-label", isDark ? "Disable dark mode" : "Enable dark mode");
+    $("#themeToggleLabel").textContent = isDark ? "On" : "Off";
+  }
+  const themeColor = $('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = isDark ? "#21191a" : "#fff7f6";
+  if (!persist) return;
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+  } catch (error) {
+    console.error("Could not save the Daywell theme preference.", error);
+    showStorageError("Your theme changed, but this browser couldn’t save that preference.");
+  }
+}
+
+function loadTheme() {
+  try {
+    return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+  } catch (error) {
+    console.error("Could not read the Daywell theme preference.", error);
+    return "light";
   }
 }
 
@@ -183,28 +286,105 @@ function renderToday() {
   $("#burnedValue").textContent = `${numberFormat(burned)} kcal`;
 
   renderPlannedWorkout(selectedDate);
+  renderPlannedNutrition(selectedDate);
   renderFood(day);
   renderVitals(day);
   renderWorkouts(day);
 }
 
+function plannedTasks(date, category) {
+  const day = date.getDay();
+  if (category === "movement") {
+    const plan = WEEKLY_WORKOUTS[day];
+    if (plan.rest) return [{ id: "recovery", label: plan.rest }];
+    return [
+      { id: "warmup", label: "8 min warm-up" },
+      ...plan.exercises.map(([exercise], index) => ({ id: `exercise-${index}`, label: exercise })),
+      { id: "finisher", label: "Cardio finisher" },
+      { id: "cooldown", label: "5 min cool-down" }
+    ];
+  }
+  const plan = WEEKLY_MEALS[day];
+  return [
+    ...(plan.preWorkout ? [{ id: "pre-workout", label: "Pre-workout" }] : []),
+    ...plan.meals.map(([name]) => ({
+      id: `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+      label: name
+    }))
+  ];
+}
+
+function isPlanComplete(key, category, id) {
+  return state.planChecks?.[key]?.[category]?.[id] === true;
+}
+
+function planCheckbox(key, category, id, label) {
+  const checked = isPlanComplete(key, category, id);
+  return `<input class="plan-checkbox" type="checkbox" data-plan-check data-date="${escapeHTML(key)}" data-category="${category}" data-item="${id}" aria-label="${escapeHTML(label)}"${checked ? " checked" : ""}>`;
+}
+
+function renderPlanCompletionSummary(date, category) {
+  const tasks = plannedTasks(date, category);
+  const completed = tasks.filter((task) => isPlanComplete(dateKey(date), category, task.id)).length;
+  const container = $(`#${category === "movement" ? "movement" : "nutrition"}CompletionSummary`);
+  container.textContent = `${completed} of ${tasks.length} items completed`;
+}
+
 function renderPlannedWorkout(date) {
   const plan = WEEKLY_WORKOUTS[date.getDay()];
+  const key = dateKey(date);
   const weekday = formatDate(date, { weekday: "long" });
   $("#plannedWorkoutSubtitle").textContent = `${weekday} · ${plan.focus}`;
   if (plan.rest) {
     $("#plannedWorkoutBadge").textContent = "RECOVERY DAY";
-    $("#plannedWorkoutContent").innerHTML = `<div class="rest-day-copy"><span class="rest-day-sparkle" aria-hidden="true">✳</span><p>${escapeHTML(plan.rest)}</p></div>`;
+    $("#plannedWorkoutContent").innerHTML = `<div class="rest-day-copy">${planCheckbox(key, "movement", "recovery", "Mark today’s recovery activity complete")}<span class="rest-day-sparkle" aria-hidden="true">✳</span><p>${escapeHTML(plan.rest)}</p></div>`;
+    renderPlanCompletionSummary(date, "movement");
     return;
   }
   $("#plannedWorkoutBadge").textContent = "60 MIN · GYM DAY";
   $("#plannedWorkoutContent").innerHTML = `
-    <div class="plan-session-note"><strong>Session flow</strong><span>8 min warm-up</span><span>35–38 min strength</span><span>5 min cool-down</span></div>
+    <div class="plan-session-note"><strong>Session flow</strong><label class="plan-flow-item">${planCheckbox(key, "movement", "warmup", "Mark warm-up complete")}<span>8 min warm-up</span></label><span>35–38 min strength</span><label class="plan-flow-item">${planCheckbox(key, "movement", "cooldown", "Mark cool-down complete")}<span>5 min cool-down</span></label></div>
     <div class="plan-table-wrap"><table class="plan-table">
-      <thead><tr><th scope="col">Exercise</th><th scope="col">Sets</th><th scope="col">Reps</th><th scope="col">Rest</th><th scope="col">Form notes</th></tr></thead>
-      <tbody>${plan.exercises.map(([exercise, sets, reps, rest, notes]) => `<tr><th scope="row">${escapeHTML(exercise)}</th><td>${escapeHTML(sets)}</td><td>${escapeHTML(reps)}</td><td>${escapeHTML(rest)}</td><td>${notes ? escapeHTML(notes) : "—"}</td></tr>`).join("")}</tbody>
+      <thead><tr><th scope="col">Done</th><th scope="col">Exercise</th><th scope="col">Sets</th><th scope="col">Reps</th><th scope="col">Rest</th><th scope="col">Form notes</th></tr></thead>
+      <tbody>${plan.exercises.map(([exercise, sets, reps, rest, notes], index) => {
+        const id = `exercise-${index}`;
+        const checked = isPlanComplete(key, "movement", id);
+        return `<tr class="${checked ? "is-complete" : ""}"><td>${planCheckbox(key, "movement", id, `Mark ${exercise} complete`)}</td><th scope="row">${escapeHTML(exercise)}</th><td>${escapeHTML(sets)}</td><td>${escapeHTML(reps)}</td><td>${escapeHTML(rest)}</td><td>${notes ? escapeHTML(notes) : "—"}</td></tr>`;
+      }).join("")}</tbody>
     </table></div>
-    <div class="plan-finisher"><span class="finisher-icon" aria-hidden="true">↗</span><div><strong>Cardio finisher</strong><span>${escapeHTML(plan.finisher)}</span></div></div>`;
+    <div class="plan-finisher">${planCheckbox(key, "movement", "finisher", "Mark cardio finisher complete")}<span class="finisher-icon" aria-hidden="true">↗</span><div><strong>Cardio finisher</strong><span>${escapeHTML(plan.finisher)}</span></div></div>`;
+  renderPlanCompletionSummary(date, "movement");
+}
+
+function renderPlannedNutrition(date) {
+  const plan = WEEKLY_MEALS[date.getDay()];
+  const key = dateKey(date);
+  const weekday = formatDate(date, { weekday: "long" });
+  $("#plannedNutritionSubtitle").textContent = `${weekday} · ${plan.type} menu`;
+  $("#plannedNutritionBadge").textContent = `ABOUT ${numberFormat(plan.calories)} KCAL`;
+  const meals = [
+    ...(plan.preWorkout ? [["Pre-workout", "6:15 AM", plan.preWorkout]] : []),
+    ...plan.meals
+  ];
+  $("#plannedNutritionContent").innerHTML = `
+    <div class="nutrition-menu-grid">
+      ${meals.map(([name, time, description]) => {
+        const id = name === "Pre-workout" ? "pre-workout" : `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+        const checked = isPlanComplete(key, "nutrition", id);
+        return `<article class="nutrition-meal ${checked ? "is-complete" : ""}">
+        <div class="nutrition-meal-heading">${planCheckbox(key, "nutrition", id, `Mark ${name} complete`)}<h3>${escapeHTML(name)}</h3><span>${escapeHTML(time)}</span></div>
+        <p>${escapeHTML(description)}</p>
+      </article>`;
+      }).join("")}
+    </div>
+    <div class="nutrition-guidance">
+      <strong>Daily guide from your plan</strong>
+      <div class="nutrition-guidance-chips">
+        <span>Protein 80–90 g</span><span>Carbs 130–150 g</span><span>Fat 35–40 g</span><span>Fibre 25+ g</span><span>Water 3–3.5 L</span>
+      </div>
+    </div>
+    <p class="nutrition-disclaimer">Calorie and portion values are estimates, not a medical prescription. Individual needs vary; consider reviewing the plan with a doctor or dietitian.</p>`;
+  renderPlanCompletionSummary(date, "nutrition");
 }
 
 function renderFood(day) {
@@ -319,6 +499,88 @@ function weekKeys(endDate) {
   });
 }
 
+function fourWeekKeys(endDate) {
+  return Array.from({ length: 28 }, (_, index) => {
+    const date = new Date(endDate);
+    date.setDate(date.getDate() - (27 - index));
+    return date;
+  });
+}
+
+function renderWeightTrend() {
+  const dates = fourWeekKeys(selectedDate);
+  const start = dates[0];
+  const end = dates[dates.length - 1];
+  $("#weightTrendRange").textContent = `${formatDate(start, { month: "short", day: "numeric" })} – ${formatDate(end, { month: "short", day: "numeric" })}`;
+
+  const readings = dates.map((date, index) => {
+    const vital = latestByKind(dayData(dateKey(date)).vitals, "weight");
+    const value = Number(vital?.value);
+    return Number.isFinite(value) && value > 0 ? { index, date, value } : null;
+  }).filter(Boolean);
+
+  const chart = $("#weightTrendChart");
+  if (!readings.length) {
+    $("#weightTrendSummary").textContent = "";
+    chart.innerHTML = `<div class="weight-trend-empty"><span aria-hidden="true">⚖</span><strong>No weight entries in this period</strong><p>Log a weight check-in to start seeing your trend.</p></div>`;
+    return;
+  }
+
+  const earliest = readings[0];
+  const latest = readings[readings.length - 1];
+  if (readings.length > 1) {
+    const change = latest.value - earliest.value;
+    const sign = change > 0 ? "+" : "";
+    $("#weightTrendSummary").textContent = `${sign}${change.toLocaleString(undefined, { maximumFractionDigits: 1 })} kg`;
+  } else {
+    $("#weightTrendSummary").textContent = "1 check-in";
+  }
+
+  const width = 720;
+  const height = 280;
+  const left = 58;
+  const right = 18;
+  const top = 22;
+  const bottom = 38;
+  const plotWidth = width - left - right;
+  const plotHeight = height - top - bottom;
+  const minValue = Math.min(...readings.map((reading) => reading.value));
+  const maxValue = Math.max(...readings.map((reading) => reading.value));
+  const padding = Math.max((maxValue - minValue) * 0.2, 1);
+  const lower = minValue - padding;
+  const upper = maxValue + padding;
+  const x = (index) => left + index / 27 * plotWidth;
+  const y = (value) => top + (upper - value) / (upper - lower) * plotHeight;
+  const yTicks = [0, 1, 2].map((index) => upper - (upper - lower) * index / 2);
+  const xTicks = [0, 7, 14, 21, 27];
+  const points = readings.map((reading) => `${x(reading.index)},${y(reading.value)}`).join(" ");
+  const formatWeight = (value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 });
+  const grid = yTicks.map((value) => `
+    <g class="weight-grid-line">
+      <line x1="${left}" y1="${y(value)}" x2="${width - right}" y2="${y(value)}"></line>
+      <text x="${left - 10}" y="${y(value) + 4}" text-anchor="end">${formatWeight(value)}</text>
+    </g>`).join("");
+  const datesAxis = xTicks.map((index) => {
+    const date = dates[index];
+    return `<text class="weight-axis-date" x="${x(index)}" y="${height - 10}" text-anchor="middle">${formatDate(date, { month: "short", day: "numeric" })}</text>`;
+  }).join("");
+  const markers = readings.map((reading) => `
+    <circle class="weight-point" cx="${x(reading.index)}" cy="${y(reading.value)}" r="5">
+      <title>${escapeHTML(formatDate(reading.date, { month: "long", day: "numeric", year: "numeric" }))}: ${formatWeight(reading.value)} kg</title>
+    </circle>`).join("");
+
+  chart.innerHTML = `
+    <div class="weight-chart-scroll">
+      <svg class="weight-chart-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Weight trend for the 28 days ending ${escapeHTML(formatDate(end, { month: "long", day: "numeric", year: "numeric" }))}. ${readings.length} weight check-ins.">
+        ${grid}
+        ${readings.length > 1 ? `<polyline class="weight-trend-line" points="${points}"></polyline>` : ""}
+        ${markers}
+        ${datesAxis}
+      </svg>
+    </div>
+    <p class="weight-chart-caption">${readings.length} check-in${readings.length === 1 ? "" : "s"} · ${escapeHTML(formatDate(earliest.date, { month: "short", day: "numeric" }))}: ${formatWeight(earliest.value)} kg${readings.length > 1 ? ` · ${escapeHTML(formatDate(latest.date, { month: "short", day: "numeric" }))}: ${formatWeight(latest.value)} kg` : ""}</p>`;
+}
+
 function renderInsights() {
   const days = weekKeys(selectedDate);
   const end = days[6];
@@ -346,6 +608,49 @@ function renderInsights() {
     const isSelected = dateKey(date) === dateKey(selectedDate);
     return `<div class="chart-day ${isSelected ? "is-selected" : ""}"><span class="chart-bar-track"><span class="chart-bar" style="height:${height}%"></span></span><span>${formatDate(date, { weekday: "short" })}</span><span class="chart-date">${date.getDate()}</span></div>`;
   }).join("");
+  renderWeightTrend();
+  renderPlanCompletionChart();
+}
+
+function renderPlanCompletionChart() {
+  const dates = fourWeekKeys(selectedDate);
+  const start = dates[0];
+  const end = dates[dates.length - 1];
+  $("#planCompletionRange").textContent = `${formatDate(start, { month: "short", day: "numeric" })} – ${formatDate(end, { month: "short", day: "numeric" })}`;
+
+  const progress = dates.map((date, index) => {
+    const key = dateKey(date);
+    const tasks = [
+      ...plannedTasks(date, "movement").map((task) => ({ ...task, category: "movement" })),
+      ...plannedTasks(date, "nutrition").map((task) => ({ ...task, category: "nutrition" }))
+    ];
+    const completed = tasks.filter((task) => isPlanComplete(key, task.category, task.id)).length;
+    return { date, index, tasks: tasks.length, completed };
+  });
+  const totalTasks = progress.reduce((sum, day) => sum + day.tasks, 0);
+  const completedTasks = progress.reduce((sum, day) => sum + day.completed, 0);
+  const trackedDays = progress.filter((day) => day.completed > 0).length;
+  const summary = $("#planCompletionSummary");
+  const chart = $("#planCompletionChart");
+
+  if (!completedTasks) {
+    summary.textContent = "";
+    chart.innerHTML = `<div class="weight-trend-empty"><span aria-hidden="true">✓</span><strong>No planned items checked off yet</strong><p>Tick completed meals or movement on the home page to see your progress here.</p></div>`;
+    return;
+  }
+
+  const percent = Math.round(completedTasks / totalTasks * 100);
+  summary.textContent = `${completedTasks} / ${totalTasks} · ${percent}%`;
+  chart.innerHTML = `<div class="plan-completion-bars" role="list" aria-label="Daily planned-item completion for the last four weeks">
+    ${progress.map(({ date, index, tasks, completed }) => {
+      const height = tasks ? completed / tasks * 100 : 0;
+      const label = `${formatDate(date, { weekday: "long", month: "long", day: "numeric" })}: ${completed} of ${tasks} planned items completed`;
+      return `<div class="completion-day ${completed ? "has-completion" : ""}" role="listitem" title="${escapeHTML(label)}" aria-label="${escapeHTML(label)}">
+        <div class="completion-track"><span class="completion-bar" style="height:${height}%"></span></div>
+        <span class="completion-date">${index % 7 === 0 || index === 27 ? formatDate(date, { month: "short", day: "numeric" }) : formatDate(date, { weekday: "narrow" })}</span>
+      </div>`;
+    }).join("")}
+  </div><p class="completion-caption">${completedTasks} of ${totalTasks} planned items completed across ${trackedDays} day${trackedDays === 1 ? "" : "s"} with check-ins.</p>`;
 }
 
 function renderSettings() {
@@ -511,6 +816,32 @@ $("#dateInput").addEventListener("change", (event) => {
   if (activeView === "insights") renderInsights();
 });
 $("#entryForm").addEventListener("submit", saveEntry);
+document.addEventListener("change", (event) => {
+  const checkbox = event.target.closest("[data-plan-check]");
+  if (!checkbox) return;
+  const { date, category, item } = checkbox.dataset;
+  if (!date || (category !== "movement" && category !== "nutrition") || !item) return;
+
+  if (!state.planChecks || typeof state.planChecks !== "object") state.planChecks = {};
+  const dayChecks = state.planChecks[date] || {};
+  const categoryChecks = dayChecks[category] || {};
+  const previous = categoryChecks[item] === true;
+  state.planChecks[date] = dayChecks;
+  dayChecks[category] = categoryChecks;
+  categoryChecks[item] = checkbox.checked;
+  if (!saveState()) {
+    categoryChecks[item] = previous;
+    checkbox.checked = previous;
+    return;
+  }
+
+  const selectedKey = dateKey(selectedDate);
+  if (date === selectedKey) {
+    if (category === "movement") renderPlannedWorkout(selectedDate);
+    if (category === "nutrition") renderPlannedNutrition(selectedDate);
+  }
+  if (activeView === "insights") renderPlanCompletionChart();
+});
 $("#entryDialog").addEventListener("click", (event) => {
   if (event.target === $("#entryDialog")) $("#entryDialog").close();
 });
@@ -545,16 +876,26 @@ $("#goalsForm").addEventListener("submit", (event) => {
   renderToday();
 });
 $("#exportButton").addEventListener("click", exportData);
+$("#themeToggle").addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  setTheme(nextTheme, true);
+});
 $("#clearButton").addEventListener("click", () => {
-  if (!window.confirm("Clear all journal entries from this device? Your daily goals will stay saved.")) return;
+  if (!window.confirm("Clear all journal entries and planned-item check-ins from this device? Your daily goals will stay saved.")) return;
   const previousDays = state.days;
+  const previousPlanChecks = state.planChecks;
   state.days = {};
+  state.planChecks = {};
   if (!saveState()) {
     state.days = previousDays;
+    state.planChecks = previousPlanChecks;
     return;
   }
   renderToday();
+  if (activeView === "history") renderHistory();
+  if (activeView === "insights") renderInsights();
   $("#goalsFeedback").textContent = "";
 });
 
+setTheme(loadTheme());
 renderToday();

@@ -123,6 +123,26 @@ h1, h2, p { margin-top: 0; }
 .rest-day-copy { display: flex; align-items: center; gap: 11px; border-radius: 9px; padding: 13px; background: #f6f7f3; }
 .rest-day-sparkle { color: #9bad91; font-size: 17px; }
 .rest-day-copy p { margin: 0; color: #7d897d; font-size: 10px; line-height: 1.7; }
+.plan-checkbox { width: 18px; height: 18px; flex: 0 0 auto; margin: 0; accent-color: #b42332; cursor: pointer; }
+.plan-completion-summary { margin-top: 12px; color: #755e61; font-size: 11px; font-weight: 600; text-align: right; }
+.plan-flow-item { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.plan-flow-item .plan-checkbox { width: 16px; height: 16px; }
+.plan-table td:first-child { width: 42px; text-align: center; }
+.plan-table tbody tr.is-complete th { color: #8c7376; text-decoration: line-through; text-decoration-color: #c58f93; }
+.plan-finisher > .plan-checkbox { margin-right: 1px; }
+.nutrition-meal-heading { display: flex; align-items: center; gap: 9px; }
+.nutrition-meal-heading h3 { flex: 1; }
+.nutrition-meal.is-complete { border-color: #e4c8ca; background: #fff8f8; }
+.nutrition-meal.is-complete p { color: #806b6e; }
+.plan-completion-panel { margin-bottom: 16px; }
+.plan-completion-chart { margin-top: 15px; }
+.plan-completion-bars { display: grid; grid-template-columns: repeat(28, minmax(0, 1fr)); gap: 5px; align-items: end; min-height: 128px; padding: 9px 5px 0; }
+.completion-day { display: flex; min-width: 0; height: 110px; flex-direction: column; align-items: center; justify-content: flex-end; gap: 7px; color: #755e61; }
+.completion-track { display: flex; width: min(17px, 100%); height: 90px; align-items: flex-end; overflow: hidden; border-radius: 7px 7px 3px 3px; background: #f3eaea; }
+.completion-bar { display: block; width: 100%; min-height: 0; border-radius: 6px 6px 3px 3px; background: #d68a8e; transition: height .2s ease; }
+.completion-day.has-completion .completion-bar { background: #b42332; }
+.completion-date { min-height: 12px; font-size: 8px; white-space: nowrap; }
+.completion-caption { margin: 8px 0 0; color: #755e61; font-size: 10px; text-align: center; }
 .snapshot-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; margin-bottom: 29px; }
 .snapshot-card, .panel { border: 1px solid #ecefe9; border-radius: 12px; background: #fff; box-shadow: var(--shadow); }
 .snapshot-card { min-width: 0; padding: 17px 19px 15px; }
@@ -215,6 +235,20 @@ h1, h2, p { margin-top: 0; }
 .insight-card-value { margin: 12px 0 5px; font: 700 25px "Manrope", sans-serif; letter-spacing: -.8px; }
 .insight-card-sub { color: #a3aaa1; font-size: 9px; }
 .weekly-panel { margin-bottom: 22px; }
+.weight-trend-panel { margin-bottom: 16px; }
+.weight-trend-summary { flex: 0 0 auto; border-radius: 20px; padding: 6px 10px; background: #f8e6e7; color: #8f1d29; font-size: 11px; font-weight: 700; }
+.weight-trend-chart { margin-top: 16px; }
+.weight-chart-scroll { width: 100%; overflow-x: auto; }
+.weight-chart-svg { display: block; width: 100%; min-width: 520px; height: auto; overflow: visible; }
+.weight-grid-line line { stroke: #ead8d9; stroke-width: 1; stroke-dasharray: 4 5; }
+.weight-grid-line text, .weight-axis-date { fill: #755e61; font-family: "DM Sans", sans-serif; font-size: 11px; }
+.weight-trend-line { fill: none; stroke: #b42332; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.weight-point { fill: #fff8f7; stroke: #b42332; stroke-width: 3; }
+.weight-trend-empty { display: flex; min-height: 210px; flex-direction: column; align-items: center; justify-content: center; gap: 7px; color: #685457; text-align: center; }
+.weight-trend-empty > span { color: #b42332; font-size: 25px; }
+.weight-trend-empty strong { color: #49363a; font-size: 13px; }
+.weight-trend-empty p { margin: 0; color: #755e61; font-size: 11px; }
+.weight-chart-caption { margin: 8px 0 0; color: #755e61; font-size: 10px; text-align: center; }
 .weekly-chart { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; height: 172px; margin-top: 22px; padding: 0 8px; }
 .chart-day { display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: flex-end; gap: 7px; color: #9da69c; font-size: 9px; }
 .chart-bar-track { display: flex; width: min(30px, 100%); height: 119px; align-items: flex-end; overflow: hidden; border-radius: 9px 9px 4px 4px; background: #f4f5f1; }
@@ -443,7 +477,12 @@ body { background: var(--paper); color: var(--ink); }
 .entry-tabs { background: #e8f0ef; }
 
 @media (max-width: 650px) {
-  .main-content { padding-right: 16px; padding-left: 16px; padding-bottom: 94px; }
+  .main-content { padding-right: 16px; padding-left: 16px; padding-bottom: 94px;     .weight-chart-svg { min-width: 520px; }
+    .weight-trend-summary { font-size: 10px; }
+    .plan-completion-bars { gap: 3px; padding-right: 1px; padding-left: 1px; }
+    .completion-track { width: min(12px, 100%); }
+    .completion-date { font-size: 7px; }
+  }
   .topbar { height: 68px; }
   .mobile-brand { font-size: 22px; }
   .top-add { min-height: 44px; padding: 0 13px; font-size: 12px; }
@@ -560,4 +599,307 @@ body { background: var(--paper); color: var(--ink); }
   .panel-title h2 { font-size: 15px; }
   .panel-title p { font-size: 10px; }
   .text-button { font-size: 11px; }
+}
+.planned-nutrition-panel { margin-top: -10px; }
+.nutrition-plan-badge { background: #fff0e9; color: #a74b35; }
+.planned-nutrition-content { margin-top: 16px; }
+.nutrition-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.nutrition-meal { min-width: 0; border: 1px solid #e8eeee; border-radius: 9px; padding: 12px 13px; background: #fbfdfd; }
+.nutrition-meal-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.nutrition-meal-heading h3 { margin: 0; color: #29464b; font: 700 11px "Manrope", sans-serif; }
+.nutrition-meal-heading > span { flex: 0 0 auto; color: #52686d; font-size: 9px; }
+.nutrition-meal p { margin: 7px 0 0; color: #52686d; font-size: 10px; line-height: 1.6; }
+.nutrition-guidance { margin-top: 12px; border-radius: 9px; padding: 12px; background: #eef5f3; }
+.nutrition-guidance > strong { color: #294d50; font-size: 10px; }
+.nutrition-guidance-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.nutrition-guidance-chips span { border: 1px solid #dce9e5; border-radius: 20px; padding: 6px 9px; background: #fbfdfc; color: #385b5d; font-size: 9px; }
+.nutrition-disclaimer { margin: 11px 1px 0; color: #52686d; font-size: 9px; line-height: 1.6; }
+
+@media (max-width: 650px) {
+  .planned-nutrition-panel { margin-top: -8px; padding: 17px 15px; }
+  .planned-nutrition-content { margin-top: 14px; }
+  .nutrition-menu-grid { grid-template-columns: 1fr; gap: 8px; }
+  .nutrition-meal { padding: 12px 13px; }
+  .nutrition-meal-heading h3 { font-size: 13px; }
+  .nutrition-meal-heading > span { font-size: 11px; }
+  .nutrition-meal p { margin-top: 6px; font-size: 12px; line-height: 1.6; }
+  .nutrition-guidance { padding: 13px; }
+  .nutrition-guidance > strong { font-size: 12px; }
+  .nutrition-guidance-chips span { padding: 7px 9px; font-size: 10px; }
+  .nutrition-disclaimer { font-size: 11px; line-height: 1.6; }
+}
+
+/* Keep the plan details comfortable to read at every viewport size. */
+.plan-session-note { font-size: 11px; }
+.plan-session-note strong { font-size: 11px; }
+.plan-session-note span { padding: 6px 9px; }
+.plan-table th, .plan-table td { padding: 11px 9px; font-size: 11px; }
+.plan-table thead th { font-size: 10px; }
+.plan-finisher strong { font-size: 11px; }
+.plan-finisher span:not(.finisher-icon), .rest-day-copy p { font-size: 12px; }
+.nutrition-meal-heading h3 { font-size: 13px; }
+.nutrition-meal-heading > span { font-size: 11px; }
+.nutrition-meal p { font-size: 12px; }
+.nutrition-guidance > strong { font-size: 12px; }
+.nutrition-guidance-chips span { font-size: 11px; }
+.nutrition-disclaimer { font-size: 11px; }
+
+@media (max-width: 650px) {
+  .plan-session-note { font-size: 12px; }
+  .plan-session-note strong { font-size: 12px; }
+  .plan-session-note span { padding: 7px 9px; font-size: 11px; }
+  .plan-table th, .plan-table td { padding: 12px 10px; font-size: 12px; }
+  .plan-table thead th { font-size: 11px; }
+  .plan-finisher strong { font-size: 12px; }
+  .plan-finisher span:not(.finisher-icon), .rest-day-copy p { font-size: 14px; line-height: 1.65; }
+  .nutrition-meal { padding: 14px; }
+  .nutrition-meal-heading h3 { font-size: 15px; }
+  .nutrition-meal-heading > span { font-size: 12px; }
+  .nutrition-meal p { font-size: 14px; line-height: 1.65; }
+  .nutrition-guidance > strong { font-size: 14px; }
+  .nutrition-guidance-chips span { font-size: 12px; }
+  .nutrition-disclaimer { font-size: 12px; line-height: 1.65; }
+}
+
+/* Red wellness accent theme */
+:root {
+  --green: #b42332;
+  --green-dark: #8f1d29;
+  --green-pale: #f8e6e7;
+  --paper: #fff8f7;
+  --line: #f0dfdf;
+}
+
+body { background: var(--paper); color: #38282b; }
+.sidebar { background: #fffdfc; border-color: #f0dfdf; }
+.topbar { border-color: #f0dfdf; }
+.brand-mark { background: #f8e6e7; color: #b42332; }
+.brand-period, .art-star { color: #d54b58; }
+.nav-label, .eyebrow { color: #755e61; }
+.nav-item { color: #685457; }
+.nav-item:hover { background: #fbecee; color: #38282b; }
+.nav-item.is-active { background: #f8e6e7; color: #8f1d29; }
+.sidebar-note { border-color: #f0dfdf; }
+.sidebar-note p { color: #514044; }
+.sidebar-note p span, .privacy-note, .topbar-caption { color: #755e61; }
+.privacy-dot, .live-dot { background: #b42332; }
+.button-primary { background: #b42332; box-shadow: 0 4px 10px rgba(180, 35, 50, .18); }
+.button-primary:hover { background: #8f1d29; }
+.button-secondary { border-color: #ead8d9; color: #514044; }
+.date-picker, .insight-range { border-color: #ead8d9; }
+.icon-button { color: #685457; }
+.icon-button:hover { background: #fbecee; color: #8f1d29; }
+.date-label { color: #514044; }
+.daily-banner { border-color: #edcdcf; background: #fae9e9; }
+.banner-kicker { color: #8a5259; }
+.banner-copy h2 span, .page-heading h1 span { color: #b42332; }
+.banner-copy p { color: #79565a; }
+.art-sun { background: #f6d2cf; }
+.art-orbit { border-color: rgba(180, 35, 50, .23); }
+.art-stem { background: #a62d3a; }
+.art-leaf { border-color: #a62d3a; background: #cc7e7c; }
+.leaf-two { background: #e0a19a; }
+.section-caption { color: #755e61; }
+.snapshot-card, .panel, .insight-card { border-color: #f0dfdf; }
+.calorie-fill { background: #d94d56; }
+.protein-fill { background: #8873bd; }
+.water-fill { background: #388eb4; }
+.mint-icon, .vitals-panel-icon { background: #f8e9e9; color: #a62d3a; }
+.peach-icon, .food-panel-icon { background: #fff0e9; color: #c45c42; }
+.card-label, .panel-title h2 { color: #514044; }
+.card-foot, .card-foot strong { color: #685457; }
+.movement-note, .entry-detail, .workout-meta, .panel-title p, .vital-info small { color: #755e61; }
+.text-button, .history-open { color: #a32431; }
+.text-button:hover, .history-open:hover { color: #7f1823; }
+.meal-heading { color: #685457; }
+.meal-heading span:last-child, .entry-detail { color: #755e61; }
+.entry-name, .history-date, .vital-value { color: #49363a; }
+.entry-calories, .workout-energy { color: #634449; }
+.empty-state { border-color: #ead5d6; color: #685457; }
+.empty-state strong { color: #514044; }
+.empty-state span { color: #755e61; }
+.vital-info, .vital-empty, .history-date span, .history-chip { color: #685457; }
+.vital-symbol { background: #f8e9e9; color: #a62d3a; }
+.plan-badge { background: #f8e6e7; color: #8f1d29; }
+.plan-session-note, .plan-session-note span, .plan-table th, .plan-table td, .plan-table thead th { color: #685457; }
+.plan-session-note span { border-color: #f0dfdf; background: #fffafa; }
+.plan-session-note strong, .plan-finisher strong, .nutrition-guidance > strong { color: #514044; }
+.plan-table tbody th, .nutrition-meal-heading h3 { color: #49363a; }
+.plan-finisher, .rest-day-copy, .nutrition-guidance { background: #f9eded; }
+.finisher-icon { background: #f4dddd; color: #a32431; }
+.plan-finisher span:not(.finisher-icon), .rest-day-copy p, .nutrition-meal p { color: #685457; }
+.rest-day-sparkle { color: #b42332; }
+.chart-bar-track { background: #f3eaea; }
+.chart-bar { background: #d68a8e; }
+.chart-day, .chart-day.is-selected, .insight-card-label, .insight-card-sub { color: #685457; }
+.chart-day.is-selected .chart-bar { background: #b42332; }
+.chart-date { color: #755e61; }
+.goals-form label, .field-label, .data-actions strong { color: #514044; }
+.goals-form label span, .data-actions p, .local-data-copy { color: #755e61; }
+.goals-form input, .field-control { border-color: #ead8d9; color: #49363a; }
+.goals-form input:focus, .field-control:focus { border-color: #d56a73; box-shadow: 0 0 0 3px rgba(180, 35, 50, .13); }
+.form-feedback { color: #a32431; }
+.data-actions { border-color: #f0dfdf; }
+.history-chip { background: #f8e9e9; }
+.insight-card-value { color: #38282b; }
+.entry-dialog { border-color: #ead8d9; background: #fffafa; }
+.entry-tab.is-active { color: #8f1d29; }
+.entry-tab { color: #685457; }
+.entry-tabs { background: #f4e9e9; }
+.nutrition-plan-badge { background: #fbe8e3; color: #983d35; }
+.nutrition-meal { border-color: #f0dfdf; background: #fffdfc; }
+.nutrition-meal-heading > span { color: #755e61; }
+.nutrition-guidance-chips span { border-color: #ead8d9; background: #fffafa; color: #634449; }
+.nutrition-disclaimer { color: #685457; }
+.appearance-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #f0dfdf; padding: 16px 0; }
+.appearance-row strong { color: #514044; font-size: 11px; }
+.appearance-row p { margin: 4px 0 0; color: #755e61; font-size: 10px; line-height: 1.5; }
+.theme-toggle { position: relative; width: 68px; min-height: 36px; flex: 0 0 auto; border: 1px solid #ead8d9; border-radius: 20px; padding: 0; background: #f6eeee; color: #685457; cursor: pointer; font-size: 10px; font-weight: 700; }
+.theme-toggle-knob { position: absolute; top: 4px; left: 4px; width: 25px; height: 25px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(56, 40, 43, .16); transition: left .18s ease, background .18s ease; }
+#themeToggleLabel { position: absolute; top: 50%; left: 41px; transform: translateY(-50%); }
+.theme-toggle[aria-checked="true"] { border-color: #a32431; background: #a32431; color: #fff; }
+.theme-toggle[aria-checked="true"] .theme-toggle-knob { left: 37px; background: #fff; }
+.theme-toggle[aria-checked="true"] #themeToggleLabel { right: 40px; left: auto; }
+.theme-toggle:focus-visible { outline: 3px solid rgba(180, 35, 50, .25); outline-offset: 2px; }
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #f4e9e9;
+  --muted: #c5b2b4;
+  --soft-muted: #aa9699;
+  --green: #ff737b;
+  --green-dark: #ff9aa0;
+  --green-pale: #43282c;
+  --paper: #191516;
+  --white: #241e1f;
+  --line: #3b3032;
+  --shadow: 0 8px 26px rgba(0, 0, 0, .22);
+}
+html[data-theme="dark"] body { background: #191516; color: #f4e9e9; }
+html[data-theme="dark"] .sidebar { background: #201a1b; border-color: #3b3032; }
+html[data-theme="dark"] .topbar { border-color: #3b3032; }
+html[data-theme="dark"] .brand, html[data-theme="dark"] .mobile-brand { color: #f4e9e9; }
+html[data-theme="dark"] .brand-mark { background: #43282c; color: #ff858b; }
+html[data-theme="dark"] .brand-period { color: #ff858b; }
+html[data-theme="dark"] .nav-label, html[data-theme="dark"] .eyebrow { color: #c6adb0; }
+html[data-theme="dark"] .nav-item { color: #cbbabd; }
+html[data-theme="dark"] .nav-item:hover { background: #302326; color: #fff1f1; }
+html[data-theme="dark"] .nav-item.is-active { background: #43282c; color: #ff9aa0; }
+html[data-theme="dark"] .sidebar-note { border-color: #3b3032; background: #282122; }
+html[data-theme="dark"] .sidebar-note p, html[data-theme="dark"] .sidebar-note p span { color: #d9c9ca; }
+html[data-theme="dark"] .privacy-note, html[data-theme="dark"] .topbar-caption { color: #b9a6a8; }
+html[data-theme="dark"] .privacy-dot, html[data-theme="dark"] .live-dot { background: #ff858b; }
+html[data-theme="dark"] .button-primary { background: #c83d49; color: #fff; }
+html[data-theme="dark"] .button-primary:hover { background: #dc515b; }
+html[data-theme="dark"] .button-secondary { border-color: #4a3a3d; background: #2a2224; color: #eadcdd; }
+html[data-theme="dark"] .button-danger { border-color: #603a3c; background: #332224; color: #ffacae; }
+html[data-theme="dark"] .storage-notice { border-color: #694444; background: #352426; color: #ffc1af; }
+html[data-theme="dark"] .page-heading h1, html[data-theme="dark"] .section-heading h2 { color: #f4e9e9; }
+html[data-theme="dark"] .page-heading h1 span { color: #ff858b; }
+html[data-theme="dark"] .page-subtitle, html[data-theme="dark"] .section-caption { color: #c4b1b3; }
+html[data-theme="dark"] .date-picker, html[data-theme="dark"] .insight-range { border-color: #493a3c; background: #282122; color: #e9d9db; }
+html[data-theme="dark"] .date-label, html[data-theme="dark"] .icon-button { color: #ddcacc; }
+html[data-theme="dark"] .icon-button:hover { background: #39282b; color: #ff9aa0; }
+html[data-theme="dark"] .daily-banner { border-color: #56373a; background: #302225; }
+html[data-theme="dark"] .banner-kicker, html[data-theme="dark"] .banner-copy p { color: #d0b8b9; }
+html[data-theme="dark"] .banner-copy h2 { color: #fff0f0; }
+html[data-theme="dark"] .banner-copy h2 span { color: #ff9298; }
+html[data-theme="dark"] .art-sun { background: #533336; }
+html[data-theme="dark"] .art-orbit { border-color: rgba(255, 143, 149, .25); }
+html[data-theme="dark"] .art-stem { background: #d56a73; }
+html[data-theme="dark"] .art-leaf { border-color: #d56a73; background: #824b50; }
+html[data-theme="dark"] .leaf-two { background: #9c5e62; }
+html[data-theme="dark"] .art-star { color: #ff9a84; }
+html[data-theme="dark"] .snapshot-card, html[data-theme="dark"] .panel, html[data-theme="dark"] .insight-card { border-color: #3b3032; background: #241e1f; box-shadow: 0 8px 26px rgba(0, 0, 0, .18); }
+html[data-theme="dark"] .card-label, html[data-theme="dark"] .panel-title h2 { color: #eadcdd; }
+html[data-theme="dark"] .metric-value strong, html[data-theme="dark"] .insight-card-value { color: #fff0f0; }
+html[data-theme="dark"] .metric-value > span, html[data-theme="dark"] .card-foot, html[data-theme="dark"] .card-foot strong { color: #c7b5b7; }
+html[data-theme="dark"] .card-menu { color: #b7a3a6; }
+html[data-theme="dark"] .progress-track { background: #3a3031; }
+html[data-theme="dark"] .calorie-fill { background: #ef6870; }
+html[data-theme="dark"] .protein-fill { background: #aa91dc; }
+html[data-theme="dark"] .water-fill { background: #64a9c8; }
+html[data-theme="dark"] .peach-icon, html[data-theme="dark"] .food-panel-icon { background: #412b29; color: #ff9a78; }
+html[data-theme="dark"] .lilac-icon { background: #332d45; color: #c1a9f4; }
+html[data-theme="dark"] .blue-icon { background: #243746; color: #81c5e3; }
+html[data-theme="dark"] .mint-icon, html[data-theme="dark"] .vitals-panel-icon { background: #29352f; color: #8fd0a5; }
+html[data-theme="dark"] .movement-panel-icon { background: #292e42; color: #a5b5f2; }
+html[data-theme="dark"] .panel-title p, html[data-theme="dark"] .movement-note, html[data-theme="dark"] .entry-detail, html[data-theme="dark"] .workout-meta, html[data-theme="dark"] .meal-heading, html[data-theme="dark"] .meal-heading span:last-child { color: #c0adaf; }
+html[data-theme="dark"] .text-button, html[data-theme="dark"] .history-open { color: #ff9298; }
+html[data-theme="dark"] .text-button:hover, html[data-theme="dark"] .history-open:hover { color: #ffb1b4; }
+html[data-theme="dark"] .food-entry, html[data-theme="dark"] .vital-row, html[data-theme="dark"] .workout-entry, html[data-theme="dark"] .history-day, html[data-theme="dark"] .data-actions { border-color: #3a3031; }
+html[data-theme="dark"] .food-emoji { background: #382a27; }
+html[data-theme="dark"] .entry-name, html[data-theme="dark"] .history-date, html[data-theme="dark"] .vital-value, html[data-theme="dark"] .data-actions strong { color: #eadcdd; }
+html[data-theme="dark"] .entry-calories, html[data-theme="dark"] .workout-energy { color: #dfc5c7; }
+html[data-theme="dark"] .delete-entry { color: #c3abad; }
+html[data-theme="dark"] .delete-entry:hover { background: #48282a; color: #ff9a9e; }
+html[data-theme="dark"] .empty-state { border-color: #4b3b3d; color: #c7b5b7; }
+html[data-theme="dark"] .empty-state strong { color: #eadcdd; }
+html[data-theme="dark"] .empty-state span, html[data-theme="dark"] .vital-empty, html[data-theme="dark"] .vital-info, html[data-theme="dark"] .vital-info small { color: #c7b5b7; }
+html[data-theme="dark"] .vital-symbol { background: #2b3330; color: #9dd5aa; }
+html[data-theme="dark"] .workout-emoji { background: #2c2d3d; }
+html[data-theme="dark"] .plan-badge { background: #43282c; color: #ffadb1; }
+html[data-theme="dark"] .plan-session-note, html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .plan-table th, html[data-theme="dark"] .plan-table td, html[data-theme="dark"] .plan-table thead th { color: #d0bec0; }
+html[data-theme="dark"] .plan-session-note span { border-color: #47383a; background: #292223; }
+html[data-theme="dark"] .plan-session-note strong, html[data-theme="dark"] .plan-finisher strong, html[data-theme="dark"] .nutrition-guidance > strong { color: #f0dfe0; }
+html[data-theme="dark"] .plan-table tbody th { color: #f0dfe0; }
+html[data-theme="dark"] .plan-table th, html[data-theme="dark"] .plan-table td { border-color: #3a3031; }
+html[data-theme="dark"] .plan-finisher, html[data-theme="dark"] .rest-day-copy, html[data-theme="dark"] .nutrition-guidance { background: #2d2325; }
+html[data-theme="dark"] .finisher-icon { background: #493033; color: #ff9aa0; }
+html[data-theme="dark"] .plan-finisher span:not(.finisher-icon), html[data-theme="dark"] .rest-day-copy p { color: #d0bec0; }
+html[data-theme="dark"] .rest-day-sparkle { color: #ff9298; }
+html[data-theme="dark"] .history-chip { background: #35282a; color: #e0ccce; }
+html[data-theme="dark"] .history-date span, html[data-theme="dark"] .insight-card-label, html[data-theme="dark"] .insight-card-sub, html[data-theme="dark"] .chart-day, html[data-theme="dark"] .chart-day.is-selected, html[data-theme="dark"] .chart-date { color: #c7b5b7; }
+html[data-theme="dark"] .chart-bar-track { background: #372d2f; }
+html[data-theme="dark"] .chart-bar { background: #9e5e65; }
+html[data-theme="dark"] .chart-day.is-selected .chart-bar { background: #ef737a; }
+html[data-theme="dark"] .weight-trend-summary { background: #43282c; color: #ffadb1; }
+html[data-theme="dark"] .weight-grid-line line { stroke: #4a393c; }
+html[data-theme="dark"] .weight-grid-line text, html[data-theme="dark"] .weight-axis-date, html[data-theme="dark"] .weight-chart-caption { fill: #c7b5b7; color: #c7b5b7; }
+html[data-theme="dark"] .weight-trend-line { stroke: #ff737b; }
+html[data-theme="dark"] .weight-point { fill: #241e1f; stroke: #ff858b; }
+html[data-theme="dark"] .weight-trend-empty { color: #c7b5b7; }
+html[data-theme="dark"] .weight-trend-empty > span { color: #ff858b; }
+html[data-theme="dark"] .weight-trend-empty strong { color: #eadcdd; }
+html[data-theme="dark"] .weight-trend-empty p { color: #c7b5b7; }
+html[data-theme="dark"] .plan-completion-summary, html[data-theme="dark"] .completion-day, html[data-theme="dark"] .completion-caption { color: #c7b5b7; }
+html[data-theme="dark"] .plan-checkbox { accent-color: #ff737b; }
+html[data-theme="dark"] .plan-table tbody tr.is-complete th { color: #bba8aa; text-decoration-color: #a45b62; }
+html[data-theme="dark"] .nutrition-meal.is-complete { border-color: #634044; background: #332326; }
+html[data-theme="dark"] .nutrition-meal.is-complete p { color: #c7b5b7; }
+html[data-theme="dark"] .completion-track { background: #372d2f; }
+html[data-theme="dark"] .completion-bar { background: #9e5e65; }
+html[data-theme="dark"] .completion-day.has-completion .completion-bar { background: #ef737a; }
+html[data-theme="dark"] .goals-form label, html[data-theme="dark"] .field-label { color: #e8d8da; }
+html[data-theme="dark"] .goals-form label span, html[data-theme="dark"] .data-actions p, html[data-theme="dark"] .local-data-copy { color: #bba8aa; }
+html[data-theme="dark"] .goals-form input, html[data-theme="dark"] .field-control { border-color: #4a3a3c; background: #1e191a; color: #f2e5e6; }
+html[data-theme="dark"] .goals-form input:focus, html[data-theme="dark"] .field-control:focus { border-color: #d56a73; box-shadow: 0 0 0 3px rgba(239, 104, 112, .17); }
+html[data-theme="dark"] .form-feedback { color: #ff9298; }
+html[data-theme="dark"] .appearance-row { border-color: #3a3031; }
+html[data-theme="dark"] .appearance-row strong { color: #eadcdd; }
+html[data-theme="dark"] .appearance-row p { color: #bba8aa; }
+html[data-theme="dark"] .theme-toggle { border-color: #554144; background: #38292c; color: #eedfe0; }
+html[data-theme="dark"] .theme-toggle[aria-checked="true"] { border-color: #d34b56; background: #b42332; color: #fff; }
+html[data-theme="dark"] .nutrition-plan-badge { background: #482b29; color: #ffab91; }
+html[data-theme="dark"] .nutrition-meal { border-color: #443537; background: #292223; }
+html[data-theme="dark"] .nutrition-meal-heading h3 { color: #f0dfe0; }
+html[data-theme="dark"] .nutrition-meal-heading > span, html[data-theme="dark"] .nutrition-meal p, html[data-theme="dark"] .nutrition-disclaimer { color: #d0bec0; }
+html[data-theme="dark"] .nutrition-guidance-chips span { border-color: #4b393c; background: #241e1f; color: #e7d4d6; }
+html[data-theme="dark"] .entry-dialog { border-color: #4a393c; background: #241e1f; color: #f2e5e6; box-shadow: 0 20px 70px rgba(0, 0, 0, .55); }
+html[data-theme="dark"] .entry-dialog::backdrop { background: rgba(8, 5, 6, .7); }
+html[data-theme="dark"] .entry-tabs { background: #302628; }
+html[data-theme="dark"] .entry-tab { color: #c7b5b7; }
+html[data-theme="dark"] .entry-tab.is-active { background: #493033; color: #ffadb1; }
+html[data-theme="dark"] .dialog-actions { border-color: #3a3031; }
+html[data-theme="dark"] .form-error { color: #ff9e92; }
+html[data-theme="dark"] .page-footer { color: #bba8aa; }
+
+@media (max-width: 650px) {
+  .appearance-row strong { font-size: 13px; }
+  .appearance-row p { font-size: 11px; }
+  .theme-toggle { min-height: 42px; }
+  html[data-theme="dark"] .sidebar { background: rgba(32, 26, 27, .97); border-color: #3b3032; }
+  .weight-trend-empty { min-height: 180px; }
+  .plan-completion-summary { font-size: 12px; }
+  .completion-caption { font-size: 11px; line-height: 1.5; }
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f3f7f7" />
+    <meta name="theme-color" content="#fff8f7" />
     <title>Daywell — your daily wellness journal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -110,6 +110,19 @@
               <span class="plan-badge" id="plannedWorkoutBadge"></span>
             </div>
             <div id="plannedWorkoutContent" class="planned-workout-content"></div>
+            <div class="plan-completion-summary" id="movementCompletionSummary"></div>
+          </section>
+
+          <section class="panel planned-panel planned-nutrition-panel" aria-labelledby="plannedNutritionHeading">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <span class="panel-icon food-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16a8 8 0 0 1-16 0ZM3 11h18M12 3v2M5.5 5.5 7 7M18.5 5.5 17 7"/></svg></span>
+                <div><h2 id="plannedNutritionHeading">Planned nutrition</h2><p id="plannedNutritionSubtitle">Your daily meal plan</p></div>
+              </div>
+              <span class="plan-badge nutrition-plan-badge" id="plannedNutritionBadge"></span>
+            </div>
+            <div id="plannedNutritionContent" class="planned-nutrition-content"></div>
+            <div class="plan-completion-summary" id="nutritionCompletionSummary"></div>
           </section>
 
           <div class="section-heading">
@@ -182,6 +195,26 @@
           <div class="page-heading simple-heading"><div><p class="eyebrow">NOTICE YOUR PATTERNS</p><h1 id="insightsTitle">Little things add up.</h1><p class="page-subtitle">A kind look at the past seven days, ending on your selected date.</p></div></div>
           <div class="insight-range"><button class="icon-button date-step" data-date-step="-1" aria-label="Previous week"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><span id="insightRangeLabel"></span><button class="icon-button date-step" data-date-step="1" aria-label="Next week"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
           <div class="insight-cards" id="insightCards"></div>
+          <section class="panel weight-trend-panel" aria-labelledby="weightTrendHeading">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <span class="panel-icon vitals-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.5 8.5 12l4 3.5L21 6.5"/><path d="M15.5 6.5H21V12"/></svg></span>
+                <div><h2 id="weightTrendHeading">Weight over the last 4 weeks</h2><p id="weightTrendRange">Your selected date and the 27 days before it</p></div>
+              </div>
+              <span class="weight-trend-summary" id="weightTrendSummary"></span>
+            </div>
+            <div id="weightTrendChart" class="weight-trend-chart"></div>
+          </section>
+          <section class="panel plan-completion-panel" aria-labelledby="planCompletionHeading">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <span class="panel-icon movement-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
+                <div><h2 id="planCompletionHeading">Planned items completed</h2><p id="planCompletionRange">Daily movement and meal plan check-ins</p></div>
+              </div>
+              <span class="weight-trend-summary" id="planCompletionSummary"></span>
+            </div>
+            <div id="planCompletionChart" class="plan-completion-chart"></div>
+          </section>
           <section class="panel weekly-panel"><div class="panel-heading"><div class="panel-title"><span class="panel-icon food-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V12M10 19.5V5M16 19.5v-9M22 19.5H2"/></svg></span><div><h2>Your week at a glance</h2><p>Each day is a fresh start</p></div></div></div><div id="weeklyChart" class="weekly-chart"></div></section>
         </section>
 
@@ -200,6 +233,13 @@
             </section>
             <section class="panel data-panel">
               <div class="panel-heading"><div class="panel-title"><span class="panel-icon lilac-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M17 7.5H9.8a3.3 3.3 0 0 0 0 6.6h4.4a3.3 3.3 0 0 1 0 6.6H6"/></svg></span><div><h2>Your data</h2><p>Take it with you, or start fresh</p></div></div></div>
+              <div class="appearance-row">
+                <div><strong>Dark mode</strong><p>Switch to a darker color theme.</p></div>
+                <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Enable dark mode">
+                  <span class="theme-toggle-knob" aria-hidden="true"></span>
+                  <span id="themeToggleLabel">Off</span>
+                </button>
+              </div>
               <div class="data-actions"><div><strong>Export your journal</strong><p>Download your entries as a JSON backup.</p></div><button class="button button-secondary" id="exportButton">Export data</button></div>
               <div class="data-actions"><div><strong>Clear all entries</strong><p>This removes saved entries from this device.</p></div><button class="button button-danger" id="clearButton">Clear data</button></div>
               <p class="local-data-copy"><span class="privacy-dot"></span> Your journal is stored in this browser only. It isn’t sent to a server.</p>
