@@ -1,6 +1,6 @@
 const STORAGE_KEY = "daywell-journal-v1";
 const THEME_STORAGE_KEY = "daywell-theme";
-const DEFAULT_GOALS = { calories: 2000, protein: 100, water: 2000 };
+const DEFAULT_GOALS = { calories: 1714, protein: 142, water: 3500 };
 const MEALS = ["Breakfast", "Lunch", "Dinner", "Snack"];
 const VITALS = {
   weight: { label: "Weight", unit: "kg", symbol: "⚖", min: "1", max: "500", step: "0.1", example: "68.4" },
@@ -11,148 +11,152 @@ const VITALS = {
 };
 const FOOD_EMOJIS = { Breakfast: "☀", Lunch: "🥗", Dinner: "🍲", Snack: "🍎" };
 const WORKOUT_EMOJIS = { Walking: "🚶", Running: "🏃", Cycling: "🚴", Strength: "🏋", Yoga: "🧘", Swimming: "🏊", Other: "✳" };
-const WEEKLY_WORKOUTS = {
-  0: {
-    focus: "Shoulders / Arms / Core",
-    exercises: [
-      ["Lateral Raises (heavy + drop set)", "4", "12–20", "60–90 s", "Drive elbows slightly forward and control the descent"],
-      ["Rear Delt Fly", "3", "15", "45–60 s", "Squeeze shoulder blades at the top"],
-      ["Barbell / EZ Curl", "3", "8–10", "60–90 s", "Full stretch at the bottom"],
-      ["Overhead Triceps Extension", "3", "10–12", "60–90 s", "Keep elbows stable and close to the head"],
-      ["Hanging Knee Raise", "3", "12", "45 s", "Pause briefly at the top"],
-      ["Plank", "3", "45 s", "45 s", "Brace the core and keep hips level"]
-    ],
-    finisher: "Optional 5–10 min brisk walk or mobility work"
-  },
-  1: {
-    focus: "Push",
-    exercises: [
-      ["Flat Barbell / DB Bench Press", "4", "6–8", "90–120 s", "Keep shoulder blades packed and chest up"],
-      ["Incline (30°) Cable / DB Fly", "3", "10–12", "60–90 s", "Slight bend in elbows throughout"],
-      ["Seated DB Shoulder Press", "3", "8–10", "90 s", "Brace core and avoid arching"],
-      ["Lateral Raises", "4", "12–15", "45–60 s", "Lift to shoulder height, no shrugging"],
-      ["Triceps Pushdown", "3", "10–12", "45–60 s", "Slow, controlled rep tempo"]
-    ],
-    finisher: "Optional 5–10 min brisk walk or easy bike"
-  },
-  2: {
-    focus: "Pull",
-    exercises: [
-      ["Lat Pulldown / Pull-ups", "4", "6–10", "90 s", "Pull to upper chest and control lowering"],
-      ["Barbell / Chest-Supported Row", "4", "8–10", "90 s", "Squeeze shoulder blades and keep back flat"],
-      ["Seated Cable Row", "3", "10–12", "60–90 s", "Control the return and squeeze at the end"],
-      ["Face Pulls", "3", "15", "45–60 s", "Keep elbows high and out"],
-      ["Incline DB Curl", "3", "10–12", "60–90 s", "Keep wrists neutral and elbows tucked"]
-    ],
-    finisher: "Optional 5–10 min easy cardio"
-  },
-  3: {
-    focus: "Rest day",
-    rest: "8-10k steps"
-  },
-  4: {
-    focus: "Rest day",
-    rest: "8-10k steps"
-  },
-  5: {
-    focus: "Rest day",
-    rest: "8-10k steps"
-  },
-  6: {
-    focus: "Legs",
-    exercises: [
-      ["Back Squat / Leg Press", "4", "6–8", "90–120 s", "Heaviest lift of the week"],
-      ["Romanian Deadlift", "3", "8–10", "90 s", "Hinge at hips and keep back flat"],
-      ["Walking Lunges", "3", "10/leg", "60 s", "Drive through the front foot"],
-      ["Leg Curl", "3", "12", "60 s", "Slow and controlled"],
-      ["Standing Calf Raise", "3", "12–15", "45–60 s", "Pause at the top for control"]
-    ],
-    finisher: "Optional 5–10 min brisk walk or bike"
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let quoted = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (quoted) {
+      if (character === '"' && text[index + 1] === '"') {
+        field += '"';
+        index += 1;
+      } else if (character === '"') {
+        quoted = false;
+      } else {
+        field += character;
+      }
+    } else if (character === '"') {
+      quoted = true;
+    } else if (character === ",") {
+      row.push(field.trim());
+      field = "";
+    } else if (character === "\n" || character === "\r") {
+      if (character === "\r" && text[index + 1] === "\n") index += 1;
+      row.push(field.trim());
+      if (row.some(Boolean)) rows.push(row);
+      row = [];
+      field = "";
+    } else {
+      field += character;
+    }
   }
-};
-const WEEKLY_MEALS = {
-  0: {
-    type: "Egg+Chicken", training: "Training 6-8 am: Shoulders/Arms/Core + meal prep", calories: 1920, protein: 156, water: "3 L+",
-    meals: [
-      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
-      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
-      ["Breakfast", "9:00", "3 boiled eggs + 1 cup veg dalia upma", 395, 25],
-      ["Lunch", "13:00", "150 g chicken curry (low oil) + 2 roti + salad", 560, 52],
-      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:00", "3-egg veg omelette (1 tsp oil) + 1 cup dal + 1 roti", 535, 34],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  1: {
-    type: "Egg+Chicken", training: "Training 6-8 am: Push", calories: 1895, protein: 159, water: "3 L+",
-    meals: [
-      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
-      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
-      ["Breakfast", "9:00", "3-egg veg omelette (1 tsp oil) + 3/4 cup veg poha", 420, 22],
-      ["Lunch", "13:00", "150 g grilled chicken breast + 2 roti + sabzi + salad", 580, 52],
-      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:00", "100 g chicken curry (curd-marinated, low oil) + 2 roti + sabzi", 465, 40],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  2: {
-    type: "Veg", training: "Training 6-8 am: Pull", calories: 1905, protein: 133, water: "3 L+",
-    meals: [
-      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
-      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
-      ["Breakfast", "9:00", "100 g paneer bhurji + 1 roti", 400, 21],
-      ["Lunch", "13:00", "2 roti + 1 cup dal + 40 g (dry) soya chunk sabzi + salad + 100 g curd", 580, 43],
-      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:00", "100 g paneer sabzi + 2 roti + salad", 495, 24],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  3: {
-    type: "Egg+Chicken", training: "Rest day (office): 8-10k steps", calories: 1900, protein: 158, water: "3 L+",
-    meals: [
-      ["Breakfast", "7:30", "2 boiled eggs + 50 g oats cooked in water/skim milk + 1 fruit", 410, 19],
-      ["Lunch (tiffin)", "13:00", "150 g chicken breast + 1 cup brown rice + sabzi + salad", 595, 54],
-      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
-      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:30", "100 g chicken stir-fry (1 tsp oil) + 2 roti + sabzi", 465, 40],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  4: {
-    type: "Veg", training: "Rest day (office): 8-10k steps", calories: 1900, protein: 129, water: "3 L+",
-    meals: [
-      ["Breakfast", "7:30", "2 besan chilla (60 g besan, veg) stuffed with 40 g paneer + mint chutney + 1 fruit", 395, 20],
-      ["Lunch (tiffin)", "13:00", "2 roti + 1/2 cup rajma + 40 g (dry) soya chunk sabzi + salad + 100 g curd", 545, 39],
-      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
-      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:30", "120 g paneer bhurji + 1 roti + sabzi + salad", 530, 25],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  5: {
-    type: "Egg+Chicken", training: "Rest day (office): 8-10k steps", calories: 1860, protein: 149, water: "3 L+",
-    meals: [
-      ["Breakfast", "7:30", "2 besan chilla (60 g besan, veg) + 2 boiled eggs + 1 fruit", 430, 25],
-      ["Lunch (tiffin)", "13:00", "150 g chicken curry (low oil) + 2 roti + salad", 560, 52],
-      ["Whey snack (office)", "16:30", "1 scoop whey + 1 banana", 210, 25],
-      ["Evening snack (metro)", "18:15", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:30", "2-egg bhurji (1 tsp oil) + 1 cup dal + 1 roti", 440, 27],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
-  },
-  6: {
-    type: "Egg+Chicken", training: "Training 6-8 am: Legs", calories: 1880, protein: 160, water: "3 L+",
-    meals: [
-      ["Pre-workout", "5:30", "1 banana + black coffee (no sugar)", 90, 1],
-      ["Post-workout", "8:15", "1 scoop whey in water", 120, 24],
-      ["Breakfast", "9:00", "2-egg omelette (1 tsp oil) + 3 idli + 1/2 cup sambar", 390, 21],
-      ["Lunch", "13:00", "150 g chicken breast + 1 cup brown rice + sabzi + salad", 595, 54],
-      ["Evening snack", "17:00", "30 g roasted chana + 150 g hung curd", 220, 20],
-      ["Dinner", "20:00", "100 g chicken + 2 roti + sabzi", 465, 40],
-      ["Supplement", "", "Creatine 5 g (daily, any time, with water)", 0, 0]
-    ]
+  row.push(field.trim());
+  if (row.some(Boolean)) rows.push(row);
+  return rows;
+}
+
+function findCSVRow(rows, label, start = 0) {
+  return rows.findIndex((row, index) => index >= start && row[0] === label);
+}
+
+function sectionRows(rows, startLabel, nextLabel) {
+  const start = findCSVRow(rows, startLabel);
+  if (start < 0) throw new Error(`Missing section "${startLabel}" in program CSV data.`);
+  const end = nextLabel
+    ? rows.findIndex((row, index) => index > start && row[0].startsWith(nextLabel))
+    : rows.length;
+  if (nextLabel && end < 0) throw new Error(`Missing section "${nextLabel}" in program CSV data.`);
+  return rows.slice(start + 1, end).filter((row) => row.some(Boolean));
+}
+
+function parseProgramData(csv) {
+  const bodyRows = parseCSV(csv.body);
+  const dietRows = parseCSV(csv.diet);
+  const workoutRows = parseCSV(csv.workout);
+  const loadRows = parseCSV(csv.load);
+  const weeklyRows = parseCSV(csv.weekly);
+
+  const startNote = weeklyRows.find((row) => row[0].includes("Week 1 -> Date"))?.[0] || "";
+  const startMatch = startNote.match(/Date\s+(\d{1,2})-([A-Za-z]{3})-(\d{2})/);
+  const startDate = startMatch
+    ? new Date(Number(`20${startMatch[3]}`), new Date(`${startMatch[2]} 1, 2000`).getMonth(), Number(startMatch[1]))
+    : new Date(2026, 10, 17);
+  if (Number.isNaN(startDate.getTime())) throw new Error("The program start date in the weekly log is invalid.");
+
+  const workoutStages = [];
+  workoutRows.forEach((row, index) => {
+    const match = row[0].match(/^Stage (\d): (.+)$/);
+    if (!match) return;
+    const dayHeaderIndex = findCSVRow(workoutRows, "Day", index + 1);
+    if (dayHeaderIndex < 0) throw new Error(`Stage ${match[1]} is missing its workout day header.`);
+    const nextSectionIndex = workoutRows.findIndex((candidate, candidateIndex) =>
+      candidateIndex > index && (/^Stage \d: /.test(candidate[0]) || candidate[0] === "Rules")
+    );
+    const sessions = workoutRows.slice(dayHeaderIndex + 1, nextSectionIndex < 0 ? undefined : nextSectionIndex).filter((session) =>
+      ["Mon", "Tue", "Sat", "Sun"].includes(session[0]) || session[0] === "Wed-Fri"
+    );
+    workoutStages.push({
+      number: Number(match[1]),
+      title: match[2],
+      sessions: Object.fromEntries(sessions.map(([day, focus]) => [day, focus]))
+    });
+  });
+
+  const targetsHeader = findCSVRow(dietRows, "Day");
+  const mealHeader = findCSVRow(dietRows, "Time");
+  const adjustmentHeader = findCSVRow(dietRows, "Day type");
+  const supplementHeader = findCSVRow(dietRows, "Item");
+  const adjustmentRulesHeader = findCSVRow(dietRows, "Weekly avg weight change");
+  if ([targetsHeader, mealHeader, adjustmentHeader, supplementHeader, adjustmentRulesHeader].some((index) => index < 0)) {
+    throw new Error("The diet plan CSV is missing a required section.");
   }
-};
+  const weeklyAverageRow = dietRows.find((row) => row[0] === "Weekly average") || [];
+  const targets = dietRows.slice(targetsHeader + 1, mealHeader).filter((row) => /^[A-Z][a-z]{2}$/.test(row[0]));
+  const menuEnd = findCSVRow(dietRows, "Total", mealHeader);
+  const mealMenu = menuEnd < 0 ? [] : dietRows.slice(mealHeader + 1, menuEnd).filter((row) => row[0] && row[0] !== "Time");
+  const adjustments = dietRows.slice(adjustmentHeader + 1, supplementHeader).filter((row) => row[0] && row[0] !== "Day type");
+  const supplements = dietRows.slice(supplementHeader + 1, adjustmentRulesHeader).filter((row) => row[0] && row[0] !== "Item");
+  const adjustmentRules = dietRows.slice(adjustmentRulesHeader + 1).filter((row) => row[0] && row[0] !== "Weekly avg weight change");
+
+  const trackerHeader = findCSVRow(loadRows, "Day");
+  const tracker = loadRows.slice(trackerHeader + 1)
+    .filter((row) => row[0] && row[1])
+    .map((row, index) => ({
+      id: String(index),
+      day: row[0],
+      exercise: row[1],
+      targets: row.slice(2, 8),
+      actuals: row.slice(8, 14)
+    }));
+
+  const weeklyHeader = findCSVRow(weeklyRows, "Week");
+  const baselineRow = weeklyRows.find((row) => row[0] === "Start") || [];
+  return {
+    startDate,
+    body: {
+      inputs: sectionRows(bodyRows, "Inputs (measured Nov 2026)", "Derived metrics").slice(1),
+      derived: sectionRows(bodyRows, "Derived metrics", "Maintenance calories").slice(1),
+      maintenance: sectionRows(bodyRows, "Maintenance calories", "Areas to improve (priority order)"),
+      priorities: sectionRows(bodyRows, "Areas to improve (priority order)", null).filter((row) => row[0] && /^\d/.test(row[0]))
+    },
+    diet: {
+      targets,
+      weeklyAverage: weeklyAverageRow,
+      proteinPerKg: dietRows.find((row) => row[0] === "Protein g/kg")?.[3] || "",
+      fatPerKg: dietRows.find((row) => row[0] === "Fat g/kg")?.[3] || "",
+      weeklyDeficit: dietRows.find((row) => row[0] === "Weekly deficit vs maintenance (kcal)")?.[2] || "",
+      meals: mealMenu,
+      adjustments,
+      supplements,
+      adjustmentRules
+    },
+    workouts: {
+      structure: sectionRows(workoutRows, "Weekly structure", "Stage 1: Days 1-60 (foundation, technique, habit)").slice(1),
+      stages: workoutStages,
+      rules: sectionRows(workoutRows, "Rules", null).slice(1)
+    },
+    tracker,
+    weeklyLog: {
+      weeks: weeklyRows.slice(weeklyHeader + 1).filter((row) => /^\d+$/.test(row[0])).map((row) => Number(row[0])),
+      startWeight: baselineRow[2],
+      startWaist: baselineRow[3]
+    }
+  };
+}
+
+const PROGRAM = parseProgramData(window.PROGRAM_CSV);
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -175,17 +179,19 @@ const showStorageError = (message) => {
 function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return { goals: { ...DEFAULT_GOALS }, days: {}, planChecks: {} };
+    if (!saved) return { goals: { ...DEFAULT_GOALS }, days: {}, planChecks: {}, loadActuals: {}, weeklyLogs: {} };
     const parsed = JSON.parse(saved);
     return {
       goals: { ...DEFAULT_GOALS, ...(parsed.goals || {}) },
       days: parsed.days && typeof parsed.days === "object" ? parsed.days : {},
-      planChecks: parsed.planChecks && typeof parsed.planChecks === "object" ? parsed.planChecks : {}
+      planChecks: parsed.planChecks && typeof parsed.planChecks === "object" ? parsed.planChecks : {},
+      loadActuals: parsed.loadActuals && typeof parsed.loadActuals === "object" ? parsed.loadActuals : {},
+      weeklyLogs: parsed.weeklyLogs && typeof parsed.weeklyLogs === "object" ? parsed.weeklyLogs : {}
     };
   } catch (error) {
-    console.error("Could not read the Daywell journal.", error);
+    console.error("Could not read the Rewire journal.", error);
     showStorageError("Your saved journal could not be read. Check your browser storage settings before making changes.");
-    return { goals: { ...DEFAULT_GOALS }, days: {} };
+    return { goals: { ...DEFAULT_GOALS }, days: {}, planChecks: {}, loadActuals: {}, weeklyLogs: {} };
   }
 }
 
@@ -194,6 +200,9 @@ let selectedDate = new Date();
 selectedDate.setHours(0, 0, 0, 0);
 let activeView = "today";
 let activeEntryType = "food";
+let activeProgramTab = "overview";
+let activeLoadMonth = 0;
+let activeWorkoutStage = 0;
 
 function saveState() {
   try {
@@ -201,7 +210,7 @@ function saveState() {
     $("#storageNotice").hidden = true;
     return true;
   } catch (error) {
-    console.error("Could not save the Daywell journal.", error);
+    console.error("Could not save the Rewire journal.", error);
     showStorageError("Your changes couldn’t be saved. Check available browser storage and try again.");
     return false;
   }
@@ -222,7 +231,7 @@ function setTheme(theme, persist = false) {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
   } catch (error) {
-    console.error("Could not save the Daywell theme preference.", error);
+    console.error("Could not save the Rewire theme preference.", error);
     showStorageError("Your theme changed, but this browser couldn’t save that preference.");
   }
 }
@@ -231,7 +240,7 @@ function loadTheme() {
   try {
     return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
   } catch (error) {
-    console.error("Could not read the Daywell theme preference.", error);
+    console.error("Could not read the Rewire theme preference.", error);
     return "light";
   }
 }
@@ -302,21 +311,49 @@ function renderToday() {
 
 function plannedTasks(date, category) {
   const day = date.getDay();
+  const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][day];
   if (category === "movement") {
-    const plan = WEEKLY_WORKOUTS[day];
-    if (plan.rest) return [{ id: "recovery", label: plan.rest }];
+    const plan = workoutSession(date);
+    if (!plan) return [{ id: "recovery", label: "Rest-day steps" }];
     return [
-      { id: "warmup", label: "8 min warm-up" },
-      ...plan.exercises.map(([exercise], index) => ({ id: `exercise-${index}`, label: exercise })),
-      { id: "finisher", label: "Cardio finisher" },
-      { id: "cooldown", label: "5 min cool-down" }
+      ...plan.exercises.map((exercise, index) => ({ id: `exercise-${index}`, label: exercise })),
+      { id: "session-log", label: `${weekday} workout` }
     ];
   }
-  const plan = WEEKLY_MEALS[day];
-  return plan.meals.map(([name]) => ({
-    id: `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-    label: name
-  }));
+  const target = dietTarget(date);
+  if (!target || target[1] !== "Training, non-veg") return [{ id: "daily-guidance", label: "Daily nutrition guidance" }];
+  return PROGRAM.diet.meals.map((meal, index) => ({ id: `meal-${index}`, label: meal[1] }));
+}
+
+function workoutSession(date) {
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][date.getDay()];
+  if (["Wed", "Thu", "Fri"].includes(day)) return null;
+  const stage = PROGRAM.workouts.stages[getProgramStageIndex(date)];
+  const exercises = stage?.sessions[day];
+  if (!exercises) return null;
+  const focus = PROGRAM.workouts.structure.find((row) => row[0] === day)?.[1] || day;
+  return { day, focus, exercises: exercises.split(";").map((exercise) => exercise.trim()).filter(Boolean) };
+}
+
+function getProgramStageIndex(date) {
+  const start = PROGRAM.startDate;
+  const elapsedDays = Math.max(0, Math.floor((
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    - Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())
+  ) / 86400000));
+  return Math.min(2, Math.floor(elapsedDays / 60));
+}
+
+function dietTarget(date) {
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][date.getDay()];
+  return PROGRAM.diet.targets.find((target) => target[0] === day);
+}
+
+function nutritionAdjustment(target) {
+  if (target[1] === "Rest, non-veg") return PROGRAM.diet.adjustments[0];
+  if (target[1] === "Training, veg") return PROGRAM.diet.adjustments[1];
+  if (target[1] === "Rest, veg") return PROGRAM.diet.adjustments[2];
+  return null;
 }
 
 function isPlanComplete(key, category, id) {
@@ -336,56 +373,60 @@ function renderPlanCompletionSummary(date, category) {
 }
 
 function renderPlannedWorkout(date) {
-  const plan = WEEKLY_WORKOUTS[date.getDay()];
   const key = dateKey(date);
-  const weekday = formatDate(date, { weekday: "long" });
-  $("#plannedWorkoutSubtitle").textContent = `${weekday} · ${plan.focus}`;
-  if (plan.rest) {
-    $("#plannedWorkoutBadge").textContent = "RECOVERY DAY";
-    $("#plannedWorkoutContent").innerHTML = `<div class="rest-day-copy">${planCheckbox(key, "movement", "recovery", "Mark today’s recovery activity complete")}<span class="rest-day-sparkle" aria-hidden="true">✳</span><p>${escapeHTML(plan.rest)}</p></div>`;
+  const session = workoutSession(date);
+  const stage = PROGRAM.workouts.stages[getProgramStageIndex(date)];
+  $("#plannedWorkoutSubtitle").textContent = session
+    ? `${formatDate(date, { weekday: "long" })} · ${session.focus}`
+    : `${formatDate(date, { weekday: "long" })} · Rest and recovery`;
+  if (!session) {
+    $("#plannedWorkoutBadge").textContent = "RECOVERY";
+    $("#plannedWorkoutContent").innerHTML = `<div class="rest-day-copy">${planCheckbox(key, "movement", "recovery", "Mark today’s recovery activity complete")}<span class="rest-day-sparkle" aria-hidden="true">✳</span><p>Rest day · target 8–10k steps. Your next workout starts with ${escapeHTML(stage?.title || "the current stage")}.</p></div>`;
     renderPlanCompletionSummary(date, "movement");
     return;
   }
-  $("#plannedWorkoutBadge").textContent = "60 MIN · GYM DAY";
+  $("#plannedWorkoutBadge").textContent = `STAGE ${stage.number}`;
   $("#plannedWorkoutContent").innerHTML = `
-    <div class="plan-session-note"><strong>Session flow</strong><label class="plan-flow-item">${planCheckbox(key, "movement", "warmup", "Mark warm-up complete")}<span>8 min warm-up</span></label><span>35–38 min strength</span><label class="plan-flow-item">${planCheckbox(key, "movement", "cooldown", "Mark cool-down complete")}<span>5 min cool-down</span></label></div>
-    <div class="plan-table-wrap"><table class="plan-table">
-      <thead><tr><th scope="col">Done</th><th scope="col">Exercise</th><th scope="col">Sets</th><th scope="col">Reps</th><th scope="col">Rest</th><th scope="col">Form notes</th></tr></thead>
-      <tbody>${plan.exercises.map(([exercise, sets, reps, rest, notes], index) => {
-        const id = `exercise-${index}`;
-        const checked = isPlanComplete(key, "movement", id);
-        return `<tr class="${checked ? "is-complete" : ""}"><td>${planCheckbox(key, "movement", id, `Mark ${exercise} complete`)}</td><th scope="row">${escapeHTML(exercise)}</th><td>${escapeHTML(sets)}</td><td>${escapeHTML(reps)}</td><td>${escapeHTML(rest)}</td><td>${notes ? escapeHTML(notes) : "—"}</td></tr>`;
-      }).join("")}</tbody>
-    </table></div>
-    <div class="plan-finisher">${planCheckbox(key, "movement", "finisher", "Mark cardio finisher complete")}<span class="finisher-icon" aria-hidden="true">↗</span><div><strong>Cardio finisher</strong><span>${escapeHTML(plan.finisher)}</span></div></div>`;
+    <div class="plan-session-note"><strong>${escapeHTML(stage.title)}</strong><span>60–75 min · 6–8 am slot · follow the progression in Program</span></div>
+    <div class="program-exercise-list">${session.exercises.map((exercise, index) => `
+      <label class="program-exercise">${planCheckbox(key, "movement", `exercise-${index}`, `Mark ${exercise} complete`)}<span>${escapeHTML(exercise)}</span></label>
+    `).join("")}</div>`;
   renderPlanCompletionSummary(date, "movement");
 }
 
 function renderPlannedNutrition(date) {
-  const plan = WEEKLY_MEALS[date.getDay()];
+  const target = dietTarget(date);
+  if (!target) throw new Error("No daily nutrition target matches the selected date.");
   const key = dateKey(date);
   const weekday = formatDate(date, { weekday: "long" });
-  $("#plannedNutritionSubtitle").textContent = `${weekday} · ${plan.type} · ${plan.training}`;
-  $("#plannedNutritionBadge").textContent = `${numberFormat(plan.calories)} KCAL`;
-  $("#plannedNutritionContent").innerHTML = `
-    <div class="nutrition-menu-grid">
-      ${plan.meals.map(([name, time, description, calories, protein]) => {
-        const id = `meal-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  const adjustment = nutritionAdjustment(target);
+  const calories = Number(target[2].replace(/,/g, ""));
+  const protein = Number(target[3]);
+  const carbs = Number(target[4]);
+  const fat = Number(target[5]);
+  $("#plannedNutritionSubtitle").textContent = `${weekday} · ${target[1]}`;
+  $("#plannedNutritionBadge").textContent = `${numberFormat(calories)} KCAL`;
+  const content = target[1] === "Training, non-veg"
+    ? `<div class="nutrition-menu-grid">
+      ${PROGRAM.diet.meals.map((meal, index) => {
+        const [time, name, mealCalories, mealProtein, mealCarbs, mealFat] = meal;
+        const id = `meal-${index}`;
         const checked = isPlanComplete(key, "nutrition", id);
         return `<article class="nutrition-meal ${checked ? "is-complete" : ""}">
-        <div class="nutrition-meal-heading">${planCheckbox(key, "nutrition", id, `Mark ${name} complete`)}<h3>${escapeHTML(name)}</h3>${time ? `<span>${escapeHTML(time)}</span>` : ""}</div>
-        <p>${escapeHTML(description)}</p>
-        <p>${numberFormat(calories)} kcal · ${numberFormat(protein)} g protein</p>
-      </article>`;
+          <div class="nutrition-meal-heading">${planCheckbox(key, "nutrition", id, `Mark ${name} complete`)}<h3>${escapeHTML(name)}</h3><span>${escapeHTML(time)}</span></div>
+          <p>${escapeHTML(mealCalories)} kcal · ${escapeHTML(mealProtein)} g protein · ${escapeHTML(mealCarbs)} g carbs · ${escapeHTML(mealFat)} g fat</p>
+        </article>`;
       }).join("")}
-    </div>
+    </div><p class="nutrition-disclaimer">Base non-veg training-day menu. Portions and calorie values are estimates; weigh food as described in the plan.</p>`
+    : `<div class="nutrition-adjustment">${planCheckbox(key, "nutrition", "daily-guidance", "Mark daily nutrition guidance reviewed")}<div><strong>${escapeHTML(adjustment?.[0] || target[1])}</strong><p>${escapeHTML(adjustment?.[1] || "Follow the daily targets and meal plan.")}</p><small>${escapeHTML(adjustment?.[2] || "")}</small></div></div>`;
+  $("#plannedNutritionContent").innerHTML = `
+    ${content}
     <div class="nutrition-guidance">
-      <strong>Day total</strong>
+      <strong>Daily target</strong>
       <div class="nutrition-guidance-chips">
-        <span>${numberFormat(plan.calories)} kcal</span><span>Protein ${numberFormat(plan.protein)} g</span><span>Water ${escapeHTML(plan.water)}</span>
+        <span>${numberFormat(calories)} kcal</span><span>Protein ${numberFormat(protein)} g</span><span>Carbs ${numberFormat(carbs)} g</span><span>Fat ${numberFormat(fat)} g</span>
       </div>
-    </div>
-    <p class="nutrition-disclaimer">Calorie and portion values are estimates, not a medical prescription. Individual needs vary; consider reviewing the plan with a doctor or dietitian.</p>`;
+    </div>`;
   renderPlanCompletionSummary(date, "nutrition");
 }
 
@@ -459,6 +500,7 @@ function setView(name) {
   });
   $$(".nav-item[data-nav]").forEach((button) => button.classList.toggle("is-active", button.dataset.nav === name));
   if (name === "today") renderToday();
+  if (name === "program") renderProgram();
   if (name === "history") renderHistory();
   if (name === "insights") renderInsights();
   if (name === "settings") renderSettings();
@@ -662,6 +704,230 @@ function renderSettings() {
   form.elements.water.value = state.goals.water;
 }
 
+function renderProgram() {
+  const stage = PROGRAM.workouts.stages[activeWorkoutStage] || PROGRAM.workouts.stages[0];
+  if (!stage) throw new Error("No workout stages were found in the program data.");
+  $$(".program-tab").forEach((tab) => {
+    const active = tab.dataset.programTab === activeProgramTab;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-selected", String(active));
+  });
+  const renderers = {
+    overview: renderProgramOverview,
+    workouts: renderProgramWorkouts,
+    nutrition: renderProgramNutrition,
+    tracker: renderProgramTracker,
+    body: renderProgramBody,
+    log: renderProgramLog
+  };
+  const renderer = renderers[activeProgramTab];
+  if (!renderer) throw new Error(`Unknown program section: ${activeProgramTab}`);
+  $("#programContent").innerHTML = renderer(stage);
+}
+
+function renderProgramOverview(stage) {
+  const target = dietTarget(selectedDate);
+  const workout = workoutSession(selectedDate);
+  const baseline = `${PROGRAM.weeklyLog.startWeight} kg · ${PROGRAM.weeklyLog.startWaist} in waist`;
+  return `
+    <div class="program-overview-grid">
+      <article class="program-stat-card"><span>Current phase</span><strong>Stage ${stage.number}</strong><small>${escapeHTML(stage.title)}</small></article>
+      <article class="program-stat-card"><span>Today’s session</span><strong>${escapeHTML(workout?.focus || "Rest & recovery")}</strong><small>${workout ? `${workout.exercises.length} planned movements` : "8–10k steps on rest days"}</small></article>
+      <article class="program-stat-card"><span>Daily nutrition target</span><strong>${numberFormat(Number(target?.[2].replace(/,/g, "")))} kcal</strong><small>${escapeHTML(target?.[1] || "Daily plan")} · ${escapeHTML(target?.[3] || "—")} g protein</small></article>
+      <article class="program-stat-card"><span>Starting check-in</span><strong>${escapeHTML(baseline)}</strong><small>Compare weekly measurements in the log.</small></article>
+    </div>
+    <section class="panel program-callout">
+      <p class="eyebrow">HOW TO USE THE PLAN</p>
+      <h2>Build consistency before chasing intensity.</h2>
+      <p>Four training days each week: push, pull, legs, and arms. The sessions progress through three 60-day stages, with deloads in weeks 8, 16, and 24. Log completed work on Today, record actual lifting loads in the tracker, and add weekly check-ins below.</p>
+      <div class="program-quick-links">
+        <button type="button" data-program-tab="workouts">Explore workouts</button>
+        <button type="button" data-program-tab="nutrition">View nutrition targets</button>
+        <button type="button" data-program-tab="log">Update weekly log</button>
+      </div>
+    </section>
+    <p class="program-source-note">The targets and plan details shown here are taken from the supplied six-month CSV plan. Nutrition and calorie estimates are not medical advice.</p>`;
+}
+
+function renderProgramWorkouts() {
+  const stage = PROGRAM.workouts.stages[activeWorkoutStage] || PROGRAM.workouts.stages[0];
+  const sessionOrder = ["Mon", "Tue", "Sat", "Sun"];
+  const dayNames = { Mon: "Monday", Tue: "Tuesday", Sat: "Saturday", Sun: "Sunday" };
+  const dayFocus = { Mon: "Push", Tue: "Pull", Sat: "Legs", Sun: "Arms, rear delts, core & calves" };
+  return `
+    <section class="panel program-section-panel">
+      <div class="program-section-heading"><div><p class="eyebrow">PROGRESSIVE TRAINING</p><h2>Workout stages</h2><p>Select a phase to view its sessions and coaching notes.</p></div></div>
+      <div class="stage-selector" role="group" aria-label="Workout stage">
+        ${PROGRAM.workouts.stages.map((item, index) => `<button type="button" class="stage-button ${index === activeWorkoutStage ? "is-active" : ""}" data-stage-index="${index}">Stage ${item.number}<small>${escapeHTML(item.title.split("(")[0].trim())}</small></button>`).join("")}
+      </div>
+      <div class="stage-note">${escapeHTML(stage.title)}</div>
+      <div class="workout-stage-grid">
+        ${sessionOrder.map((day) => {
+          const exercises = stage.sessions[day] || "";
+          return `<article class="workout-stage-card"><div class="workout-stage-card-heading"><span>${dayNames[day]}</span><strong>${escapeHTML(dayFocus[day])}</strong></div><ul>${exercises.split(";").filter(Boolean).map((exercise) => `<li>${escapeHTML(exercise.trim())}</li>`).join("")}</ul></article>`;
+        }).join("")}
+        <article class="workout-stage-card"><div class="workout-stage-card-heading"><span>Wednesday–Friday</span><strong>Rest & recovery</strong></div><ul><li>${escapeHTML(PROGRAM.workouts.structure.find((row) => row[0] === "Wed-Fri")?.[1] || "Rest and recovery")}</li></ul></article>
+      </div>
+      <div class="program-rules"><h3>Training guidance</h3><ul>${PROGRAM.workouts.rules.map(([item, detail]) => `<li><strong>${escapeHTML(item)}</strong>${escapeHTML(detail)}</li>`).join("")}</ul></div>
+    </section>`;
+}
+
+function renderProgramNutrition() {
+  const dailyTargets = PROGRAM.diet.targets.map((row) => `<tr><th scope="row">${escapeHTML(row[0])}</th><td>${escapeHTML(row[1])}</td><td>${escapeHTML(row[2])}</td><td>${escapeHTML(row[3])} g</td><td>${escapeHTML(row[4])} g</td><td>${escapeHTML(row[5])} g</td><td>${escapeHTML(row[6])}</td></tr>`).join("");
+  const [weeklyAverageDay, , averageCalories, averageProtein, averageCarbs, averageFat, averageCheck] = PROGRAM.diet.weeklyAverage;
+  return `
+    <section class="panel program-section-panel">
+      <div class="program-section-heading"><div><p class="eyebrow">DAILY TARGETS</p><h2>Calories & macros</h2><p>Training and rest-day targets from the diet plan.</p></div></div>
+      <div class="program-table-wrap"><table class="program-table">
+        <thead><tr><th scope="col">Day</th><th scope="col">Plan type</th><th scope="col">Target kcal</th><th scope="col">Protein</th><th scope="col">Carbs</th><th scope="col">Fat</th><th scope="col">Kcal check</th></tr></thead>
+        <tbody>${dailyTargets}<tr class="program-average-row"><th scope="row">${escapeHTML(weeklyAverageDay)}</th><td>Weekly average</td><td>${escapeHTML(averageCalories)}</td><td>${escapeHTML(averageProtein)} g</td><td>${escapeHTML(averageCarbs)} g</td><td>${escapeHTML(averageFat)} g</td><td>${escapeHTML(averageCheck)}</td></tr></tbody>
+      </table></div>
+      <div class="nutrition-summary-grid">
+        <article><span>Protein per kg</span><strong>${escapeHTML(PROGRAM.diet.proteinPerKg)} g</strong></article>
+        <article><span>Fat per kg</span><strong>${escapeHTML(PROGRAM.diet.fatPerKg)} g</strong></article>
+        <article><span>Weekly deficit</span><strong>${escapeHTML(PROGRAM.diet.weeklyDeficit)} kcal</strong></article>
+      </div>
+      <div class="nutrition-menu-grid nutrition-reference-menu">
+        ${PROGRAM.diet.meals.map(([time, meal, calories, protein, carbs, fat]) => `<article class="nutrition-meal"><div class="nutrition-meal-heading"><h3>${escapeHTML(meal)}</h3><span>${escapeHTML(time)}</span></div><p>${escapeHTML(calories)} kcal · ${escapeHTML(protein)} g protein · ${escapeHTML(carbs)} g carbs · ${escapeHTML(fat)} g fat</p></article>`).join("")}
+      </div>
+      <p class="nutrition-disclaimer">Base non-veg training-day menu. The meal sum is approximately 1,775 kcal; the 1,800 kcal target allows for cooking oil and rounding.</p>
+    </section>
+    <section class="panel program-section-panel"><div class="program-section-heading"><div><p class="eyebrow">DAY-TYPE ADJUSTMENTS</p><h2>How to adapt the menu</h2></div></div><div class="program-adjustment-list">
+      ${PROGRAM.diet.adjustments.map(([dayType, changes, result]) => `<article><strong>${escapeHTML(dayType)}</strong><p>${escapeHTML(changes)}</p><span>${escapeHTML(result)}</span></article>`).join("")}
+    </div></section>
+    <section class="program-detail-grid">
+      <article class="panel program-section-panel"><h2>Daily rules & supplements</h2><ul class="program-simple-list">${PROGRAM.diet.supplements.map(([item, target]) => `<li><strong>${escapeHTML(item)}</strong><span>${escapeHTML(target)}</span></li>`).join("")}</ul></article>
+      <article class="panel program-section-panel"><h2>Adjust every two weeks</h2><ul class="program-simple-list">${PROGRAM.diet.adjustmentRules.map(([change, action]) => `<li><strong>${escapeHTML(change)}</strong><span>${escapeHTML(action)}</span></li>`).join("")}</ul></article>
+    </section>`;
+}
+
+function renderProgramTracker() {
+  const dayOrder = ["Mon", "Tue", "Sat", "Sun"];
+  const rows = PROGRAM.tracker.filter((exercise) => dayOrder.includes(exercise.day));
+  const grouped = dayOrder.map((day) => {
+    const exercises = rows.filter((exercise) => exercise.day === day);
+    if (!exercises.length) return "";
+    return `<section class="tracker-day-group"><h3>${({ Mon: "Monday · Push", Tue: "Tuesday · Pull", Sat: "Saturday · Legs", Sun: "Sunday · Arms & core" })[day]}</h3>
+      <div class="tracker-exercise-list">${exercises.map((exercise) => {
+        const target = exercise.targets[activeLoadMonth];
+        const savedActual = state.loadActuals[`${exercise.id}:${activeLoadMonth}`] ?? exercise.actuals[activeLoadMonth];
+        return `<article class="tracker-exercise-card">
+          <div class="tracker-exercise-title"><span>${escapeHTML(exercise.day)}</span><strong>${escapeHTML(exercise.exercise)}</strong></div>
+          <div class="tracker-target"><span>Target · M${activeLoadMonth + 1}</span><strong>${escapeHTML(target || "—")}${target && target !== "–" && target !== "BW" ? " kg" : ""}</strong></div>
+          <label class="tracker-actual"><span>Actual ${target === "BW" ? "(reps / time)" : "(kg)"}</span><input type="text" inputmode="decimal" data-load-exercise="${exercise.id}" data-load-month="${activeLoadMonth}" aria-label="Actual for ${escapeHTML(exercise.exercise)} in month ${activeLoadMonth + 1}" placeholder="${target === "–" ? "Not in this phase" : target === "BW" ? "e.g. 12 reps" : "Enter actual"}" value="${escapeHTML(savedActual || "")}" ${target === "–" ? "disabled" : ""}></label>
+        </article>`;
+      }).join("")}</div></section>`;
+  }).join("");
+  return `
+    <section class="panel program-section-panel">
+      <div class="program-section-heading"><div><p class="eyebrow">PROGRESSIVE OVERLOAD</p><h2>Six-month load tracker</h2><p>Targets are planned loads in kilograms; dumbbell targets are per hand.</p></div></div>
+      <div class="month-selector" role="group" aria-label="Training month">${Array.from({ length: 6 }, (_, index) => `<button type="button" class="month-button ${index === activeLoadMonth ? "is-active" : ""}" data-load-month-select="${index}">M${index + 1}</button>`).join("")}</div>
+      <p class="tracker-stage-note">Stage ${Math.floor(activeLoadMonth / 2) + 1} · ${activeLoadMonth < 2 ? "Foundation" : activeLoadMonth < 4 ? "Hypertrophy" : "Intensity & definition"}</p>
+      <p class="tracker-guidance">Add 2.5 kg after hitting the top of the rep range on all sets; reduce by 2.5 kg after missing the rep floor twice. Deload weeks 8, 16, and 24 use the same weight with 40% fewer sets. Dumbbells are per hand; barbell/EZ-bar targets include the bar. Pull-up negatives are assistance and positive values are added load.</p>
+      ${rows.length ? `<div class="tracker-groups">${grouped}</div>` : `<p class="program-empty">No load-tracker exercises are available.</p>`}
+    </section>`;
+}
+
+function renderProgramBody() {
+  const body = PROGRAM.body;
+  const currentMeasurements = body.inputs.filter((row) => row[0] && row[1]);
+  const derivedMetrics = body.derived.filter((row) => row[0] && row[1]);
+  const maintenance = body.maintenance.filter((row) => row[0] && row[1]);
+  return `
+    <section class="panel program-section-panel"><div class="program-section-heading"><div><p class="eyebrow">BASELINE · NOVEMBER 2026</p><h2>Starting measurements</h2><p>Re-measure monthly at the same time and under the same conditions.</p></div></div>
+      <div class="measurement-grid">${currentMeasurements.map(([metric, value, unit]) => `<article><span>${escapeHTML(metric)}</span><strong>${escapeHTML(value)} <small>${escapeHTML(unit)}</small></strong></article>`).join("")}</div>
+    </section>
+    <section class="panel program-section-panel"><div class="program-section-heading"><div><p class="eyebrow">CALCULATED ESTIMATES</p><h2>Body metrics</h2></div></div>
+      <div class="program-table-wrap"><table class="program-table"><thead><tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Reading</th></tr></thead><tbody>${derivedMetrics.map(([metric, value, reading]) => `<tr><th scope="row">${escapeHTML(metric)}</th><td>${escapeHTML(value)}</td><td>${escapeHTML(reading || "—")}</td></tr>`).join("")}</tbody></table></div>
+      <p class="program-caution">Body-fat estimates have a stated ±3–4% error. BMI is a weak guide for lifters; these calculations are directional, not a diagnosis.</p>
+    </section>
+    <section class="panel program-section-panel"><div class="program-section-heading"><div><p class="eyebrow">ENERGY ESTIMATE</p><h2>Maintenance calories</h2></div></div>
+      <div class="program-table-wrap"><table class="program-table"><thead><tr>${maintenance[0].map((cell) => `<th scope="col">${escapeHTML(cell)}</th>`).join("")}</tr></thead><tbody>${maintenance.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${escapeHTML(cell || "—")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+    </section>
+    <section class="panel program-section-panel"><div class="program-section-heading"><div><p class="eyebrow">SIX-MONTH FOCUS</p><h2>Areas to improve</h2><p>Consistency is the priority before chasing individual measurements.</p></div></div>
+      <div class="program-table-wrap"><table class="program-table"><thead><tr><th scope="col">Priority</th><th scope="col">Current</th><th scope="col">6-month target</th><th scope="col">Ideal</th><th scope="col">Gap</th></tr></thead><tbody>${body.priorities.map(([priority, current, target, ideal, gap]) => `<tr><th scope="row">${escapeHTML(priority)}</th><td>${escapeHTML(current)}</td><td>${escapeHTML(target)}</td><td>${escapeHTML(ideal)}</td><td>${escapeHTML(gap)}</td></tr>`).join("")}</tbody></table></div>
+      <p class="program-caution">The plan notes a realistic waist target of 34–35 in, revised from the earlier 32–33 in target. Attendance outranks every other priority.</p>
+    </section>`;
+}
+
+function weeklyProgressFor(week) {
+  const entry = state.weeklyLogs[week] || {};
+  const currentWeight = Number(entry.weight);
+  if (!Number.isFinite(currentWeight) || !entry.weight) return { change: "—", verdict: "Log a weight to calculate progress." };
+
+  let previousWeek = 0;
+  let previousWeight = Number(PROGRAM.weeklyLog.startWeight);
+  for (let candidate = week - 1; candidate > 0; candidate -= 1) {
+    const savedWeight = state.weeklyLogs[candidate]?.weight;
+    if (savedWeight && Number.isFinite(Number(savedWeight))) {
+      previousWeek = candidate;
+      previousWeight = Number(savedWeight);
+      break;
+    }
+  }
+  const difference = currentWeight - previousWeight;
+  const weeksBetween = week - previousWeek;
+  const weeklyLoss = -difference / weeksBetween;
+  const change = `${difference > 0 ? "+" : ""}${difference.toFixed(1)} kg`;
+  let verdict;
+  if (weeklyLoss > 0.7) {
+    verdict = "Loss is over 0.7 kg/week. Add 150 kcal; you may be losing muscle.";
+  } else if (weeklyLoss >= 0.2 && weeklyLoss <= 0.5) {
+    verdict = "On track. No change.";
+  } else if (weeklyLoss > 0.5) {
+    verdict = "Above the preferred pace. Monitor recovery and lifts.";
+  } else {
+    const priorWeek = week - 1;
+    const twoWeeksAgo = week - 2;
+    const priorWeight = Number(state.weeklyLogs[priorWeek]?.weight);
+    const earlierWeight = Number(state.weeklyLogs[twoWeeksAgo]?.weight);
+    const twoWeeksUnderTarget = priorWeek > 0 && twoWeeksAgo > 0
+      && Number.isFinite(priorWeight) && Number.isFinite(earlierWeight)
+      && earlierWeight - priorWeight < 0.2 && priorWeight - currentWeight < 0.2;
+    verdict = twoWeeksUnderTarget
+      ? "Loss has been under 0.2 kg/week for 2 weeks. Cut 100 kcal from carbs."
+      : "Keep tracking; adjust only after 2 consecutive weeks below 0.2 kg.";
+  }
+  return { change, verdict };
+}
+
+function renderProgramLog() {
+  const loggedWeights = Object.entries(state.weeklyLogs)
+    .filter(([, entry]) => entry.weight && Number.isFinite(Number(entry.weight)))
+    .sort(([weekA], [weekB]) => Number(weekB) - Number(weekA));
+  const latest = loggedWeights[0];
+  const latestWeight = latest ? Number(latest[1].weight) : Number(PROGRAM.weeklyLog.startWeight);
+  const totalChange = latest ? `${latestWeight - Number(PROGRAM.weeklyLog.startWeight) > 0 ? "+" : ""}${(latestWeight - Number(PROGRAM.weeklyLog.startWeight)).toFixed(1)} kg` : "No new check-in";
+  const weekCards = PROGRAM.weeklyLog.weeks.map((week) => {
+    const entry = state.weeklyLogs[week] || {};
+    const progress = weeklyProgressFor(week);
+    const title = entry.weight ? `${entry.weight} kg` : "No check-in yet";
+    const note = entry.date ? ` · ${entry.date}` : "";
+    const fields = [
+      ["date", "Date", "date"],
+      ["weight", "Weight", "number", "0.1", "0", "500"],
+      ["waist", "Waist", "number", "0.1", "0", "200"],
+      ["gym", "Gym sessions (of 4)", "number", "1", "0", "4"],
+      ["calories", "Average kcal", "number", "1", "0", "20000"],
+      ["protein", "Average protein (g)", "number", "1", "0", "1000"],
+      ["notes", "Notes", "text"]
+    ];
+    return `<details class="weekly-log-card">
+      <summary><span>Week ${week}</span><strong>${escapeHTML(title)}${escapeHTML(note)}</strong></summary>
+      <div class="weekly-log-fields">${fields.map(([name, label, type, step, min, max]) => `<label>${label}<input type="${type}" ${step ? `step="${step}"` : ""} ${min ? `min="${min}"` : ""} ${max ? `max="${max}"` : ""} data-week="${week}" data-week-field="${name}" aria-label="Week ${week} ${label}" value="${escapeHTML(entry[name] || "")}"></label>`).join("")}</div>
+      <div class="weekly-log-result"><div><span>Weight change</span><strong data-week-change="${week}">${escapeHTML(progress.change)}</strong></div><div><span>Verdict</span><strong data-week-verdict="${week}">${escapeHTML(progress.verdict)}</strong></div></div>
+    </details>`;
+  }).join("");
+  return `
+    <section class="panel program-section-panel">
+      <div class="program-section-heading"><div><p class="eyebrow">26-WEEK CHECK-IN</p><h2>Weekly progress log</h2><p>Weigh in on the same day each week, in the morning, after using the bathroom.</p></div></div>
+      <div class="log-baseline"><span>Starting point</span><strong>${escapeHTML(PROGRAM.weeklyLog.startWeight)} kg · ${escapeHTML(PROGRAM.weeklyLog.startWaist)} in waist</strong></div>
+      <div class="log-baseline"><span>Latest check-in · Week ${latest?.[0] || "—"}</span><strong>${latest ? `${escapeHTML(latestWeight.toFixed(1))} kg · ${escapeHTML(totalChange)} from start` : escapeHTML(totalChange)}</strong></div>
+      <p class="tracker-guidance">Aim for 0.2–0.5 kg loss per week. Use the nutrition adjustment rules if progress is too slow, too fast, or your lifts are dropping.</p>
+      <div class="weekly-log-list">${weekCards}</div>
+    </section>`;
+}
+
 function field(name, label, type = "text", options = {}) {
   const required = options.required !== false;
   const full = options.full ? " field-full" : "";
@@ -797,7 +1063,7 @@ function exportData() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `daywell-journal-${dateKey(new Date())}.json`;
+  anchor.download = `rewire-progress-${dateKey(new Date())}.json`;
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
@@ -844,6 +1110,82 @@ document.addEventListener("change", (event) => {
   }
   if (activeView === "insights") renderPlanCompletionChart();
 });
+document.addEventListener("click", (event) => {
+  const tab = event.target.closest("[data-program-tab]");
+  if (tab) {
+    activeProgramTab = tab.dataset.programTab;
+    renderProgram();
+    return;
+  }
+  const stageButton = event.target.closest("[data-stage-index]");
+  if (stageButton) {
+    activeWorkoutStage = Number(stageButton.dataset.stageIndex);
+    renderProgram();
+    return;
+  }
+  const monthButton = event.target.closest("[data-load-month-select]");
+  if (monthButton) {
+    activeLoadMonth = Number(monthButton.dataset.loadMonthSelect);
+    renderProgram();
+  }
+});
+document.addEventListener("change", (event) => {
+  const actualInput = event.target.closest("[data-load-exercise]");
+  if (actualInput) {
+    const key = `${actualInput.dataset.loadExercise}:${actualInput.dataset.loadMonth}`;
+    const previous = state.loadActuals[key];
+    const value = actualInput.value.trim();
+    if (value) state.loadActuals[key] = value;
+    else delete state.loadActuals[key];
+    if (!saveState()) {
+      if (previous === undefined) delete state.loadActuals[key];
+      else state.loadActuals[key] = previous;
+      actualInput.value = previous || "";
+    }
+    return;
+  }
+
+  const weekInput = event.target.closest("[data-week-field]");
+  if (!weekInput) return;
+  const week = weekInput.dataset.week;
+  const fieldName = weekInput.dataset.weekField;
+  const previous = state.weeklyLogs[week]?.[fieldName];
+  if (!weekInput.checkValidity()) {
+    weekInput.reportValidity();
+    weekInput.value = previous || "";
+    return;
+  }
+  if (!state.weeklyLogs[week]) state.weeklyLogs[week] = {};
+  const value = weekInput.value.trim();
+  if (value) state.weeklyLogs[week][fieldName] = value;
+  else delete state.weeklyLogs[week][fieldName];
+  if (!Object.keys(state.weeklyLogs[week]).length) delete state.weeklyLogs[week];
+  if (!saveState()) {
+    if (!state.weeklyLogs[week]) state.weeklyLogs[week] = {};
+    if (previous === undefined) delete state.weeklyLogs[week][fieldName];
+    else state.weeklyLogs[week][fieldName] = previous;
+    if (!Object.keys(state.weeklyLogs[week]).length) delete state.weeklyLogs[week];
+    weekInput.value = previous || "";
+  }
+  const entry = state.weeklyLogs[week] || {};
+  const summary = weekInput.closest(".weekly-log-card").querySelector("summary strong");
+  summary.textContent = `${entry.weight ? `${entry.weight} kg` : "No check-in yet"}${entry.date ? ` · ${entry.date}` : ""}`;
+  const progress = weeklyProgressFor(Number(week));
+  weekInput.closest(".weekly-log-card").querySelector(`[data-week-change="${week}"]`).textContent = progress.change;
+  weekInput.closest(".weekly-log-card").querySelector(`[data-week-verdict="${week}"]`).textContent = progress.verdict;
+  const loggedWeights = Object.entries(state.weeklyLogs)
+    .filter(([, savedEntry]) => savedEntry.weight && Number.isFinite(Number(savedEntry.weight)))
+    .sort(([weekA], [weekB]) => Number(weekB) - Number(weekA));
+  const latest = loggedWeights[0];
+  const latestWeight = latest ? Number(latest[1].weight) : Number(PROGRAM.weeklyLog.startWeight);
+  const totalChange = latest ? `${latestWeight - Number(PROGRAM.weeklyLog.startWeight) > 0 ? "+" : ""}${(latestWeight - Number(PROGRAM.weeklyLog.startWeight)).toFixed(1)} kg` : "No new check-in";
+  const latestSummary = $("#programContent .log-baseline + .log-baseline strong");
+  if (latestSummary) latestSummary.textContent = latest
+    ? `${latestWeight.toFixed(1)} kg · ${totalChange} from start`
+    : totalChange;
+  const latestLabel = $("#programContent .log-baseline + .log-baseline span");
+  if (latestLabel) latestLabel.textContent = `Latest check-in · Week ${latest?.[0] || "—"}`;
+});
 $("#entryDialog").addEventListener("click", (event) => {
   if (event.target === $("#entryDialog")) $("#entryDialog").close();
 });
@@ -883,14 +1225,20 @@ $("#themeToggle").addEventListener("click", () => {
   setTheme(nextTheme, true);
 });
 $("#clearButton").addEventListener("click", () => {
-  if (!window.confirm("Clear all journal entries and planned-item check-ins from this device? Your daily goals will stay saved.")) return;
+  if (!window.confirm("Clear all journal entries, planned-item check-ins, training loads, and weekly progress from this device? Your daily goals will stay saved.")) return;
   const previousDays = state.days;
   const previousPlanChecks = state.planChecks;
+  const previousLoadActuals = state.loadActuals;
+  const previousWeeklyLogs = state.weeklyLogs;
   state.days = {};
   state.planChecks = {};
+  state.loadActuals = {};
+  state.weeklyLogs = {};
   if (!saveState()) {
     state.days = previousDays;
     state.planChecks = previousPlanChecks;
+    state.loadActuals = previousLoadActuals;
+    state.weeklyLogs = previousWeeklyLogs;
     return;
   }
   renderToday();
