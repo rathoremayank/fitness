@@ -903,3 +903,673 @@ html[data-theme="dark"] .page-footer { color: #bba8aa; }
   .plan-completion-summary { font-size: 12px; }
   .completion-caption { font-size: 11px; line-height: 1.5; }
 }
+
+/* Editorial wellness refresh */
+:root {
+  color-scheme: light;
+  --ink: #22372d;
+  --muted: #64746a;
+  --soft-muted: #879188;
+  --green: #496b51;
+  --green-dark: #34543d;
+  --green-pale: #e8ede3;
+  --paper: #f5f3eb;
+  --white: #fffefa;
+  --line: #e7e5dc;
+  --shadow: 0 14px 38px rgba(39, 54, 43, .055);
+  font-family: "DM Sans", sans-serif;
+}
+
+body { background: var(--paper); color: var(--ink); }
+.sidebar { width: 252px; padding: 34px 22px 24px; background: #eeeee4; border-color: #e2e2d7; }
+.brand { margin: 0 0 58px 5px; font-size: 25px; letter-spacing: -1.4px; }
+.brand-mark { width: 38px; height: 38px; border-radius: 50%; background: #dce5d8; color: #42644a; }
+.brand-period { color: #71875f; }
+.nav-label, .eyebrow { color: #788273; letter-spacing: 1.6px; }
+.nav-label { margin-left: 12px; }
+.nav-list { gap: 7px; }
+.nav-item { min-height: 46px; gap: 14px; border-radius: 10px; padding: 0 13px; color: #667166; font-size: 13px; }
+.nav-item:hover { background: #e6e8de; color: #293d30; }
+.nav-item.is-active { background: #dce5d8; color: #34543d; }
+.sidebar-note { border-color: #e0e1d7; border-radius: 13px; background: #f7f6ef; }
+.sidebar-note p { color: #405143; }
+.sidebar-note p span, .privacy-note, .topbar-caption { color: #788273; }
+.note-sparkle { color: #8d9a74; }
+.privacy-dot, .live-dot { background: #597a5d; }
+
+.main-content { max-width: 1600px; margin-left: 252px; padding: 0 58px 38px; }
+.topbar { height: 78px; border-color: #e4e2d8; }
+.topbar-caption { font-size: 9px; letter-spacing: 1.35px; }
+.button { min-height: 44px; border-radius: 8px; }
+.button-primary { background: #3f6248; box-shadow: 0 5px 13px rgba(50, 79, 57, .15); }
+.button-primary:hover { background: #304f39; }
+.button-secondary { border-color: #dedfd4; background: #fffefa; color: #405143; }
+.button-danger { border-color: #eadbd2; background: #fff9f3; color: #9a5d42; }
+
+.view { padding-top: 45px; }
+.page-heading { min-height: 98px; margin-bottom: 27px; }
+.page-heading h1 { margin: 11px 0 7px; font: 400 43px/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -.7px; }
+.page-heading h1 span { color: #617c5d; font-style: italic; }
+.page-subtitle { color: #758075; font-size: 13px; line-height: 1.65; }
+.date-picker, .insight-range { height: 43px; border-color: #e0dfd5; border-radius: 8px; background: #fffefa; }
+.date-label { color: #45554a; }
+.icon-button:hover { background: #e8ede3; color: #34543d; }
+
+.daily-banner { min-height: 224px; margin-bottom: 35px; border: 0; border-radius: 5px 24px 5px 24px; padding: 34px 42px; background: #344f3c; }
+.banner-copy { max-width: 450px; }
+.banner-kicker { color: #c3cfb9; font-size: 10px; letter-spacing: 1.55px; }
+.banner-copy h2 { margin: 13px 0 9px; color: #fffdf5; font: 400 34px/1.12 "Instrument Serif", Georgia, serif; letter-spacing: -.3px; }
+.banner-copy h2 span { color: #d4dfba; font-style: italic; }
+.banner-copy p { max-width: 360px; color: #d0d7c9; font-size: 12px; line-height: 1.7; }
+.art-sun { top: 31px; right: 105px; width: 166px; height: 166px; background: #758563; }
+.art-orbit { border-color: rgba(230, 233, 206, .23); }
+.art-stem { background: #dae0bd; }
+.art-leaf { border-color: #d5ddbc; background: #9ca987; }
+.leaf-two { background: #bac39a; }
+.art-star { color: #e6d9a8; }
+
+.section-heading { margin: 0 0 17px; }
+.section-heading h2 { margin-top: 7px; font: 400 25px/1.2 "Instrument Serif", Georgia, serif; letter-spacing: -.15px; }
+.section-caption { color: #778174; font-size: 11px; }
+.snapshot-grid { gap: 14px; margin-bottom: 34px; }
+.snapshot-card, .panel, .insight-card { border: 1px solid #e7e5dc; border-radius: 15px; background: #fffefa; box-shadow: var(--shadow); }
+.snapshot-card { min-height: 158px; padding: 19px 20px; }
+.card-topline { gap: 9px; }
+.metric-icon { width: 35px; height: 35px; border-radius: 10px; }
+.card-label { color: #536157; font-size: 12px; }
+.metric-value { margin: 16px 0 12px; }
+.metric-value strong { color: #263d30; font: 500 31px/1 "DM Sans", sans-serif; letter-spacing: -1.2px; }
+.metric-value > span { color: #758075; }
+.progress-track { height: 5px; background: #efeee7; }
+.calorie-fill { background: #b68b54; }
+.protein-fill { background: #718e68; }
+.water-fill { background: #6f9c9b; }
+.mint-icon, .vitals-panel-icon { background: #e7ede2; color: #4c6e51; }
+.peach-icon, .food-panel-icon { background: #f4ebdf; color: #a4784d; }
+.blue-icon { background: #e5eeeb; color: #547e7c; }
+.lilac-icon { background: #ece9df; color: #777557; }
+.movement-panel-icon { background: #e7ece3; color: #536f52; }
+.card-foot, .card-foot strong { color: #718075; }
+.movement-note { color: #778174; }
+
+.content-grid { gap: 16px; margin-bottom: 16px; }
+.panel { padding: 24px; }
+.planned-panel { margin-bottom: 22px; padding: 23px 24px 20px; }
+.planned-nutrition-panel { margin-top: -7px; }
+.panel-heading { gap: 16px; }
+.panel-icon { width: 42px; height: 42px; border-radius: 12px; }
+.panel-title { gap: 13px; }
+.panel-title h2 { color: #33463a; font: 600 15px "DM Sans", sans-serif; letter-spacing: -.2px; }
+.panel-title p { margin-top: 4px; color: #818a7e; font-size: 11px; }
+.plan-badge { border-radius: 4px; padding: 7px 10px; background: #e8ede3; color: #526a4e; font-size: 9px; letter-spacing: .65px; }
+.plan-session-note span { border-color: #e7e5dc; border-radius: 5px; background: #f8f7f1; }
+.plan-table th, .plan-table td { border-color: #eeece4; }
+.plan-finisher, .rest-day-copy, .nutrition-guidance { border-radius: 10px; background: #f0f1e8; }
+.finisher-icon { border-radius: 7px; background: #e0e7d8; color: #526a4e; }
+.nutrition-meal { border-color: #eae8df; border-radius: 10px; background: #fbfaf5; }
+.nutrition-meal-heading h3 { font-family: "DM Sans", sans-serif; }
+.nutrition-guidance-chips span { border-color: #e2e5d9; background: #fbfaf5; }
+.text-button, .history-open { color: #486b50; }
+.text-button:hover, .history-open:hover { color: #304f39; }
+.meal-list, .vitals-list, .workout-list { margin-top: 21px; }
+.food-entry, .vital-row, .workout-entry, .history-day, .data-actions { border-color: #eeece4; }
+.food-emoji, .vital-symbol, .workout-emoji { border-radius: 10px; background: #f1f0e7; color: #576b53; }
+.entry-name, .history-date, .vital-value { color: #34483a; }
+.entry-detail, .workout-meta, .panel-title p, .vital-info small { color: #788376; }
+.empty-state { border-color: #e6e5db; border-radius: 12px; color: #6d786c; }
+.history-chip { border-radius: 5px; background: #e9eee4; color: #526a4e; }
+.plan-completion-summary, .weight-trend-summary { color: #687869; }
+.chart-bar-track { background: #eeeee6; }
+.chart-bar { background: #aeb99a; }
+.chart-day.is-selected .chart-bar { background: #4f7254; }
+.chart-day, .chart-day.is-selected, .chart-date { color: #6f7a6d; }
+.insight-card-value { color: #2b4133; }
+.insight-card-label, .insight-card-value, .insight-card-sub { display: block; }
+.insight-card-value { margin: 11px 0 5px; }
+.weight-trend-summary { background: #e8ede3; color: #526a4e; }
+.weight-trend-summary:empty { display: none; }
+.weight-grid-line line { stroke: #e6e9df; }
+.weight-grid-line text, .weight-axis-date { fill: #6f7a6d; }
+.weight-trend-line { stroke: #67845e; }
+.weight-point { fill: #f5f3eb; stroke: #67845e; }
+.weight-trend-empty { color: #6d786c; }
+.weight-trend-empty > span { color: #69825e; }
+.weight-trend-empty strong { color: #34483a; }
+.weight-trend-empty p { color: #788376; }
+.settings-grid { gap: 18px; }
+.goals-form input, .field-control { border-color: #dedfd4; border-radius: 8px; background: #fffefa; color: #34483a; }
+.goals-form input:focus, .field-control:focus { border-color: #718a65; box-shadow: 0 0 0 3px rgba(82, 112, 78, .13); }
+.appearance-row, .data-actions, .dialog-actions { border-color: #e7e5dc; }
+.entry-dialog { border-color: #e5e3d9; border-radius: 18px; background: #fffefa; box-shadow: 0 24px 80px rgba(31, 43, 34, .2); }
+.entry-dialog::backdrop { background: rgba(28, 41, 32, .42); backdrop-filter: blur(4px); }
+.dialog-heading h2 { font: 400 29px "Instrument Serif", Georgia, serif; }
+.entry-tabs { background: #f0f0e8; }
+.entry-tab { color: #69756a; }
+.entry-tab.is-active { background: #fffefa; color: #3c6346; }
+.theme-toggle { border-color: #d8dbce; background: #efefe7; color: #526257; }
+.theme-toggle[aria-checked="true"] { border-color: #496b51; background: #496b51; }
+.page-footer { border-color: #e4e2d8; color: #81897d; }
+
+:focus-visible { outline: 3px solid rgba(77, 111, 80, .38); outline-offset: 3px; }
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #edf0e7;
+  --muted: #b4beb0;
+  --soft-muted: #9ca99b;
+  --green: #a9bd91;
+  --green-dark: #c3d2ae;
+  --green-pale: #344337;
+  --paper: #171e19;
+  --white: #222a23;
+  --line: #343e34;
+  --shadow: 0 14px 38px rgba(0, 0, 0, .18);
+}
+html[data-theme="dark"] body { background: #171e19; color: #edf0e7; }
+html[data-theme="dark"] .sidebar { background: #1d261f; border-color: #343e34; }
+html[data-theme="dark"] .topbar, html[data-theme="dark"] .page-footer { border-color: #343e34; }
+html[data-theme="dark"] .brand, html[data-theme="dark"] .mobile-brand { color: #edf0e7; }
+html[data-theme="dark"] .brand-mark { background: #344337; color: #c3d2ae; }
+html[data-theme="dark"] .brand-period { color: #a9bd91; }
+html[data-theme="dark"] .nav-label, html[data-theme="dark"] .eyebrow { color: #aab6a5; }
+html[data-theme="dark"] .nav-item { color: #c0c9bb; }
+html[data-theme="dark"] .nav-item:hover, html[data-theme="dark"] .icon-button:hover { background: #2a362c; color: #e2ebd5; }
+html[data-theme="dark"] .nav-item.is-active { background: #344337; color: #d4e0c3; }
+html[data-theme="dark"] .sidebar-note { border-color: #3a463a; background: #252e26; }
+html[data-theme="dark"] .sidebar-note p, html[data-theme="dark"] .sidebar-note p span { color: #d1d9cb; }
+html[data-theme="dark"] .privacy-note, html[data-theme="dark"] .topbar-caption { color: #aab6a5; }
+html[data-theme="dark"] .privacy-dot, html[data-theme="dark"] .live-dot { background: #a9bd91; }
+html[data-theme="dark"] .button-primary, html[data-theme="dark"] .theme-toggle[aria-checked="true"] { background: #607d5b; color: #fff; }
+html[data-theme="dark"] .button-secondary { border-color: #465146; background: #252e26; color: #d1d9cb; }
+html[data-theme="dark"] .button-danger { border-color: #59463b; background: #302923; color: #ecc3a6; }
+html[data-theme="dark"] .page-heading h1, html[data-theme="dark"] .section-heading h2 { color: #f0f1e9; }
+html[data-theme="dark"] .page-heading h1 span { color: #bdcda7; }
+html[data-theme="dark"] .page-subtitle, html[data-theme="dark"] .section-caption { color: #aab6a5; }
+html[data-theme="dark"] .date-picker, html[data-theme="dark"] .insight-range { border-color: #3a463a; background: #242d26; }
+html[data-theme="dark"] .date-label, html[data-theme="dark"] .icon-button { color: #d1d9cb; }
+html[data-theme="dark"] .daily-banner { background: #293d2e; }
+html[data-theme="dark"] .banner-kicker, html[data-theme="dark"] .banner-copy p { color: #c4cfb9; }
+html[data-theme="dark"] .banner-copy h2 { color: #f5f2e8; }
+html[data-theme="dark"] .banner-copy h2 span { color: #c9d6ad; }
+html[data-theme="dark"] .art-sun { background: #41553c; }
+html[data-theme="dark"] .art-orbit { border-color: rgba(218, 228, 193, .2); }
+html[data-theme="dark"] .art-stem { background: #ccd7b2; }
+html[data-theme="dark"] .art-leaf { border-color: #ccd7b2; background: #718263; }
+html[data-theme="dark"] .leaf-two { background: #899873; }
+html[data-theme="dark"] .art-star { color: #d9c99c; }
+html[data-theme="dark"] .snapshot-card, html[data-theme="dark"] .panel, html[data-theme="dark"] .insight-card { border-color: #343e34; background: #222a23; }
+html[data-theme="dark"] .card-label, html[data-theme="dark"] .panel-title h2, html[data-theme="dark"] .entry-name, html[data-theme="dark"] .history-date, html[data-theme="dark"] .vital-value, html[data-theme="dark"] .data-actions strong { color: #e2e8dc; }
+html[data-theme="dark"] .metric-value strong, html[data-theme="dark"] .insight-card-value { color: #f0f1e9; }
+html[data-theme="dark"] .metric-value > span, html[data-theme="dark"] .card-foot, html[data-theme="dark"] .card-foot strong, html[data-theme="dark"] .panel-title p, html[data-theme="dark"] .movement-note, html[data-theme="dark"] .entry-detail, html[data-theme="dark"] .workout-meta { color: #b0bcae; }
+html[data-theme="dark"] .progress-track, html[data-theme="dark"] .chart-bar-track { background: #343e34; }
+html[data-theme="dark"] .calorie-fill { background: #c49a63; }
+html[data-theme="dark"] .protein-fill, html[data-theme="dark"] .chart-day.is-selected .chart-bar { background: #9bb188; }
+html[data-theme="dark"] .water-fill { background: #78a7a1; }
+html[data-theme="dark"] .peach-icon, html[data-theme="dark"] .food-panel-icon { background: #40372b; color: #d7ad79; }
+html[data-theme="dark"] .lilac-icon { background: #37382d; color: #d0ca9a; }
+html[data-theme="dark"] .blue-icon { background: #293a37; color: #99c4bc; }
+html[data-theme="dark"] .mint-icon, html[data-theme="dark"] .vitals-panel-icon, html[data-theme="dark"] .movement-panel-icon { background: #303d31; color: #b1c69c; }
+html[data-theme="dark"] .text-button, html[data-theme="dark"] .history-open { color: #c3d2ae; }
+html[data-theme="dark"] .text-button:hover, html[data-theme="dark"] .history-open:hover { color: #e0e9ce; }
+html[data-theme="dark"] .food-entry, html[data-theme="dark"] .vital-row, html[data-theme="dark"] .workout-entry, html[data-theme="dark"] .history-day, html[data-theme="dark"] .data-actions, html[data-theme="dark"] .appearance-row, html[data-theme="dark"] .dialog-actions { border-color: #343e34; }
+html[data-theme="dark"] .food-emoji, html[data-theme="dark"] .vital-symbol, html[data-theme="dark"] .workout-emoji { background: #303b31; color: #bfd0ad; }
+html[data-theme="dark"] .empty-state { border-color: #465146; color: #c1cbbd; }
+html[data-theme="dark"] .empty-state strong, html[data-theme="dark"] .plan-session-note strong, html[data-theme="dark"] .plan-finisher strong, html[data-theme="dark"] .nutrition-guidance > strong { color: #e1e8da; }
+html[data-theme="dark"] .empty-state span, html[data-theme="dark"] .vital-empty, html[data-theme="dark"] .vital-info, html[data-theme="dark"] .vital-info small, html[data-theme="dark"] .plan-session-note, html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .plan-table th, html[data-theme="dark"] .plan-table td, html[data-theme="dark"] .nutrition-meal p { color: #bdc8b9; }
+html[data-theme="dark"] .plan-badge, html[data-theme="dark"] .history-chip { background: #344337; color: #d2dfc1; }
+html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .nutrition-meal, html[data-theme="dark"] .nutrition-guidance-chips span { border-color: #3c483b; background: #252e26; }
+html[data-theme="dark"] .plan-finisher, html[data-theme="dark"] .rest-day-copy, html[data-theme="dark"] .nutrition-guidance { background: #2c362d; }
+html[data-theme="dark"] .chart-day, html[data-theme="dark"] .chart-day.is-selected, html[data-theme="dark"] .chart-date { color: #bdc8b9; }
+html[data-theme="dark"] .weight-trend-summary { background: #344337; color: #d2dfc1; }
+html[data-theme="dark"] .weight-grid-line line { stroke: #3c483b; }
+html[data-theme="dark"] .weight-grid-line text, html[data-theme="dark"] .weight-axis-date, html[data-theme="dark"] .weight-chart-caption { fill: #bdc8b9; color: #bdc8b9; }
+html[data-theme="dark"] .weight-trend-line { stroke: #a9bd91; }
+html[data-theme="dark"] .weight-point { fill: #222a23; stroke: #c3d2ae; }
+html[data-theme="dark"] .weight-trend-empty { color: #bdc8b9; }
+html[data-theme="dark"] .weight-trend-empty > span { color: #c3d2ae; }
+html[data-theme="dark"] .weight-trend-empty strong { color: #e2e8dc; }
+html[data-theme="dark"] .weight-trend-empty p { color: #bdc8b9; }
+html[data-theme="dark"] .goals-form label, html[data-theme="dark"] .field-label, html[data-theme="dark"] .appearance-row strong { color: #e2e8dc; }
+html[data-theme="dark"] .goals-form label span, html[data-theme="dark"] .data-actions p, html[data-theme="dark"] .local-data-copy, html[data-theme="dark"] .appearance-row p { color: #aab6a5; }
+html[data-theme="dark"] .goals-form input, html[data-theme="dark"] .field-control { border-color: #465146; background: #1c241e; color: #e2e8dc; }
+html[data-theme="dark"] .entry-dialog { border-color: #3a463a; background: #222a23; color: #edf0e7; }
+html[data-theme="dark"] .entry-tabs { background: #303a31; }
+html[data-theme="dark"] .entry-tab { color: #bdc8b9; }
+html[data-theme="dark"] .entry-tab.is-active { background: #3a4939; color: #d4e0c3; }
+html[data-theme="dark"] .theme-toggle { border-color: #465146; background: #303a31; color: #c5d0c0; }
+html[data-theme="dark"] .page-footer { color: #aab6a5; }
+
+@media (min-width: 1440px) {
+  .main-content { padding-right: 76px; padding-left: 76px; }
+}
+@media (max-width: 1120px) {
+  .sidebar { width: 220px; }
+  .main-content { margin-left: 220px; padding-right: 34px; padding-left: 34px; }
+}
+@media (max-width: 850px) {
+  .sidebar { width: 72px; padding-right: 10px; padding-left: 10px; }
+  .main-content { margin-left: 72px; padding-right: 24px; padding-left: 24px; }
+}
+@media (max-width: 650px) {
+  .sidebar { background: rgba(238, 238, 228, .97); border-color: #e2e2d7; }
+  .nav-item.is-active { background: #dce5d8; color: #34543d; }
+  .main-content { margin: 0; padding-right: 17px; padding-left: 17px; }
+  .topbar { height: 68px; }
+  .view { padding-top: 30px; }
+  .page-heading { margin-bottom: 20px; }
+  .page-heading h1 { font-size: 36px; }
+  .page-subtitle { font-size: 12px; }
+  .daily-banner { min-height: 195px; margin-bottom: 27px; padding: 24px; }
+  .banner-copy { max-width: 76%; }
+  .banner-copy h2 { font-size: 28px; }
+  .banner-copy p { font-size: 11px; }
+  .art-sun { top: 46px; right: 4px; width: 110px; height: 110px; }
+  .art-orbit { right: -44px; }
+  .orbit-two { right: -70px; }
+  .art-stem { right: 61px; }
+  .leaf-one { right: 75px; }
+  .leaf-two { right: 21px; }
+  .star-one { right: 15px; }
+  .star-two { right: 116px; }
+  .snapshot-grid { gap: 10px; margin-bottom: 25px; }
+  .snapshot-card { min-height: 137px; padding: 14px; }
+  .metric-value strong { font-size: 27px; }
+  .panel, .planned-panel { border-radius: 13px; padding: 17px; }
+  .plan-table { min-width: 600px; }
+  .planned-nutrition-panel { margin-top: -5px; }
+  .nutrition-menu-grid { grid-template-columns: 1fr; }
+  .nutrition-meal p { font-size: 13px; }
+  .simple-heading { min-height: 93px; }
+  .insight-cards, .settings-grid { grid-template-columns: 1fr; }
+  .sidebar { height: 68px; }
+  html[data-theme="dark"] .sidebar { background: rgba(29, 38, 31, .97); border-color: #343e34; }
+}
+@media (max-width: 390px) {
+  .main-content { padding-right: 12px; padding-left: 12px; }
+  .page-heading h1 { font-size: 33px; }
+  .daily-banner { padding: 20px; }
+  .banner-copy { max-width: 79%; }
+  .banner-copy h2 { font-size: 25px; }
+  .card-foot { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Blue palette with a true-black dark theme. */
+:root {
+  --ink: #203449;
+  --muted: #62758a;
+  --soft-muted: #8292a3;
+  --green: #376b9c;
+  --green-dark: #28547e;
+  --green-pale: #e2edf7;
+  --paper: #f2f6fb;
+  --white: #ffffff;
+  --line: #dce5ef;
+  --shadow: 0 14px 38px rgba(37, 67, 99, .07);
+}
+body { background: #f2f6fb; color: #203449; }
+.sidebar { background: #e8eff7; border-color: #d9e3ee; }
+.brand-mark { background: #d8e6f4; color: #315f8e; }
+.brand-period, .art-star { color: #5783b0; }
+.nav-label, .eyebrow { color: #657b93; }
+.nav-item { color: #5c7188; }
+.nav-item:hover { background: #dce8f4; color: #203a55; }
+.nav-item.is-active { background: #d7e5f3; color: #28547e; }
+.sidebar-note { border-color: #d8e2ed; background: #f6f9fc; }
+.sidebar-note p { color: #334e69; }
+.sidebar-note p span, .privacy-note, .topbar-caption { color: #6b8095; }
+.privacy-dot, .live-dot { background: #4778a8; }
+.topbar, .page-footer { border-color: #dce5ef; }
+.button-primary { background: #315f8e; box-shadow: 0 5px 13px rgba(42, 87, 133, .18); }
+.button-primary:hover { background: #254c75; }
+.button-secondary { border-color: #d7e1eb; background: #fff; color: #334e69; }
+.date-picker, .insight-range { border-color: #d7e1eb; background: #fff; }
+.date-label { color: #334e69; }
+.icon-button:hover { background: #e2edf7; color: #28547e; }
+.page-heading h1 span, .banner-copy h2 span { color: #4979a9; }
+.daily-banner { background: #254a70; }
+.banner-kicker { color: #b9cde0; }
+.banner-copy h2 { color: #f7faff; }
+.banner-copy h2 span { color: #c6d9eb; }
+.banner-copy p { color: #d1deeb; }
+.art-sun { background: #52779b; }
+.art-orbit { border-color: rgba(215, 231, 246, .28); }
+.art-stem { background: #d4e4f3; }
+.art-leaf { border-color: #d1e1f1; background: #8eacc9; }
+.leaf-two { background: #b3c9df; }
+.section-caption, .page-subtitle { color: #718398; }
+.snapshot-card, .panel, .insight-card { border-color: #dfe7ef; background: #fff; }
+.card-label, .panel-title h2 { color: #3a526a; }
+.metric-value strong, .insight-card-value { color: #203a55; }
+.metric-value > span, .card-foot, .card-foot strong, .movement-note { color: #6a7f94; }
+.progress-track, .chart-bar-track { background: #e9eff5; }
+.calorie-fill { background: #4a78a6; }
+.protein-fill { background: #548da1; }
+.water-fill { background: #4c9ab4; }
+.peach-icon, .food-panel-icon { background: #e6eff8; color: #386e9f; }
+.lilac-icon { background: #e8eaf5; color: #656fa1; }
+.blue-icon { background: #e0eff5; color: #347d98; }
+.mint-icon, .vitals-panel-icon, .movement-panel-icon { background: #e2edf7; color: #376b9c; }
+.panel-title p, .entry-detail, .workout-meta, .vital-info small { color: #72859a; }
+.text-button, .history-open { color: #316997; }
+.text-button:hover, .history-open:hover { color: #234f78; }
+.plan-badge, .history-chip, .weight-trend-summary { background: #e2edf7; color: #315f8e; }
+.plan-session-note span, .nutrition-meal, .nutrition-guidance-chips span { border-color: #e1e8f0; background: #f7f9fc; }
+.plan-finisher, .rest-day-copy, .nutrition-guidance { background: #eaf1f7; }
+.finisher-icon { background: #dce9f5; color: #315f8e; }
+.plan-session-note strong, .plan-finisher strong, .nutrition-guidance > strong { color: #334e69; }
+.nutrition-meal-heading h3 { color: #334e69; }
+.nutrition-meal p, .plan-session-note, .plan-session-note span, .plan-table th, .plan-table td { color: #637990; }
+.nutrition-guidance-chips span { color: #405e7a; }
+.food-entry, .vital-row, .workout-entry, .history-day, .data-actions, .appearance-row { border-color: #e4eaf1; }
+.food-emoji, .vital-symbol, .workout-emoji { background: #eaf1f7; color: #376b9c; }
+.entry-name, .history-date, .vital-value { color: #334e69; }
+.empty-state { border-color: #d9e4ee; color: #62778d; }
+.empty-state strong { color: #334e69; }
+.empty-state span, .vital-empty, .vital-info { color: #71859a; }
+.chart-bar { background: #9db8d3; }
+.chart-day.is-selected .chart-bar { background: #3d72a5; }
+.chart-day, .chart-day.is-selected, .chart-date { color: #697f94; }
+.weight-trend-summary { background: #e2edf7; color: #315f8e; }
+.weight-grid-line line { stroke: #dce5ef; }
+.weight-grid-line text, .weight-axis-date { fill: #637990; }
+.weight-trend-line { stroke: #3d72a5; }
+.weight-point { fill: #f2f6fb; stroke: #3d72a5; }
+.weight-trend-empty { color: #62778d; }
+.weight-trend-empty > span { color: #376b9c; }
+.weight-trend-empty strong { color: #334e69; }
+.weight-trend-empty p { color: #71859a; }
+.goals-form label, .field-label, .data-actions strong, .appearance-row strong { color: #334e69; }
+.goals-form label span, .data-actions p, .local-data-copy, .appearance-row p { color: #71859a; }
+.goals-form input, .field-control { border-color: #d7e1eb; background: #fff; color: #334e69; }
+.goals-form input:focus, .field-control:focus { border-color: #5c8ab6; box-shadow: 0 0 0 3px rgba(55, 107, 156, .14); }
+.form-feedback { color: #316997; }
+.entry-dialog { border-color: #dce5ef; background: #fff; }
+.entry-dialog::backdrop { background: rgba(19, 39, 61, .44); }
+.entry-tabs { background: #eaf0f6; }
+.entry-tab { color: #62778d; }
+.entry-tab.is-active { color: #28547e; }
+.theme-toggle { border-color: #d7e1eb; background: #eaf0f6; color: #526981; }
+.theme-toggle[aria-checked="true"] { border-color: #315f8e; background: #315f8e; }
+:focus-visible { outline-color: rgba(49, 95, 142, .46); }
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #edf3fa;
+  --muted: #b5c3d2;
+  --soft-muted: #91a1b2;
+  --green: #80b5e8;
+  --green-dark: #a4cff5;
+  --green-pale: #182b3d;
+  --paper: #050608;
+  --white: #101216;
+  --line: #272c34;
+  --shadow: 0 14px 38px rgba(0, 0, 0, .35);
+}
+html[data-theme="dark"] body { background: #050608; color: #edf3fa; }
+html[data-theme="dark"] .sidebar { background: #090b0f; border-color: #232831; }
+html[data-theme="dark"] .topbar, html[data-theme="dark"] .page-footer { border-color: #252a33; }
+html[data-theme="dark"] .brand, html[data-theme="dark"] .mobile-brand { color: #edf3fa; }
+html[data-theme="dark"] .brand-mark { background: #142337; color: #91c2f0; }
+html[data-theme="dark"] .brand-period { color: #80b5e8; }
+html[data-theme="dark"] .nav-label, html[data-theme="dark"] .eyebrow { color: #93a6ba; }
+html[data-theme="dark"] .nav-item { color: #b6c3d1; }
+html[data-theme="dark"] .nav-item:hover, html[data-theme="dark"] .icon-button:hover { background: #171d26; color: #e8f2fc; }
+html[data-theme="dark"] .nav-item.is-active { background: #16283a; color: #a9d2f5; }
+html[data-theme="dark"] .sidebar-note { border-color: #272d36; background: #111419; }
+html[data-theme="dark"] .sidebar-note p, html[data-theme="dark"] .sidebar-note p span { color: #ced9e4; }
+html[data-theme="dark"] .privacy-note, html[data-theme="dark"] .topbar-caption { color: #a1afbe; }
+html[data-theme="dark"] .privacy-dot, html[data-theme="dark"] .live-dot { background: #78ade0; }
+html[data-theme="dark"] .button-primary, html[data-theme="dark"] .theme-toggle[aria-checked="true"] { background: #315f8e; color: #fff; }
+html[data-theme="dark"] .button-primary:hover { background: #3b72a9; }
+html[data-theme="dark"] .button-secondary { border-color: #333a45; background: #111419; color: #d3deea; }
+html[data-theme="dark"] .button-danger { border-color: #554038; background: #211915; color: #e6bda8; }
+html[data-theme="dark"] .storage-notice { border-color: #514133; background: #201a13; color: #e3c9a2; }
+html[data-theme="dark"] .page-heading h1, html[data-theme="dark"] .section-heading h2 { color: #f1f5fa; }
+html[data-theme="dark"] .page-heading h1 span, html[data-theme="dark"] .banner-copy h2 span { color: #a8ccef; }
+html[data-theme="dark"] .page-subtitle, html[data-theme="dark"] .section-caption { color: #a5b3c2; }
+html[data-theme="dark"] .date-picker, html[data-theme="dark"] .insight-range { border-color: #2a303a; background: #101318; }
+html[data-theme="dark"] .date-label, html[data-theme="dark"] .icon-button { color: #d0dbe7; }
+html[data-theme="dark"] .daily-banner { background: #10233a; }
+html[data-theme="dark"] .banner-kicker, html[data-theme="dark"] .banner-copy p { color: #bdcfe1; }
+html[data-theme="dark"] .banner-copy h2 { color: #f5f8fc; }
+html[data-theme="dark"] .art-sun { background: #254565; }
+html[data-theme="dark"] .art-orbit { border-color: rgba(176, 211, 243, .22); }
+html[data-theme="dark"] .art-stem { background: #bdd8f0; }
+html[data-theme="dark"] .art-leaf { border-color: #bdd8f0; background: #5782aa; }
+html[data-theme="dark"] .leaf-two { background: #7799b9; }
+html[data-theme="dark"] .art-star { color: #d2e6f8; }
+html[data-theme="dark"] .snapshot-card, html[data-theme="dark"] .panel, html[data-theme="dark"] .insight-card { border-color: #252a33; background: #101216; box-shadow: 0 14px 38px rgba(0, 0, 0, .28); }
+html[data-theme="dark"] .card-label, html[data-theme="dark"] .panel-title h2, html[data-theme="dark"] .entry-name, html[data-theme="dark"] .history-date, html[data-theme="dark"] .vital-value, html[data-theme="dark"] .data-actions strong { color: #e2eaf2; }
+html[data-theme="dark"] .metric-value strong, html[data-theme="dark"] .insight-card-value { color: #f2f6fa; }
+html[data-theme="dark"] .metric-value > span, html[data-theme="dark"] .card-foot, html[data-theme="dark"] .card-foot strong, html[data-theme="dark"] .panel-title p, html[data-theme="dark"] .movement-note, html[data-theme="dark"] .entry-detail, html[data-theme="dark"] .workout-meta { color: #adbac8; }
+html[data-theme="dark"] .progress-track, html[data-theme="dark"] .chart-bar-track { background: #242a33; }
+html[data-theme="dark"] .calorie-fill { background: #6d9dce; }
+html[data-theme="dark"] .protein-fill, html[data-theme="dark"] .chart-day.is-selected .chart-bar { background: #70a9d9; }
+html[data-theme="dark"] .water-fill { background: #5eacc4; }
+html[data-theme="dark"] .peach-icon, html[data-theme="dark"] .food-panel-icon, html[data-theme="dark"] .lilac-icon, html[data-theme="dark"] .blue-icon, html[data-theme="dark"] .mint-icon, html[data-theme="dark"] .vitals-panel-icon, html[data-theme="dark"] .movement-panel-icon { background: #172436; color: #9cc9f1; }
+html[data-theme="dark"] .text-button, html[data-theme="dark"] .history-open { color: #91c2f0; }
+html[data-theme="dark"] .text-button:hover, html[data-theme="dark"] .history-open:hover { color: #c1e0fc; }
+html[data-theme="dark"] .food-entry, html[data-theme="dark"] .vital-row, html[data-theme="dark"] .workout-entry, html[data-theme="dark"] .history-day, html[data-theme="dark"] .data-actions, html[data-theme="dark"] .appearance-row, html[data-theme="dark"] .dialog-actions { border-color: #252a33; }
+html[data-theme="dark"] .food-emoji, html[data-theme="dark"] .vital-symbol, html[data-theme="dark"] .workout-emoji { background: #17202b; color: #9cc9f1; }
+html[data-theme="dark"] .empty-state { border-color: #333a45; color: #b5c2cf; }
+html[data-theme="dark"] .empty-state strong, html[data-theme="dark"] .plan-session-note strong, html[data-theme="dark"] .plan-finisher strong, html[data-theme="dark"] .nutrition-guidance > strong { color: #e2eaf2; }
+html[data-theme="dark"] .empty-state span, html[data-theme="dark"] .vital-empty, html[data-theme="dark"] .vital-info, html[data-theme="dark"] .vital-info small, html[data-theme="dark"] .plan-session-note, html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .plan-table th, html[data-theme="dark"] .plan-table td, html[data-theme="dark"] .nutrition-meal p { color: #bdc9d6; }
+html[data-theme="dark"] .plan-badge, html[data-theme="dark"] .history-chip, html[data-theme="dark"] .weight-trend-summary { background: #17283a; color: #b0d5f4; }
+html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .nutrition-meal, html[data-theme="dark"] .nutrition-guidance-chips span { border-color: #2b3440; background: #14181e; }
+html[data-theme="dark"] .plan-finisher, html[data-theme="dark"] .rest-day-copy, html[data-theme="dark"] .nutrition-guidance { background: #161d26; }
+html[data-theme="dark"] .nutrition-guidance-chips span { color: #c5d6e7; }
+html[data-theme="dark"] .chart-day, html[data-theme="dark"] .chart-day.is-selected, html[data-theme="dark"] .chart-date { color: #b5c2cf; }
+html[data-theme="dark"] .weight-grid-line line { stroke: #29313b; }
+html[data-theme="dark"] .weight-grid-line text, html[data-theme="dark"] .weight-axis-date, html[data-theme="dark"] .weight-chart-caption { fill: #b5c2cf; color: #b5c2cf; }
+html[data-theme="dark"] .weight-trend-line { stroke: #80b5e8; }
+html[data-theme="dark"] .weight-point { fill: #101216; stroke: #a4cff5; }
+html[data-theme="dark"] .weight-trend-empty { color: #bdc9d6; }
+html[data-theme="dark"] .weight-trend-empty > span { color: #a4cff5; }
+html[data-theme="dark"] .weight-trend-empty strong { color: #e2eaf2; }
+html[data-theme="dark"] .weight-trend-empty p { color: #bdc9d6; }
+html[data-theme="dark"] .goals-form label, html[data-theme="dark"] .field-label, html[data-theme="dark"] .appearance-row strong { color: #e2eaf2; }
+html[data-theme="dark"] .goals-form label span, html[data-theme="dark"] .data-actions p, html[data-theme="dark"] .local-data-copy, html[data-theme="dark"] .appearance-row p { color: #aab8c7; }
+html[data-theme="dark"] .goals-form input, html[data-theme="dark"] .field-control { border-color: #343c47; background: #090b0f; color: #e2eaf2; }
+html[data-theme="dark"] .entry-dialog { border-color: #2b323c; background: #101216; color: #edf3fa; }
+html[data-theme="dark"] .entry-tabs { background: #191e26; }
+html[data-theme="dark"] .entry-tab { color: #b5c2cf; }
+html[data-theme="dark"] .entry-tab.is-active { background: #202b38; color: #afd3f3; }
+html[data-theme="dark"] .theme-toggle { border-color: #343c47; background: #191e26; color: #c0ccda; }
+html[data-theme="dark"] .page-footer { color: #a1afbe; }
+html[data-theme="dark"] :focus-visible { outline-color: rgba(128, 181, 232, .62); }
+
+@media (max-width: 650px) {
+  .sidebar { background: rgba(232, 239, 247, .97); border-color: #d9e3ee; }
+  .nav-item.is-active { background: #d7e5f3; color: #28547e; }
+  html[data-theme="dark"] .sidebar { background: rgba(9, 11, 15, .97); border-color: #252a33; }
+}
+
+/* Red palette with a near-black dark theme. */
+:root {
+  --ink: #3a282b;
+  --muted: #765e62;
+  --soft-muted: #938185;
+  --green: #b42332;
+  --green-dark: #8f1d29;
+  --green-pale: #f8e6e7;
+  --paper: #fbf5f3;
+  --white: #fffdfc;
+  --line: #efdfdd;
+  --shadow: 0 14px 38px rgba(80, 38, 40, .065);
+}
+body { background: #fbf5f3; color: #3a282b; }
+.sidebar { background: #f5eae7; border-color: #ead9d7; }
+.brand-mark { background: #f3dddc; color: #a52c38; }
+.brand-period, .art-star { color: #c44d57; }
+.nav-label, .eyebrow { color: #846b6e; }
+.nav-item { color: #755e62; }
+.nav-item:hover { background: #f3e1df; color: #432d31; }
+.nav-item.is-active { background: #f1dedd; color: #8f1d29; }
+.sidebar-note { border-color: #eadcda; background: #fff9f6; }
+.sidebar-note p { color: #514044; }
+.sidebar-note p span, .privacy-note, .topbar-caption { color: #806b6d; }
+.privacy-dot, .live-dot { background: #b42332; }
+.topbar, .page-footer { border-color: #ebdcda; }
+.button-primary { background: #a92735; box-shadow: 0 5px 13px rgba(169, 39, 53, .18); }
+.button-primary:hover { background: #871f2b; }
+.button-secondary { border-color: #eadbd9; background: #fffdfc; color: #514044; }
+.date-picker, .insight-range { border-color: #eadbd9; background: #fffdfc; }
+.date-label { color: #514044; }
+.icon-button:hover { background: #f7e9e7; color: #8f1d29; }
+.page-heading h1 span, .banner-copy h2 span { color: #b42332; }
+.daily-banner { background: #71323a; }
+.banner-kicker { color: #e7c7c7; }
+.banner-copy h2 { color: #fff9f6; }
+.banner-copy h2 span { color: #f0c7c5; }
+.banner-copy p { color: #ead5d2; }
+.art-sun { background: #a35b5d; }
+.art-orbit { border-color: rgba(250, 222, 220, .28); }
+.art-stem { background: #f0d1cf; }
+.art-leaf { border-color: #f0d1cf; background: #c38582; }
+.leaf-two { background: #d8a19b; }
+.section-caption, .page-subtitle { color: #806f70; }
+.snapshot-card, .panel, .insight-card { border-color: #eddfdc; background: #fffdfc; }
+.card-label, .panel-title h2 { color: #584347; }
+.metric-value strong, .insight-card-value { color: #442e33; }
+.metric-value > span, .card-foot, .card-foot strong, .movement-note { color: #806d70; }
+.progress-track, .chart-bar-track { background: #f2e9e6; }
+.calorie-fill { background: #bf5960; }
+.protein-fill { background: #a76978; }
+.water-fill { background: #7d9eaa; }
+.peach-icon, .food-panel-icon { background: #f8e9e5; color: #ad4b42; }
+.lilac-icon { background: #f1e8ed; color: #90627a; }
+.blue-icon { background: #e8eff0; color: #567d88; }
+.mint-icon, .vitals-panel-icon, .movement-panel-icon { background: #f5e6e4; color: #a53d49; }
+.panel-title p, .entry-detail, .workout-meta, .vital-info small { color: #857174; }
+.text-button, .history-open { color: #a32431; }
+.text-button:hover, .history-open:hover { color: #7e1b27; }
+.plan-badge, .history-chip, .weight-trend-summary { background: #f7e6e5; color: #8f1d29; }
+.plan-session-note span, .nutrition-meal, .nutrition-guidance-chips span { border-color: #eee1de; background: #fff9f7; }
+.plan-finisher, .rest-day-copy, .nutrition-guidance { background: #f8edeb; }
+.finisher-icon { background: #f2dedc; color: #a52c38; }
+.plan-session-note strong, .plan-finisher strong, .nutrition-guidance > strong { color: #514044; }
+.nutrition-meal-heading h3 { color: #514044; }
+.nutrition-meal p, .plan-session-note, .plan-session-note span, .plan-table th, .plan-table td { color: #765e62; }
+.nutrition-guidance-chips span { color: #63484c; }
+.food-entry, .vital-row, .workout-entry, .history-day, .data-actions, .appearance-row { border-color: #eee2df; }
+.food-emoji, .vital-symbol, .workout-emoji { background: #f7ebe8; color: #a43b47; }
+.entry-name, .history-date, .vital-value { color: #514044; }
+.empty-state { border-color: #eadbd9; color: #765e62; }
+.empty-state strong { color: #514044; }
+.empty-state span, .vital-empty, .vital-info { color: #806b6e; }
+.chart-bar { background: #d7a2a0; }
+.chart-day.is-selected .chart-bar { background: #b42332; }
+.chart-day, .chart-day.is-selected, .chart-date { color: #806b6e; }
+.weight-trend-summary { background: #f7e6e5; color: #8f1d29; }
+.weight-grid-line line { stroke: #eadbd9; }
+.weight-grid-line text, .weight-axis-date { fill: #765e62; }
+.weight-trend-line { stroke: #b42332; }
+.weight-point { fill: #fbf5f3; stroke: #b42332; }
+.weight-trend-empty { color: #765e62; }
+.weight-trend-empty > span { color: #a92735; }
+.weight-trend-empty strong { color: #514044; }
+.weight-trend-empty p { color: #806b6e; }
+.goals-form label, .field-label, .data-actions strong, .appearance-row strong { color: #514044; }
+.goals-form label span, .data-actions p, .local-data-copy, .appearance-row p { color: #806b6e; }
+.goals-form input, .field-control { border-color: #eadbd9; background: #fffdfc; color: #514044; }
+.goals-form input:focus, .field-control:focus { border-color: #cb737a; box-shadow: 0 0 0 3px rgba(180, 35, 50, .14); }
+.form-feedback { color: #a32431; }
+.entry-dialog { border-color: #eadbd9; background: #fffdfc; }
+.entry-dialog::backdrop { background: rgba(50, 25, 29, .45); }
+.entry-tabs { background: #f5e9e7; }
+.entry-tab { color: #765e62; }
+.entry-tab.is-active { color: #8f1d29; }
+.theme-toggle { border-color: #eadbd9; background: #f5e9e7; color: #70575b; }
+.theme-toggle[aria-checked="true"] { border-color: #a92735; background: #a92735; }
+:focus-visible { outline-color: rgba(180, 35, 50, .46); }
+
+html[data-theme="dark"] {
+  --green: #ff7580;
+  --green-dark: #ff9aa1;
+  --green-pale: #351a20;
+  --paper: #050505;
+  --white: #111111;
+  --line: #292326;
+  --shadow: 0 14px 38px rgba(0, 0, 0, .38);
+}
+html[data-theme="dark"] body { background: #050505; color: #f4edef; }
+html[data-theme="dark"] .sidebar { background: #090909; border-color: #252123; }
+html[data-theme="dark"] .topbar, html[data-theme="dark"] .page-footer { border-color: #292326; }
+html[data-theme="dark"] .brand, html[data-theme="dark"] .mobile-brand { color: #f4edef; }
+html[data-theme="dark"] .brand-mark { background: #32191e; color: #ff9aa1; }
+html[data-theme="dark"] .brand-period { color: #ff7580; }
+html[data-theme="dark"] .nav-label, html[data-theme="dark"] .eyebrow { color: #b9a2a5; }
+html[data-theme="dark"] .nav-item { color: #d0c0c2; }
+html[data-theme="dark"] .nav-item:hover, html[data-theme="dark"] .icon-button:hover { background: #211619; color: #fff0f1; }
+html[data-theme="dark"] .nav-item.is-active { background: #351a20; color: #ffadb2; }
+html[data-theme="dark"] .sidebar-note { border-color: #34282a; background: #151213; }
+html[data-theme="dark"] .sidebar-note p, html[data-theme="dark"] .sidebar-note p span { color: #e0d1d2; }
+html[data-theme="dark"] .privacy-note, html[data-theme="dark"] .topbar-caption { color: #bba8aa; }
+html[data-theme="dark"] .privacy-dot, html[data-theme="dark"] .live-dot { background: #ff7580; }
+html[data-theme="dark"] .button-primary, html[data-theme="dark"] .theme-toggle[aria-checked="true"] { background: #a92735; color: #fff; }
+html[data-theme="dark"] .button-primary:hover { background: #c23846; }
+html[data-theme="dark"] .button-secondary { border-color: #393033; background: #141112; color: #e4d7d8; }
+html[data-theme="dark"] .button-danger { border-color: #503638; background: #211617; color: #ffb3a5; }
+html[data-theme="dark"] .storage-notice { border-color: #5a3739; background: #241719; color: #ffc0b0; }
+html[data-theme="dark"] .page-heading h1, html[data-theme="dark"] .section-heading h2 { color: #f5eff0; }
+html[data-theme="dark"] .page-heading h1 span, html[data-theme="dark"] .banner-copy h2 span { color: #ff9aa1; }
+html[data-theme="dark"] .page-subtitle, html[data-theme="dark"] .section-caption { color: #c1b1b3; }
+html[data-theme="dark"] .date-picker, html[data-theme="dark"] .insight-range { border-color: #32292b; background: #111010; }
+html[data-theme="dark"] .date-label, html[data-theme="dark"] .icon-button { color: #e0d1d2; }
+html[data-theme="dark"] .daily-banner { background: #29171b; }
+html[data-theme="dark"] .banner-kicker, html[data-theme="dark"] .banner-copy p { color: #d8bfc1; }
+html[data-theme="dark"] .banner-copy h2 { color: #fff5f5; }
+html[data-theme="dark"] .art-sun { background: #543035; }
+html[data-theme="dark"] .art-orbit { border-color: rgba(255, 180, 185, .2); }
+html[data-theme="dark"] .art-stem { background: #f2b2b4; }
+html[data-theme="dark"] .art-leaf { border-color: #f2b2b4; background: #82474d; }
+html[data-theme="dark"] .leaf-two { background: #9c5c61; }
+html[data-theme="dark"] .art-star { color: #ffd1c6; }
+html[data-theme="dark"] .snapshot-card, html[data-theme="dark"] .panel, html[data-theme="dark"] .insight-card { border-color: #292326; background: #111111; box-shadow: 0 14px 38px rgba(0, 0, 0, .32); }
+html[data-theme="dark"] .card-label, html[data-theme="dark"] .panel-title h2, html[data-theme="dark"] .entry-name, html[data-theme="dark"] .history-date, html[data-theme="dark"] .vital-value, html[data-theme="dark"] .data-actions strong { color: #eadfe0; }
+html[data-theme="dark"] .metric-value strong, html[data-theme="dark"] .insight-card-value { color: #fff5f5; }
+html[data-theme="dark"] .metric-value > span, html[data-theme="dark"] .card-foot, html[data-theme="dark"] .card-foot strong, html[data-theme="dark"] .panel-title p, html[data-theme="dark"] .movement-note, html[data-theme="dark"] .entry-detail, html[data-theme="dark"] .workout-meta { color: #c5b5b7; }
+html[data-theme="dark"] .progress-track, html[data-theme="dark"] .chart-bar-track { background: #30292a; }
+html[data-theme="dark"] .calorie-fill { background: #ed777d; }
+html[data-theme="dark"] .protein-fill, html[data-theme="dark"] .chart-day.is-selected .chart-bar { background: #cd7888; }
+html[data-theme="dark"] .water-fill { background: #78a9b5; }
+html[data-theme="dark"] .peach-icon, html[data-theme="dark"] .food-panel-icon, html[data-theme="dark"] .lilac-icon, html[data-theme="dark"] .blue-icon, html[data-theme="dark"] .mint-icon, html[data-theme="dark"] .vitals-panel-icon, html[data-theme="dark"] .movement-panel-icon { background: #302024; color: #ffa0a6; }
+html[data-theme="dark"] .text-button, html[data-theme="dark"] .history-open { color: #ff9aa1; }
+html[data-theme="dark"] .text-button:hover, html[data-theme="dark"] .history-open:hover { color: #ffc2c6; }
+html[data-theme="dark"] .food-entry, html[data-theme="dark"] .vital-row, html[data-theme="dark"] .workout-entry, html[data-theme="dark"] .history-day, html[data-theme="dark"] .data-actions, html[data-theme="dark"] .appearance-row, html[data-theme="dark"] .dialog-actions { border-color: #292326; }
+html[data-theme="dark"] .food-emoji, html[data-theme="dark"] .vital-symbol, html[data-theme="dark"] .workout-emoji { background: #2b2021; color: #f0a3a6; }
+html[data-theme="dark"] .empty-state { border-color: #3b3032; color: #cbbabc; }
+html[data-theme="dark"] .empty-state strong, html[data-theme="dark"] .plan-session-note strong, html[data-theme="dark"] .plan-finisher strong, html[data-theme="dark"] .nutrition-guidance > strong { color: #eadfe0; }
+html[data-theme="dark"] .empty-state span, html[data-theme="dark"] .vital-empty, html[data-theme="dark"] .vital-info, html[data-theme="dark"] .vital-info small, html[data-theme="dark"] .plan-session-note, html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .plan-table th, html[data-theme="dark"] .plan-table td, html[data-theme="dark"] .nutrition-meal p { color: #d0c0c2; }
+html[data-theme="dark"] .plan-badge, html[data-theme="dark"] .history-chip, html[data-theme="dark"] .weight-trend-summary { background: #351a20; color: #ffb2b7; }
+html[data-theme="dark"] .plan-session-note span, html[data-theme="dark"] .nutrition-meal, html[data-theme="dark"] .nutrition-guidance-chips span { border-color: #34282a; background: #171415; }
+html[data-theme="dark"] .plan-finisher, html[data-theme="dark"] .rest-day-copy, html[data-theme="dark"] .nutrition-guidance { background: #20191b; }
+html[data-theme="dark"] .nutrition-guidance-chips span { color: #e4d3d5; }
+html[data-theme="dark"] .chart-day, html[data-theme="dark"] .chart-day.is-selected, html[data-theme="dark"] .chart-date { color: #cbbabc; }
+html[data-theme="dark"] .weight-grid-line line { stroke: #382d30; }
+html[data-theme="dark"] .weight-grid-line text, html[data-theme="dark"] .weight-axis-date, html[data-theme="dark"] .weight-chart-caption { fill: #cbbabc; color: #cbbabc; }
+html[data-theme="dark"] .weight-trend-line { stroke: #ff7580; }
+html[data-theme="dark"] .weight-point { fill: #111111; stroke: #ff9aa1; }
+html[data-theme="dark"] .weight-trend-empty { color: #d0c0c2; }
+html[data-theme="dark"] .weight-trend-empty > span { color: #ff9aa1; }
+html[data-theme="dark"] .weight-trend-empty strong { color: #eadfe0; }
+html[data-theme="dark"] .weight-trend-empty p { color: #d0c0c2; }
+html[data-theme="dark"] .goals-form label, html[data-theme="dark"] .field-label, html[data-theme="dark"] .appearance-row strong { color: #eadfe0; }
+html[data-theme="dark"] .goals-form label span, html[data-theme="dark"] .data-actions p, html[data-theme="dark"] .local-data-copy, html[data-theme="dark"] .appearance-row p { color: #bba8aa; }
+html[data-theme="dark"] .goals-form input, html[data-theme="dark"] .field-control { border-color: #393033; background: #0a0a0a; color: #eadfe0; }
+html[data-theme="dark"] .entry-dialog { border-color: #32292b; background: #111111; color: #f4edef; }
+html[data-theme="dark"] .entry-tabs { background: #211a1c; }
+html[data-theme="dark"] .entry-tab { color: #cbbabc; }
+html[data-theme="dark"] .entry-tab.is-active { background: #382326; color: #ffb2b7; }
+html[data-theme="dark"] .theme-toggle { border-color: #393033; background: #211a1c; color: #d7c8ca; }
+html[data-theme="dark"] .page-footer { color: #bba8aa; }
+html[data-theme="dark"] :focus-visible { outline-color: rgba(255, 117, 128, .62); }
+
+@media (max-width: 650px) {
+  .sidebar { background: rgba(245, 234, 231, .97); border-color: #ead9d7; }
+  .nav-item.is-active { background: #f1dedd; color: #8f1d29; }
+  html[data-theme="dark"] .sidebar { background: rgba(9, 9, 9, .97); border-color: #292326; }
+}

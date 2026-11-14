@@ -217,7 +217,7 @@ function setTheme(theme, persist = false) {
     $("#themeToggleLabel").textContent = isDark ? "On" : "Off";
   }
   const themeColor = $('meta[name="theme-color"]');
-  if (themeColor) themeColor.content = isDark ? "#21191a" : "#fff7f6";
+  if (themeColor) themeColor.content = isDark ? "#050505" : "#fbf5f3";
   if (!persist) return;
   try {
     localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");

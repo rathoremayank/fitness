@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fff8f7" />
+    <meta name="theme-color" content="#fbf5f3" />
     <title>Daywell — your daily wellness journal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
@@ -101,30 +101,6 @@
             </div>
           </div>
 
-          <section class="panel planned-panel" aria-labelledby="plannedWorkoutHeading">
-            <div class="panel-heading">
-              <div class="panel-title">
-                <span class="panel-icon movement-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM4.2 20l2.1-5.2-2-2.4 2-2.6a2 2 0 0 1 3.2-.1l2.1 2.6 3.2.5a2 2 0 0 1 1.7 1.9M11.5 14.2 9 16.7l2.7 3.3M15.5 9l2.1-2.4 2.2 1.3"/></svg></span>
-                <div><h2 id="plannedWorkoutHeading">Planned movement</h2><p id="plannedWorkoutSubtitle">Your weekly workout plan</p></div>
-              </div>
-              <span class="plan-badge" id="plannedWorkoutBadge"></span>
-            </div>
-            <div id="plannedWorkoutContent" class="planned-workout-content"></div>
-            <div class="plan-completion-summary" id="movementCompletionSummary"></div>
-          </section>
-
-          <section class="panel planned-panel planned-nutrition-panel" aria-labelledby="plannedNutritionHeading">
-            <div class="panel-heading">
-              <div class="panel-title">
-                <span class="panel-icon food-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16a8 8 0 0 1-16 0ZM3 11h18M12 3v2M5.5 5.5 7 7M18.5 5.5 17 7"/></svg></span>
-                <div><h2 id="plannedNutritionHeading">Planned nutrition</h2><p id="plannedNutritionSubtitle">Your daily meal plan</p></div>
-              </div>
-              <span class="plan-badge nutrition-plan-badge" id="plannedNutritionBadge"></span>
-            </div>
-            <div id="plannedNutritionContent" class="planned-nutrition-content"></div>
-            <div class="plan-completion-summary" id="nutritionCompletionSummary"></div>
-          </section>
-
           <div class="section-heading">
             <div><p class="eyebrow">THE BIG PICTURE</p><h2>Your daily snapshot</h2></div>
             <span class="section-caption">A gentle guide, not a grade</span>
@@ -155,6 +131,30 @@
               <div class="card-foot"><span>Every move counts</span><span id="burnedValue">0 kcal</span></div>
             </article>
           </div>
+
+          <section class="panel planned-panel" aria-labelledby="plannedWorkoutHeading">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <span class="panel-icon movement-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM4.2 20l2.1-5.2-2-2.4 2-2.6a2 2 0 0 1 3.2-.1l2.1 2.6 3.2.5a2 2 0 0 1 1.7 1.9M11.5 14.2 9 16.7l2.7 3.3M15.5 9l2.1-2.4 2.2 1.3"/></svg></span>
+                <div><h2 id="plannedWorkoutHeading">Planned movement</h2><p id="plannedWorkoutSubtitle">Your weekly workout plan</p></div>
+              </div>
+              <span class="plan-badge" id="plannedWorkoutBadge"></span>
+            </div>
+            <div id="plannedWorkoutContent" class="planned-workout-content"></div>
+            <div class="plan-completion-summary" id="movementCompletionSummary"></div>
+          </section>
+
+          <section class="panel planned-panel planned-nutrition-panel" aria-labelledby="plannedNutritionHeading">
+            <div class="panel-heading">
+              <div class="panel-title">
+                <span class="panel-icon food-panel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16a8 8 0 0 1-16 0ZM3 11h18M12 3v2M5.5 5.5 7 7M18.5 5.5 17 7"/></svg></span>
+                <div><h2 id="plannedNutritionHeading">Planned nutrition</h2><p id="plannedNutritionSubtitle">Your daily meal plan</p></div>
+              </div>
+              <span class="plan-badge nutrition-plan-badge" id="plannedNutritionBadge"></span>
+            </div>
+            <div id="plannedNutritionContent" class="planned-nutrition-content"></div>
+            <div class="plan-completion-summary" id="nutritionCompletionSummary"></div>
+          </section>
 
           <div class="content-grid">
             <section class="panel log-panel" aria-labelledby="foodHeading">
