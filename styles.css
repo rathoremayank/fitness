@@ -1778,7 +1778,7 @@ html[data-theme="dark"] :focus-visible { outline-color: rgba(255, 117, 128, .62)
 @media (max-width: 650px) {
   .sidebar { background: rgba(245, 234, 231, .97); border-color: #ead9d7; }
   .nav-item.is-active { background: #f1dedd; color: #8f1d29; }
-  html[data-theme="dark"] .sidebar { background: rgba(9, 9, 9, .97); border-color: #292326; }
+  html[data-theme="dark"] .sidebar { background: #050505; border-color: #292326; }
 }
 
 @media (max-width: 650px) {
@@ -1794,7 +1794,9 @@ html[data-theme="dark"] :focus-visible { outline-color: rgba(255, 117, 128, .62)
     border-top: 1px solid var(--line);
     border-right: 0;
     padding: 4px max(12px, env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    background: var(--paper);
   }
+  html[data-theme="dark"] .sidebar { background: var(--paper); }
   .brand, .sidebar-bottom, .nav-label { display: none; }
   .nav-list { display: flex; width: min(440px, 100%); justify-content: space-between; gap: 0; }
   .nav-item { width: 20%; min-width: 0; min-height: 52px; flex: 0 0 20%; gap: 3px; padding: 4px 1px; font-size: clamp(7px, 2.15vw, 9px); }
