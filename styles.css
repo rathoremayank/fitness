@@ -1809,3 +1809,32 @@ html[data-theme="dark"] :focus-visible { outline-color: rgba(255, 117, 128, .62)
   .main-content { padding-right: 12px; padding-left: 12px; }
   .program-tabs { margin-right: -12px; margin-left: -12px; padding-right: 12px; padding-left: 12px; }
 }
+
+.program-exercise-list { display: grid; gap: 7px; }
+.program-exercise {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.program-exercise .plan-checkbox { width: 17px; height: 17px; margin-top: 1px; }
+.program-exercise > span { min-width: 0; overflow-wrap: anywhere; }
+.program-exercise:has(.plan-checkbox:checked) { border-color: var(--line); background: var(--green-pale); }
+.program-exercise:has(.plan-checkbox:checked) > span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--green); }
+html[data-theme="dark"] .program-exercise { border-color: var(--line); background: var(--white); color: var(--ink); }
+html[data-theme="dark"] .program-exercise:has(.plan-checkbox:checked) { background: var(--green-pale); }
+html[data-theme="dark"] .program-exercise:has(.plan-checkbox:checked) > span { color: var(--muted); }
+html[data-theme="dark"] .program-exercise .plan-checkbox { accent-color: var(--green); }
+
+@media (max-width: 650px) {
+  .program-exercise-list { gap: 6px; }
+  .program-exercise { gap: 9px; padding: 11px 10px; font-size: 12px; }
+}

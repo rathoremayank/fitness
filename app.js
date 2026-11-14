@@ -89,7 +89,8 @@ function parseProgramData(csv) {
     );
     workoutStages.push({
       number: Number(match[1]),
-      title: match[2],
+      title: match[2].split(". ")[0],
+      guidance: match[2].slice(match[2].split(". ")[0].length).replace(/^\.\s*/, ""),
       sessions: Object.fromEntries(sessions.map(([day, focus]) => [day, focus]))
     });
   });
@@ -387,7 +388,7 @@ function renderPlannedWorkout(date) {
   }
   $("#plannedWorkoutBadge").textContent = `STAGE ${stage.number}`;
   $("#plannedWorkoutContent").innerHTML = `
-    <div class="plan-session-note"><strong>${escapeHTML(stage.title)}</strong><span>60–75 min · 6–8 am slot · follow the progression in Program</span></div>
+    <div class="plan-session-note"><strong>Stage ${stage.number} · ${escapeHTML(stage.title)}</strong><span>60–75 min · 6–8 am slot · follow the progression in Program</span></div>
     <div class="program-exercise-list">${session.exercises.map((exercise, index) => `
       <label class="program-exercise">${planCheckbox(key, "movement", `exercise-${index}`, `Mark ${exercise} complete`)}<span>${escapeHTML(exercise)}</span></label>
     `).join("")}</div>`;
@@ -760,7 +761,7 @@ function renderProgramWorkouts() {
       <div class="stage-selector" role="group" aria-label="Workout stage">
         ${PROGRAM.workouts.stages.map((item, index) => `<button type="button" class="stage-button ${index === activeWorkoutStage ? "is-active" : ""}" data-stage-index="${index}">Stage ${item.number}<small>${escapeHTML(item.title.split("(")[0].trim())}</small></button>`).join("")}
       </div>
-      <div class="stage-note">${escapeHTML(stage.title)}</div>
+      <div class="stage-note">${escapeHTML(stage.title)}. ${escapeHTML(stage.guidance)}</div>
       <div class="workout-stage-grid">
         ${sessionOrder.map((day) => {
           const exercises = stage.sessions[day] || "";
